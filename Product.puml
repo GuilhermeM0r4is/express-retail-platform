@@ -1,0 +1,43 @@
+@startuml
+
+class Product {
+    - _id: int
+    - _name: String
+    - _description: String
+    - _basePrice: int
+    - _category: String
+    - _deliveryTerm: int
+    - _provenance: Provenance
+    --
+    # Product(name: String, description: String, category: String,
+              deliveryTerm: int, provenance: Provenance)
+    + getId(): int
+    + getName(): String
+    + getCategory(): String
+    + getRecommendedPrice(): int
+}
+Product "1" *-- "1" Provenance
+
+
+abstract class Provenance {
+    + calculateRecommendedPrice(basePrice: int, totalUnits: int): double
+}
+
+
+class NacionalProduct {
+    + calculateRecommendedPrice(basePrice: int, totalUnits: int): double
+}
+NacionalProduct --|> Provenance
+
+
+class ImportedProduct {
+    - _originCountry: String
+    - _customsTax: double
+    --
+    + calculateRecommendedPrice(basePrice: int, totalUnits: int): double
+    + getOriginCountry(): String
+    + getCustomsTax(): double
+}
+ImportedProduct --|> Provenance
+
+@enduml
