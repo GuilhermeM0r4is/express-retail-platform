@@ -1,0 +1,11 @@
+@startuml
+
+class Client {
+    - _name: String
+    - _email: String
+    --
+    # Client(name: String, email: String)
+    + getName(): String
+}
+
+@enduml

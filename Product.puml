@@ -10,33 +10,33 @@ class Product {
     - _provenance: Provenance
     --
     # Product(name: String, description: String, category: String,
-              deliveryTerm: int, provenance: Provenance)
+              deliveryTerm: int, basePrice: int, provenance: Provenance)
     + getId(): int
-    + getName(): String
-    + getCategory(): String
-    + getRecommendedPrice(): int
+    + getRecommendedPrice(totalUnits: int): double
 }
 Product "1" *-- "1" Provenance
 
 
+/' Correlation between the provenance of a product, abstract class because
+   it declares a following pattern for its subclasses '/
 abstract class Provenance {
     + calculateRecommendedPrice(basePrice: int, totalUnits: int): double
 }
 
 
-class NacionalProduct {
+/' Subclass of provenance '/
+class NationalProduct {
     + calculateRecommendedPrice(basePrice: int, totalUnits: int): double
 }
-NacionalProduct --|> Provenance
+NationalProduct --|> Provenance
 
 
+/' Subclass of provenance '/
 class ImportedProduct {
     - _originCountry: String
     - _customsTax: double
     --
     + calculateRecommendedPrice(basePrice: int, totalUnits: int): double
-    + getOriginCountry(): String
-    + getCustomsTax(): double
 }
 ImportedProduct --|> Provenance
 
