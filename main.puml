@@ -1,0 +1,133 @@
+@startuml
+
+class Product {
+    - _id: int
+    - _name: String
+    - _description: String
+    - _basePrice: int
+    - _category: String
+    - _deliveryTerm: int
+    - _provenance: Provenance
+    --
+    # Product(name: String, description: String, category: String,
+              deliveryTerm: int, basePrice: int, provenance: Provenance)
+    + getId(): int
+    + getRecommendedPrice(totalUnits: int): double
+}
+
+
+/' Correlation between the provenance of a product, abstract class because
+   it declares a following pattern for its subclasses '/
+abstract class Provenance {
+    + calculateRecommendedPrice(basePrice: int, totalUnits: int): double
+}
+
+
+/' Subclass of provenance '/
+class NationalProduct {
+    + calculateRecommendedPrice(basePrice: int, totalUnits: int): double
+}
+
+
+/' Subclass of provenance '/
+class ImportedProduct {
+    - _originCountry: String
+    - _customsTax: double
+    --
+    + calculateRecommendedPrice(basePrice: int, totalUnits: int): double
+}
+
+
+class Company {
+    - _id: int
+    - _name: String
+    --
+    # Company(name: String)
+    + getId(): int
+    /'Here we need to give the array of products to later use the
+      recommended price of each of the products '/
+    + getSellPrice(inventory: Inventory): Product[]
+}
+
+
+/'An inventory is the logical relation between a company'/
+class Inventory {
+    - _availableUnits: int
+    - _multipliedFactor: double
+    --
+    # Inventory(availableUnits: int, multipliedFactor: double)
+    + changeInventory(num: int, newFactor: double): int
+}
+
+
+class Client {
+    - _name: String
+    - _email: String
+    --
+    # Client(name: String, email: String)
+    + getName(): String
+}
+
+
+/' Handles the logic behind the transitioning in a company
+   and a client for the different items '/
+class ShoppingBucket {
+    - _items: Item[]
+    - _divisionStrategy: OrderDivisionStrategy
+    - _transportMode: TransportMode
+    - _extraService: ExtraService[]
+    --
+    + addProduct(product: Product, quantity: int): boolean
+    + changeQuantity(product: Product, quantity: int): boolean
+    + removeProduct(product: Product): boolean
+    + isEmpty(): boolean
+
+    + chooseDivisionStrategy(strategy: OrderDivisionStrategy)
+    + chooseTransportMode(mode: TransportMode)
+    + addExtraService(service: ExtraService)
+    + removeExtraService(service: ExtraService)
+}
+
+
+/' An item can be inside a ShoppingBucket '/
+class Item {
+    - _product: Product
+    - _quantity: int
+    --
+    + changeQuantity(quantity: int): boolean
+}
+
+
+/'One company asks for 0 till infinite ammounts of products and
+  one product can ask for 0 till infinite ammount of inventory items'/
+Company "1" -- "0..*" Inventory
+Product "1" -- "0..*" Inventory
+
+
+/' Each product has its own provenance and it inherits from product '/
+Product "1" *-- "1" Provenance
+
+
+/' Being a characterists, they inherit from provenance '/
+NationalProduct --|> Provenance
+ImportedProduct --|> Provenance
+
+
+/' Each company and client can only have one shopping bucket
+   each shopping bucket can be connected to each of characteristics '/
+Client "1" -- "0..*" ShoppingBucket
+Company "1" -- "0..*" ShoppingBucket
+ShoppingBucket "0..1" --> "1" OrderDivisionStrategy
+ShoppingBucket "0..1" --> "1" TransportMode
+
+/' agregation relation, ExtraService can exist without ShoppingBucket
+   like a whole-part logic for this context '/
+ShoppingBucket "1" o-- "0..*" ExtraService
+
+
+/' There can be multiple items associated to one product only
+   and each shopping bucket can have any amount of a specific item '/
+ShoppingBucket "1" *-- "0..*" Item
+Item "0..*" --> "1" Product
+
+@enduml
