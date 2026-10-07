@@ -1,5 +1,15 @@
 @startuml
 
+'/ 
+- : private
++ : public
+# : protected
+
+Notes: all domain classes implement Serializable.
+Getters are omitted.
+'/
+
+
 class Product {
     - _id: int
     - _name: String
@@ -57,10 +67,12 @@ class Inventory {
     --
     # Inventory(availableUnits: int, multipliedFactor: double)
     + changeInventory(num: int, newFactor: double): int
+    + notify(n:Notification):void
 }
 
 
 class Client {
+    - _mechanism:NotificationMechanism
     - _name: String
     - _email: String
     --
@@ -130,4 +142,189 @@ ShoppingBucket "1" o-- "0..*" ExtraService
 ShoppingBucket "1" *-- "0..*" Item
 Item "0..*" --> "1" Product
 
+'/
+1.5
+------------------------------------------------------------------------------------------------------------------ '/
+
+class Purchase {
+    - _id:int
+    - _client:Client
+    - _company:Company
+    - _date:int
+    - _lines:[PurchaseLine]
+    - _orders:[Order]
+    --
+    # Purchase(int id, Client client, Company company, int date, [PurchaseLine] lines)
+    + productsCost():double
+    + ordersCost():double
+    + totalCost():double
+}
+Purchase "*" --> "1" Client
+Purchase "*" --> "1" Company
+Purchase "1" *-- "1..*" PurchaseLine 
+' I had "1" --> "1..*" PurchaseLine but it would be more correct for *-- because
+' a purchase can have many lines and a line belongs to only one purchase but I'm not sure
+Purchase "1" --> "1..*" Order
+
+
+class PurchaseLine {
+    - _product:Product
+    - _quantity:int
+    - _unitPrice:double
+    --
+    # PurchaseLine(Product product, int quantity, double unitPrice)
+    + cost():double
+}
+PurchaseLine "*" --> "1" Product
+
+
+class Order {
+    - _purchase:Purchase
+    - _lines:[PurchaseLine]
+    - _modality:Modality
+    - _services:[Service]
+    - _delivered:boolean
+    --
+    # Order(Purchase purchase, [PurchaseLine] lines, Modality modality, [Service] services)
+    + baseDelay():int
+    + linesValue():double
+    + processingCost():double
+    + cost(): double
+    + expectedDeliveryDate():int     
+    + isDelivered():boolean
+    + markDelivered():void
+    + transportDescription():String
+}
+Order "*" --> "1" Purchase
+Order "1" o-- "1..*" PurchaseLine
+Order "*" --> "1" Modality
+Order "*" --> "0..*" Service
+
+
+' Dictates the interface for the strategy pattern 
+interface SplitStrategy extends Serializable {
+    + key():String
+    + split(lines:List<PurchaseLine>):List<List<PurchaseLine>>
+}
+class SingleOrderStrategy
+class DelayGroupingStrategy
+SingleOrderStrategy ..|> SplitStrategy
+DelayGroupingStrategy ..|> SplitStrategy
+
+
+interface Service extends Serializable {
+    + key():String
+    + cost():int
+    + extraDays():int
+}
+class Wrapping
+class GiftCard
+Wrapping ..|> Service
+GiftCard ..|> Service
+
+
+class Modality {
+    - _name:String
+    - _tariff:int
+    - _days:int
+    --
+    # Modality(String name, int tariff, int days)
+}
+
+
+/' 1.6 is completed above: '/
+/' ---------------------------------------------------------------------------------------------------------------- '/
+
+' Order.expectedDeliveryDate():int
+ ' purchase.date() + baseDelay() + modality.days() + soma(service.extraDays()) 
+
+
+' isDelivered(int currentDate):boolean
+ ' currentDate >= expectedDeliveryDate()
+
+
+/' 1.7 e 1.8 '/
+/' ---------------------------------------------------------------------------------------------------------------- '/
+
+
+' Express Retail Plataform
+class Erp { 
+    - _date:int
+    - _nextProductId:int
+    - _nextCompanyId:int
+    - _nextPurchaseId:int
+    - _modified:boolean
+    --
+    + currentDate():int
+    + advanceDate(days:int):void
+}
+Erp ..> Order
+Erp ..> Client
+Erp "1" --> "*" Company
+Erp "1" --> "*" Product
+Erp "1" --> "*" Client
+Erp "1" --> "*" Modality
+Erp "1" --> "*" SplitStrategy
+
+
+class Notification {
+    - _subject:String
+    - _description:String
+    --
+    + toString():String
+}
+
+
+interface NotificationMechanism extends Serializable {
+    + deliver(n:Notification):void
+}
+NotificationMechanism ..> Notification
+
+
+class DefaultNotification {
+    - _notifications:List<Notification>
+    --
+    + deliver(n:Notification):void
+    + collect():List<Notification>
+}
+DefaultNotification ..|> NotificationMechanism
+
+/'
+' Client class from 1.3, needs to have attribute "_mechanism" and method "notify"
+class Client {
+    - _mechanism:NotificationMechanism
+    --
+    + notify(n:Notification):void
+}
+'/
+Client "*" --> "1" NotificationMechanism
+' Previously I had Client ..> DefaultNotification but I erased it, it would be wrong right?
+Client ..> Notification
+
+
+/' 
+Changes to Order class from 1.5
+class Order {
+    - _delivered:boolean
+    --
+    + isDelivered():boolean
+    + markDelivered():void
+}
+Order "*" --> "1" Purchase
+'/
+
+
+/' 1.9 '/
+/' ---------------------------------------------------------------------------------------------------------------- '/
+
+
+/' 
+Changes to Erp class from 1.7
+class Erp { 
+    - _nextProductId:int
+    - _nextCompanyId:int
+    - _nextPurchaseId:int
+    --
+}
+'/
 @enduml
