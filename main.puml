@@ -1,15 +1,5 @@
 @startuml
 
-'/ 
-- : private
-+ : public
-# : protected
-
-Notes: all domain classes implement Serializable.
-Getters are omitted.
-'/
-
-
 class Product {
     - _id: int
     - _name: String
@@ -142,9 +132,6 @@ ShoppingBucket "1" o-- "0..*" ExtraService
 ShoppingBucket "1" *-- "0..*" Item
 Item "0..*" --> "1" Product
 
-'/
-1.5
------------------------------------------------------------------------------------------------------------------- '/
 
 class Purchase {
     - _id:int
@@ -231,20 +218,12 @@ class Modality {
     # Modality(String name, int tariff, int days)
 }
 
-
-/' 1.6 is completed above: '/
-/' ---------------------------------------------------------------------------------------------------------------- '/
-
 ' Order.expectedDeliveryDate():int
  ' purchase.date() + baseDelay() + modality.days() + soma(service.extraDays()) 
 
 
 ' isDelivered(int currentDate):boolean
  ' currentDate >= expectedDeliveryDate()
-
-
-/' 1.7 e 1.8 '/
-/' ---------------------------------------------------------------------------------------------------------------- '/
 
 
 ' Express Retail Plataform
@@ -312,10 +291,6 @@ class Order {
 }
 Order "*" --> "1" Purchase
 '/
-
-
-/' 1.9 '/
-/' ---------------------------------------------------------------------------------------------------------------- '/
 
 
 /' 
