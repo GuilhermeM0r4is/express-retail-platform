@@ -145,8 +145,14 @@ class Order {
     + transportDescription(): String
 }
 
+/' Order.expectedDeliveryDate():int
+    purchase.date() + baseDelay() + modality.days() + soma(service.extraDays())
 
-interface SplitStrategy extends Serializable {
+   isDelivered(int currentDate):boolean
+    currentDate >= expectedDeliveryDate() '/
+
+
+interface SplitStrategy {
     + key(): String
     + split(lines: List<PurchaseLine>): List<List<PurchaseLine>>
 }
@@ -155,7 +161,7 @@ class SingleOrderStrategy
 class DelayGroupingStrategy
 
 
-interface Service extends Serializable {
+interface Service {
     + key(): String
     + cost(): int
     + extraDays(): int
@@ -195,7 +201,7 @@ class Notification {
 
 
 /' Not public not privade, like c++ namespace '/
-interface NotificationMechanism extends Serializable {
+interface NotificationMechanism {
     + deliver(not: Notification)
 }
 
@@ -269,18 +275,13 @@ Order "*" --> "0..*" Service
 /' Dictates the interface for the strategy pattern '/
 SingleOrderStrategy ..|> SplitStrategy
 DelayGroupingStrategy ..|> SplitStrategy
+NotificationMechanism --|> Serializable
+SplitStrategy --|> Serializable
+Service --|> Serializable
 
 
 Wrapping ..|> Service
 GiftCard ..|> Service
-
-
-/' Order.expectedDeliveryDate():int
-   purchase.date() + baseDelay() + modality.days() + soma(service.extraDays()) '/
-
-
-/' isDelivered(int currentDate):boolean
-   currentDate >= expectedDeliveryDate() '/
 
 
 /' Express Retail Plataform '/
