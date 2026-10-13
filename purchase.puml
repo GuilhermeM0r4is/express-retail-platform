@@ -1,0 +1,58 @@
+@startuml
+
+class Purchase {
+    - _id: int
+    /' - _client: Client
+    - _company: Company '/
+    - _date: int
+    /' - _lines: List<PurchaseLine>
+    - _orders: List<Order> '/
+    --
+    # Purchase(id: int, client: Client, company: Company,
+               date: int, lines: List<PurchaseLine>)
+    + productsCost(): double
+    + ordersCost(): double
+    + totalCost(): double
+}
+Purchase "*" --> "1" Client
+Purchase "*" --> "1" Company
+Purchase "1" *-- "1..*" PurchaseLine
+Purchase "1" --> "1..*" Order
+Erp "1" --> "*" Purchase
+
+
+class PurchaseLine {
+    /' - _product: Product '/
+    - _quantity: int
+    - _unitPrice: double
+    --
+    # PurchaseLine(product: Product, quantity: int, unitPrice: double)
+    + cost(): double
+}
+PurchaseLine "*" --> "1" Product
+
+
+class Order {
+    /' - _purchase: Purchase
+    - _lines: List<PurchaseLine>
+    - _modality: Modality
+    - _services: List<Service> '/
+    - _delivered: boolean
+    --
+    # Order(purchase: Purchase, lines: List<PurchaseLine>,
+            modality: Modality, services: List<Service>)
+    + baseDelay(): int
+    + linesValue(): double
+    + processingCost(): double
+    + cost(): double
+    + expectedDeliveryDate(): int
+    + isDelivered(): boolean
+    + markDelivered(): void
+    + transportDescription(): String
+}
+Order "*" --> "1" Purchase
+Order "1" o-- "1..*" PurchaseLine
+Order "*" --> "1" Modality
+Order "*" --> "0..*" Service
+
+@enduml

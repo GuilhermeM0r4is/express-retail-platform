@@ -1,0 +1,29 @@
+@startuml
+
+class Notification {
+    - _subject: String
+    - _description: String
+    --
+    + toString(): String
+}
+Client ..> Notification
+
+
+interface NotificationMechanism {
+    + deliver(not: Notification)
+}
+Client "*" --> "1" NotificationMechanism
+NotificationMechanism --|> Serializable
+NotificationMechanism ..> Notification
+
+
+class DefaultNotification {
+    /' - _notifications: List<Notification>
+    -- '/
+    + deliver(not: Notification)
+    + collect(): List<Notification>
+}
+DefaultNotification ..|> NotificationMechanism
+DefaultNotification "1" o-- "0..*" Notification
+
+@enduml

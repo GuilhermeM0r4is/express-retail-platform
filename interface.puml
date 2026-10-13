@@ -1,0 +1,33 @@
+@startuml
+
+interface SplitStrategy {
+    + key(): String
+    + split(lines: List<PurchaseLine>): List<List<PurchaseLine>>
+}
+SingleOrderStrategy ..|> SplitStrategy
+DelayGroupingStrategy ..|> SplitStrategy
+SplitStrategy --|> Serializable
+Erp "1" --> "*" SplitStrategy
+
+
+interface Service {
+    + key(): String
+    + cost(): int
+    + extraDays(): int
+}
+Basket "1" o-- "0..*" Service
+Wrapping ..|> Service
+GiftCard ..|> Service
+
+
+class Modality {
+    - _name: String
+    - _tariff: int
+    - _days: int
+    --
+    # Modality(name: String, tariff: int, days: int)
+}
+Basket "0..1" --> "1" Modality
+Order "*" --> "1" Modality
+
+@enduml

@@ -1,0 +1,29 @@
+@startuml
+
+class Erp {
+    - _date: int
+    - _nextProductId: int
+    - _nextCompanyId: int
+    - _nextPurchaseId: int
+    - _modified: boolean
+    --
+    + currentDate(): int
+    + advanceDate(days: int)
+}
+Erp "1" --> "*" Company
+Erp "1" --> "*" Product
+Erp "1" --> "*" Client
+Erp "1" --> "*" Modality
+Erp "1" --> "*" SplitStrategy
+Erp "1" --> "*" Purchase
+Erp ..|> Serializable
+
+
+class ErpManager {
+    - _filename: String
+    --
+    + ErpManager()
+}
+ErpManager "1" --> "1" Erp
+
+@enduml

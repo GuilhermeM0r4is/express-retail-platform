@@ -1,0 +1,35 @@
+@startuml
+
+class Basket {
+    /' - _items: List<Item>
+    - _divisionStrategy: SplitStrategy
+    - _Modality: Modality
+    - _Service: List<Service>
+    -- '/
+    + addProduct(product: Product, quantity: int): boolean
+    + changeQuantity(product: Product, quantity: int): boolean
+    + removeProduct(product: Product): boolean
+    + isEmpty(): boolean
+
+    + chooseDivisionStrategy(strategy: SplitStrategy)
+    + chooseModality(mode: Modality)
+    + addService(service: Service)
+    + removeService(service: Service)
+}
+Client "1" -- "0..*" Basket
+Company "1" -- "0..*" Basket
+Basket "0..1" --> "1" SplitStrategy
+Basket "0..1" --> "1" Modality
+Basket "1" o-- "0..*" Service
+Basket "1" *-- "0..*" Item
+
+
+class Item {
+    /' - _product: Product '/
+    - _quantity: int
+    --
+    + changeQuantity(quantity: int): boolean
+}
+Item "0..*" --> "1" Product
+
+@enduml
