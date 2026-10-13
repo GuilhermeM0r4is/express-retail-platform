@@ -3,14 +3,13 @@
 class Product {
     - _id: int
     - _name: String
-    - _description: String
     - _basePrice: int
     - _category: String
     - _deliveryTerm: int
     /' - _provenance: Provenance '/
     --
-    # Product(name: String, description: String, category: String,
-              deliveryTerm: int, basePrice: int, provenance: Provenance)
+    # Product(name: String, category: String, deliveryTerm: int,
+              basePrice: int, provenance: Provenance)
     + getId(): int
     + getRecommendedPrice(totalUnits: int): double
 }
@@ -56,7 +55,7 @@ class Inventory {
     - _multipliedFactor: double
     --
     # Inventory(availableUnits: int, multipliedFactor: double)
-    + changeInventory(num: int, newFactor: double): int
+    + changeInventory(num: int, newFactor: double): boolean
 }
 
 
@@ -73,25 +72,25 @@ class Client {
 
 /' Handles the logic behind the transitioning in a company
    and a client for the different items '/
-class ShoppingBucket {
+class Basket {
     /' - _items: List<Item>
-    - _divisionStrategy: OrderDivisionStrategy
-    - _transportMode: TransportMode
-    - _extraService: List<ExtraService>
+    - _divisionStrategy: SplitStrategy
+    - _Modality: Modality
+    - _Service: List<Service>
     -- '/
     + addProduct(product: Product, quantity: int): boolean
     + changeQuantity(product: Product, quantity: int): boolean
     + removeProduct(product: Product): boolean
     + isEmpty(): boolean
 
-    + chooseDivisionStrategy(strategy: OrderDivisionStrategy)
-    + chooseTransportMode(mode: TransportMode)
-    + addExtraService(service: ExtraService)
-    + removeExtraService(service: ExtraService)
+    + chooseDivisionStrategy(strategy: SplitStrategy)
+    + chooseModality(mode: Modality)
+    + addService(service: Service)
+    + removeService(service: Service)
 }
 
 
-/' An item can be inside a ShoppingBucket '/
+/' An item can be inside a Basket '/
 class Item {
     /' - _product: Product '/
     - _quantity: int
@@ -134,7 +133,7 @@ class Order {
     - _delivered: boolean
     --
     # Order(purchase: Purchase, lines: List<PurchaseLine>,
-            modality: Modality, services: List<Services>)
+            modality: Modality, services: List<Service>)
     + baseDelay(): int
     + linesValue(): double
     + processingCost(): double
@@ -192,6 +191,13 @@ class Erp {
 }
 
 
+class ErpManager {
+    - _filename: String
+    --
+    + ErpManager()
+}
+
+
 class Notification {
     - _subject: String
     - _description: String
@@ -231,20 +237,20 @@ ImportedProduct --|> Provenance
 
 /' Each company and client can only have one shopping bucket
    each shopping bucket can be connected to each of characteristics '/
-Client "1" -- "0..*" ShoppingBucket
-Company "1" -- "0..*" ShoppingBucket
-ShoppingBucket "0..1" --> "1" OrderDivisionStrategy
-ShoppingBucket "0..1" --> "1" TransportMode
+Client "1" -- "0..*" Basket
+Company "1" -- "0..*" Basket
+Basket "0..1" --> "1" SplitStrategy
+Basket "0..1" --> "1" Modality
 
 
-/' agregation relation, ExtraService can exist without ShoppingBucket
+/' agregation relation, Service can exist without Basket
    like a whole-part logic for this context '/
-ShoppingBucket "1" o-- "0..*" ExtraService
+Basket "1" o-- "0..*" Service
 
 
 /' There can be multiple items associated to one product only
    and each shopping bucket can have any amount of a specific item '/
-ShoppingBucket "1" *-- "0..*" Item
+Basket "1" *-- "0..*" Item
 Item "0..*" --> "1" Product
 
 
@@ -285,16 +291,19 @@ GiftCard ..|> Service
 
 
 /' Express Retail Plataform '/
-Erp ..> Order
-Erp ..> Client
 Erp "1" --> "*" Company
 Erp "1" --> "*" Product
 Erp "1" --> "*" Client
 Erp "1" --> "*" Modality
 Erp "1" --> "*" SplitStrategy
+Erp "1" --> "*" Purchase
+
+Erp ..|> Serializable
+ErpManager "1" --> "1" Erp
 
 
 NotificationMechanism ..> Notification
 DefaultNotification ..|> NotificationMechanism
+DefaultNotification "1" o-- "0..*" Notification
 
 @enduml
