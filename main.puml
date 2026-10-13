@@ -180,7 +180,7 @@ class Modality {
 }
 
 
-class ExpressRetailPlataform {
+class Erp {
     - _date: int
     - _nextProductId: int
     - _nextCompanyId: int
@@ -285,13 +285,13 @@ GiftCard ..|> Service
 
 
 /' Express Retail Plataform '/
-ExpressRetailPlataform ..> Order
-ExpressRetailPlataform ..> Client
-ExpressRetailPlataform "1" --> "*" Company
-ExpressRetailPlataform "1" --> "*" Product
-ExpressRetailPlataform "1" --> "*" Client
-ExpressRetailPlataform "1" --> "*" Modality
-ExpressRetailPlataform "1" --> "*" SplitStrategy
+Erp ..> Order
+Erp ..> Client
+Erp "1" --> "*" Company
+Erp "1" --> "*" Product
+Erp "1" --> "*" Client
+Erp "1" --> "*" Modality
+Erp "1" --> "*" SplitStrategy
 
 
 NotificationMechanism ..> Notification
