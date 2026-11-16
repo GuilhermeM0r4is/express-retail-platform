@@ -23,3 +23,7 @@ Add the build and run instructions here once the project setup and entry point a
 
 ## Academic context
 Project for the Object-Oriented Programming course at Instituto Superior Técnico, 2026/2027.
+
+## Questions for Professor
+- **Podemos usar subfolders dentro do core para cada coisa ou devemos mantê-los todos só por si?
+- **No UML, ProductCategory apresenta dois placeholders de métodos, devemos implementá-los de alguma forma?
