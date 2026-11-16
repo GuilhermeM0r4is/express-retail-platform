@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * types of products, the same can be applied otherwise. They are able to
  * have different prices than the recommended ones for products.
  */
-abstract class Company implements Serializable {
+public class Company implements Serializable {
 
     @java.io.Serial
     private static final long serialVersionUID = 202608261200L;
@@ -44,6 +44,27 @@ abstract class Company implements Serializable {
     // all class methods
     public String toString() {
         return getId() + " - " + getName();
+    }
+
+    public boolean changeInventory(Product product, int quantity, double factor) {
+
+        // first case, product is the one given and exists
+        for (SuppliedProduct sp: _suppliedProducts) {
+            if (sp.getId() == product.getId()) {
+                return sp.update(quantity, factor);
+            }
+        }
+
+        // product doesn't exist yet, check if all positive
+        if (quantity < 0 || factor < 0) {
+            return false;
+        }
+
+        // creates a new product, updates and adds to the list
+        SuppliedProduct newSp = new SuppliedProduct(this, quantity, factor);
+        newSp.update(quantity, factor);
+        _suppliedProducts.add(newSp);
+        return true;
     }
 
     // auxiliar functions
