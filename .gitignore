@@ -25,3 +25,5 @@ replay_pid*
 
 # Extra unecessary files
 *.pdf
+*.vscode/
+*.zed/
