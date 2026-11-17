@@ -168,10 +168,52 @@ public class ErpManager {
     /**
      * Registers a Client into the system, sends to Erp.
      *
-     * @param
+     * @param name The name of the client to register;
+     * @param email The email of the client to register;
      */
-    public void registerClient() {
-        //FIXME implement logic here
+    public void registerClient(String name, String email) throws InvalidClientException {
+        _erp.registerClient(name, email);
+        _changed = true;
+    }
+
+    /**
+     * Returns a Client object from the system, given its email, sends to Erp.
+     *
+     * @param email The email of the client to retrieve;
+     * @return The Client object associated with the given email;
+     */
+    public String showClient(String email) throws UnknownClientException {
+        _changed = true;
+        return _erp.getClient(email).toString();
+    }
+
+    /**
+     * Returns a list of all clients in the system, sorted by name and email, sends to Erp.
+     *
+     * @return A list of all clients in the system;
+     */
+    public List<String> showClients() {
+        _changed = true;
+        return _erp.getClients().stream().map(Client::toString).toList();
+    }
+
+    //FIXME still need to check this one out (AI said ErpManager needed it)
+    /**
+     * Returns 
+     * 
+     * @param clientId the id of the client
+     * @param companyId ths company id
+     * 
+     */
+    public Basket getBasket(String clientId, int companyId) {
+        throws UnknownClientException, UnknownCompanyException {
+            Client client = _erp.getClient(clientId);
+            Company company = _erp.getCompany(companyId);
+            if (!client.hasBasketFor(company)) {
+                _changed = true;     
+            }      
+            return client.basketFor(company);
+        }
     }
 
     /**

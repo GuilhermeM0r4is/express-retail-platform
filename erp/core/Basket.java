@@ -1,22 +1,35 @@
 package erp.core;
 
 import java.io.Serializable;
-//FIXME maybe import classes
-
 /**
- * A client's shopping basket at one company: what it intends to buy, and how it
- * wants the purchase shipped.
- *
- * <p>The basket menu is opened <em>over</em> a basket, so this class is the
- * receiver of every command in {@code erp.app.basket}. Its name and package are
- * fixed by that code; its content is yours to define.</p>
+ * THIS IS THE MINIMAL BASKET POSSIBLE TO COMPILE SINCE THE BASKET ITSELF IS NOT SUPPOSE
+ * TO BE ADDED UNTIL THE LAST INSTALMENT, THE BasketUpdate.java ONE IS FOR THE FUTURE.
  */
+
 public class Basket implements Serializable {
 
-  @java.io.Serial
-  private static final long serialVersionUID = 202608261200L;
+    @java.io.Serial
+    private static final long serialVersionUID = 202608261200L;
 
-  //FIXME maybe define attributes
-  //FIXME maybe implement constructor
-  //FIXME maybe implement methods
+    //attributes
+    private final Client _client;
+
+    private final Company _company;
+
+    //constructor
+    public Basket(Client client, Company company) {
+        _client = client;
+        _company = company;
+    }
+
+    //getter for checkout
+    public boolean canCheckout() { 
+        return false; 
+    }
+
+    @Override
+    //toString method to display the basket information
+    public String toString() {
+        return _client.getEmail() + " - " + _company.getId() + " - UNICA - SEM_TRANSPORTE - " + 0;
+    }
 }

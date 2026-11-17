@@ -18,6 +18,7 @@ class Erp implements Serializable {
        up time, using O(1) searches rather than O(n) during the search loops */
     private Map<Integer, Company> _companies = new HashMap<>();
     private Map<Integer, Product> _products = new HashMap<>();
+    private final Map<String, Client> _clients = new HashMap<>();
 
     /**
      * Class Constructor, is and will stay empty as all the needed
@@ -84,11 +85,47 @@ class Erp implements Serializable {
 
     /**
      * Registers a Client into the system.
-     *
-     * @param
+     *  
+     * @param name The name of the client to register;
+     * @param email The email of the client to register;
+     * //FIXME altera o que for preciso da exception
+     * @throws InvalidClientException If the name or email is invalid, or if a client with the same email already exists;
      */
-    public void registerClient() {
-        //FIXME implement logic here
+    public void registerClient(String name, String email) throws InvalidClientException {
+        if (name == null || name.isEmpty() || email == null || email.isEmpty()
+            || _clients.containsKey(email)) {
+        throw new InvalidClientException(name, email); //FIXME usa este nome para esta exception
+        } 
+        _clients.put(email, new Client(name, email))
+    }
+
+    /**
+     * Returns a Client object from the system, given its email.
+     *
+     * @param email The email of the client to retrieve;
+     * @return The Client object associated with the given email;
+     * //FIXME altera o que for preciso da exception
+     * @throws UnknownClientException If no client is found with the given email;
+     */
+    public Client getClient(String email) throws UnknownClientException {
+        Client c = _clients.get(email);
+        if (c == null) {
+            throw new UnknownClientException(email); //FIXME usa este nome para esta exception
+            } 
+        return c;
+    }
+
+    /**
+     * Returns a list of all clients in the system, sorted by name and email.
+     *
+     * @return A list of all clients in the system;
+     */
+    public List<Client> getClients() {
+    return _clients.values().stream()
+            .sorted(Comparator
+                    .comparing(Client::getName, String.CASE_INSENSITIVE_ORDER)
+                    .thenComparing(Client::getEmail, String.CASE_INSENSITIVE_ORDER))
+            .toList();
     }
 
     /**

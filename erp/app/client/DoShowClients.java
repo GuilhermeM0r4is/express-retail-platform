@@ -3,10 +3,11 @@ package erp.app.client;
 import erp.core.ErpManager;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
-//FIXME maybe import classes
 
 /**
  * Show all clients (ordered lexicographically by name).
+ * 
+ * @throws UnknownClientKeyException if the client id is not found in the system.
  */
 class DoShowClients extends Command<ErpManager> {
 
@@ -15,7 +16,9 @@ class DoShowClients extends Command<ErpManager> {
   }
 
   @Override
-  protected final void execute() {
-    //FIXME implement command
+  protected final void execute() throws CommandException {
+    for (String client : _receiver.showClients())
+      _display.addLine(client);
+    _display.display();
   }
 }
