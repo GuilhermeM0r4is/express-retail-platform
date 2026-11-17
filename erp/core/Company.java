@@ -18,34 +18,60 @@ public class Company implements Serializable {
     // class attributes
     private String _name;
     private int _id;
-    private List<SuppliedProduct> _suppliedProducts;
+    private List<SuppliedProduct> _suppliedProducts = new ArrayList<>();
 
-    // constructor class
+    /**
+     * Constructor class of a product.
+     * @param name String containing the company name.
+     */
     public Company(String name) {
         _name = name;
         _id = _nextId;
         _nextId++;
-        _suppliedProducts = new ArrayList<>();
     }
 
-    // getter methods, add when needed
+    /**
+     * Getter method for class attribute.
+     * @return int _id private method for usage.
+     */
     public int getId() {
         return _id;
     }
 
+    /**
+     * Getter method for class attribute.
+     * @return String _name private method for usage.
+     */
     public String getName() {
         return _name;
     }
 
+    /**
+     * Getter method for class attribute.
+     * @return List of SuppliedProduct.
+     */
     public List<SuppliedProduct> getSuppliedProducts() {
         return _suppliedProducts;
     }
 
-    // all class methods
+    /**
+     * Shows a company with the specific expected output as String.
+     * @return String of a company showcase.
+     */
     public String toString() {
         return getId() + " - " + getName();
     }
 
+    /**
+     * Changes an inventory value and factor for a specific company product, updating the
+     * quantity of the product and giving it a new factor value.
+     *
+     * @param product Product to search for in company;
+     * @param quantity A value to update the Product quantity;
+     * @param factor A new factor to give into the Product.
+     *
+     * @return true in case of storage update, false otherwise.
+     */
     public boolean changeInventory(Product product, int quantity, double factor) {
 
         // first case, product is the one given and exists
@@ -67,10 +93,12 @@ public class Company implements Serializable {
         return true;
     }
 
-    // auxiliar functions
-
-    /* Assures that in case ids are already defined, we can easily just
-       update the nextId counter to match them */
+    /**
+     * Assures that in case ids are already defined, we can easily just update the nextId
+     * counter to match them, keeping the app flow going.
+     *
+     * @param nextId A given id that we have to use and update the current one.
+     */
     public static void setNextId(int nextId) {
         _nextId = nextId;
     }
