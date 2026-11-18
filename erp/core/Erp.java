@@ -34,6 +34,7 @@ class Erp implements Serializable {
     * the state of this application with the domain entities represented in the text file.
     *
     * @param filename name of the text input file to process
+    *
     * @throws UnrecognizedEntryException if some entry is not correct
     * @throws IOException if there is an IO erro while processing the text file
     */
@@ -133,6 +134,38 @@ class Erp implements Serializable {
     }
 
     /**
+     * Shows a list of all clients in a company.
+     *
+     * @return A list of all clients inside a company in the system;
+     * @throws UnknownCompanyException if the company with given id doesn't exist in system.
+     */
+    public List<Client> showCompanyClients(int id) throws UnknownCompanyException {
+        Company company = _companies.get(id);
+        if (company == null) {
+            throw new UnknownCompanyException(id);
+        }
+        return company.getClients().stream()
+            .sorted(Comparator.comparing(Client::getEmail))
+            .toList();
+    }
+
+    /**
+     * Shows a list of all products in a company.
+     *
+     * @return A list of all products inside a company in the system;
+     * @throws UnknownCompanyException if the company with given id doesn't exist in system.
+     */
+    public List<Product> showCompanyProducts(int id) throws UnknownCompanyException {
+        Company company = _companies.get(id);
+        if (company == null) {
+            throw new UnknownCompanyException(id);
+        }
+        return company.getProducts().stream()
+            .sorted(Comparator.comparing(Product::getId))
+            .toList();
+    }
+
+    /**
      * Registers a Client into the system.
      *
      * @param name The name of the client to register;
@@ -183,21 +216,23 @@ class Erp implements Serializable {
      *
      * @param clientId  the id (email) of the client;
      * @param companyId the id of the company;
+     *
      * @throws UnknownClientException  if there is no such client;
      * @throws UnknownCompanyException if there is no such company;
      */
     Basket getBasket(String clientId, int companyId)
             throws UnknownClientException, UnknownCompanyException {
         Client client = _erp.getClient(clientId);
-        Company company = _erp.get(companyId); //getCompany receives a String 
+        Company company = _erp.get(companyId); //getCompany receives a String
         return client.basketFor(company);
     }
 
     /**
-     * Returns 
-     * 
+     * Returns
+     *
      * @param clientId the id (email) of the client;
      * @param companyId the id of the company;
+     *
      * @throws UnknownClientException  if there is no such client;
      * @throws UnknownCompanyException if there is no such company;
      */
@@ -207,12 +242,33 @@ class Erp implements Serializable {
     }
 
     /**
-     * Updates a stock with the parameters.
-     *
-     * @param
-     */
-    public void updateStock() {
-        //FIXME implement logic here
+    * Updates a stock with the parameters, updating product quantities, and the given
+    * company factor for the product sell price.
+    *
+    * @param companyId Id to the company we want to change stock information;
+    * @param productId Id to the product we want to change the stock from;
+    * @param units Amount of items to change in the given product;
+    * @param factor A new factor value to give to the company for this product.
+    *
+    * @throws UnknownCompanyException if the company Id couldn't be found in system;
+    * @throws UnknownProductException if the productId couldn't be found in system;
+    * @throws InventoryChangeFailedException if something failed and changeInventory() returned false.
+    */
+    public void updateStock(int companyId, int productId, int units, double factor)
+        throws UnknownCompanyException, UnknownProductException, InventoryChangeFailedException {
+
+        Company company = _companies.get(companyId);
+        Product product = _products.get(productId);
+
+        if (company == null) {
+            throw new UnknownCompanyException(companyId);
+        }
+        if (product == null) {
+            throw new UnknownProductException(String.valueOf(productId));
+        }
+        if (!company.changeInventory(product, units, factor)) {
+            throw new InventoryChangeFailedException();
+        }
     }
 
     /**

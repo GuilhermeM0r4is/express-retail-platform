@@ -181,11 +181,31 @@ public class ErpManager {
     }
 
     /**
-     * Returns a list of all companies in the system, sorted by name, sends to Erp.
-     * @return A list of all companies in the system;
+     * Shows a list of all companies in the system, sorted by name, sends to Erp.
+     * @return A list of all companies in the system in String format;
      */
     public List<String> showCompanies() {
         return _erp.getCompanies().stream().map(Company::toString).toList();
+    }
+
+    /**
+     * Shows a list of all clients in a company, sends to Erp.
+     *
+     * @return A list of all clients inside a company in the system in String format;
+     * @throws UnknownCompanyException if the company with given id doesn't exist in system.
+     */
+    public List<String> showCompanyClients(int id) throws UnknownCompanyException {
+        return _erp.getCompanyClients(id).stream().map(Client::toString).toList();
+    }
+
+    /**
+     * Shows a list of all products in a company, sends to Erp.
+     *
+     * @return A list of all products inside a company in the system;
+     * @throws UnknownCompanyException if the company with given id doesn't exist in system.
+     */
+    public List<String> showCompanyProducts(int id) throws UnknownCompanyException {
+        return _erp.getCompanyProducts(id).stream().map(Product::toString).toList();
     }
 
     /**
@@ -224,21 +244,31 @@ public class ErpManager {
      * @param companyId the company id;
      */
     public Basket getBasket(String clientId, int companyId) throws UnknownClientException, UnknownCompanyException {
-        boolean existed = _erp.hasBasket(clientId, companyId); 
+        boolean existed = _erp.hasBasket(clientId, companyId);
         Basket basket = _erp.getBasket(clientId, companyId);
         if (!existed) {
             _changed = true;
-        } 
+        }
         return basket;
     }
 
     /**
-     * Sends to Erp to update a stock with the parameters.
-     *
-     * @param
-     */
-    public void updateStock() {
-        //FIXME implement logic here
+    * Updates a stock with the parameters, sends to Erp.
+    *
+    * @param companyId Id to the company we want to change stock information;
+    * @param productId Id to the product we want to change the stock from;
+    * @param units Amount of items to change in the given product;
+    * @param factor A new factor value to give to the company for this product.
+    *
+    * @throws UnknownCompanyException if the company Id couldn't be found in system;
+    * @throws UnknownProductException if the productId couldn't be found in system;
+    * @throws InventoryChangeFailedException if something failed and changeInventory() returned false.
+    */
+    public void updateStock(int companyId, int productId, int units, double factor)
+        throws UnknownCompanyException, UnknownProductException, InventoryChangeFailedException {
+
+        _erp.updateStock(companyId, productId, units, factor);
+        _changed = true;
     }
 
     /**

@@ -19,6 +19,7 @@ public class Company implements Serializable {
     private String _name;
     private int _id;
     private List<SuppliedProduct> _suppliedProducts = new ArrayList<>();
+    private List<Client> _clients = new ArrayList<>();
 
     /**
      * Constructor class of a product.
@@ -52,6 +53,14 @@ public class Company implements Serializable {
      */
     public List<SuppliedProduct> getSuppliedProducts() {
         return _suppliedProducts;
+    }
+
+    /**
+     * Getter method for class attribute.
+     * @return List of Clients.
+     */
+    public List<Client> getClients() {
+        return _clients;
     }
 
     /**
