@@ -9,18 +9,19 @@ import pt.tecnico.uilib.menus.CommandException;
  */
 class DoShowCompany extends Command<ErpManager> {
 
-  DoShowCompany(ErpManager receiver) {
-    super(Label.SHOW_COMPANY, receiver);
-  }
-
-  @Override
-  protected final void execute() throws CommandException {
-    String companyName = Form.requestString(Prompt.companyName());
-    try {
-        Company company = _receiver.showCompany(companyName);
-        _display.popup(company.toString());
-    } catch (UnknownCompanyException e) {
-        throw new CommandException(e.getMessage());
+    DoShowCompany(ErpManager receiver) {
+        super(Label.SHOW_COMPANY, receiver);
     }
-  }
+
+    @Override
+    protected final void execute() throws CommandException {
+        String companyName = Form.requestString(Prompt.companyName());
+
+        try {
+            Company company = _receiver.showCompany(companyName);
+            _display.popup(company));
+        } catch (UnknownCompanyException e) {
+            throw new CommandException(e.getMessage());
+        }
+    }
 }
