@@ -126,15 +126,6 @@ public class ErpManager {
     }
 
     /**
-     * Registers a new Company by its name, sends to Erp.
-     * @param name A name to give to the new company.
-     */
-    public void registerCompany(String name) throws DuplicateCompanyException {
-        _erp.registerCompany(name);
-        _changed = true;
-    }
-
-    /**
      * Registers an ImportedProduct, sends to Erp.
      *
      * @param name A name/description for the product;
@@ -169,6 +160,35 @@ public class ErpManager {
     }
 
     /**
+     * Registers a new Company by its name, sends to Erp.
+     * @param name A name to give to the new company.
+     */
+    public void registerCompany(String name) throws DuplicateCompanyException {
+        _erp.registerCompany(name);
+        _changed = true;
+    }
+
+    /**
+     * Returns a Company object from the system, sends to Erp.
+     *
+     * @param name The name of the company to show.
+     * @throws UnknownCompanyException If no company is found with given name;
+     *
+     * @return The Company object associated with the given name.
+     */
+    public Company showCompany(String name) throws UnknownCompanyException {
+        return _erp.getCompany(name);
+    }
+
+    /**
+     * Returns a list of all companies in the system, sorted by name, sends to Erp.
+     * @return A list of all companies in the system;
+     */
+    public List<String> showCompanies() {
+        return _erp.getCompanies().stream().map(Company::toString).toList();
+    }
+
+    /**
      * Registers a Client into the system, sends to Erp.
      *
      * @param name The name of the client to register;
@@ -186,7 +206,6 @@ public class ErpManager {
      * @return The Client object associated with the given email;
      */
     public String showClient(String email) throws UnknownClientException {
-        _changed = true;
         return _erp.getClient(email).toString();
     }
 
@@ -195,7 +214,6 @@ public class ErpManager {
      * @return A list of all clients in the system;
      */
     public List<String> showClients() {
-        _changed = true;
         return _erp.getClients().stream().map(Client::toString).toList();
     }
 
@@ -231,7 +249,7 @@ public class ErpManager {
      *
      * @param
      */
-    public void registeShippingRate() {
+    public void registerShippingRate() {
         //FIXME implement logic here
     }
 }

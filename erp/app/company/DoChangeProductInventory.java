@@ -1,9 +1,13 @@
 package erp.app.company;
 
 import erp.core.ErpManager;
+import erp.core.exception.UnknownCompanyException;
+import erp.core.exception.UnknownProductException;
+
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
-//FIXME maybe import classes
+
+import erp.app.product.Prompt;
 
 /**
  * Changes what a company holds of a product — the amount is added to its
@@ -15,13 +19,24 @@ import pt.tecnico.uilib.menus.CommandException;
  */
 class DoChangeProductInventory extends Command<ErpManager> {
 
-  DoChangeProductInventory(ErpManager receiver) {
-    super(Label.CHANGE_PRODUCT_INVENTORY, receiver);
-    //FIXME maybe define fields
-  }
+    DoChangeProductInventory(ErpManager receiver) {
+        super(Label.CHANGE_PRODUCT_INVENTORY, receiver);
+    }
 
-  @Override
-  protected final void execute() throws CommandException {
-    //FIXME implement command
-  }
+    @Override
+    protected final void execute() throws CommandException {
+
+        int companyId = Form.requestInteger(Prompt.companyId());
+        int productId = Form.requestInteger(Prompt.productId());
+        int units = Form.requestInteger(Prompt.amountToUpdate());
+        double factor = Form.requestDouble(Prompt.priceFactor());
+
+        try {
+            _receiver.updateStock(companyId, productId, units, factor);
+        } catch (UnknownCompanyException e) {
+                throw new CommandException(e.getMessage());
+        } catch (UnknownProductException e) {
+            throw new CommandException(e.getMessage());
+        }
+    }
 }

@@ -115,6 +115,6 @@ class Parser {
     // RATE:modalidade:custo:dias;
     private void parseRate(String[] components, String line) throws UnrecognizedEntryException {
         checkCorrectNumberOfFields(components, 4, line);
-        _manager.registeShippingRate(components[1], Integer.valueOf(components[2]), Integer.valueOf(components[3]));
+        _manager.registerShippingRate(components[1], Integer.valueOf(components[2]), Integer.valueOf(components[3]));
     }
 }

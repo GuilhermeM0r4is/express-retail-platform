@@ -43,21 +43,6 @@ class Erp implements Serializable {
     }
 
     /**
-     * Registers a new Company by its name, updating the hashmap.
-     * @param name A name to give to the new company.
-     */
-    public void registerCompany(String name) throws DuplicateCompanyException {
-
-        for (Company c: _companies.values()) {
-            if (c.getName().equals(name)) {
-                throws DuplicateCompanyException(name);
-            }
-        }
-        Company c = new Company(name);
-        _companies.put(c.getId(), c);
-    }
-
-    /**
      * Registers an ImportedProduct from the given parameters.
      *
      * @param name A name/description for the product;
@@ -75,7 +60,7 @@ class Erp implements Serializable {
 
         for (Product p: _products.values()) {
             if (p.getName().equals(name)) {
-                throw DuplicateProductException(name);
+                throw new DuplicateProductException(name);
             }
         }
         ImportedProduct impP = new ImportedProduct(name, basePrice, category, baseDeliveryTime,
@@ -98,11 +83,53 @@ class Erp implements Serializable {
 
         for (Product p: _products.values()) {
             if (p.getName().equals(name)) {
-                throws DuplicateProductException(name);
+                throw new DuplicateProductException(name);
             }
         }
         NationalProduct natP = new NationalProduct(name, basePrice, category, baseDeliveryTime);
         _products.put(natP.getId(), natP);
+    }
+
+    /**
+     * Registers a new Company by its name, updating the hashmap.
+     * @param name A name to give to the new company.
+     */
+    public void registerCompany(String name) throws DuplicateCompanyException {
+
+        for (Company c: _companies.values()) {
+            if (c.getName().equals(name)) {
+                throw new DuplicateCompanyException(name);
+            }
+        }
+        Company c = new Company(name);
+        _companies.put(c.getId(), c);
+    }
+
+    /**
+     * Returns a Company object from the system, given its name.
+     *
+     * @param name The name of the company to show.
+     * @return The Company object associated with the given name.
+     *
+     * @throws UnknownCompanyException If no company is found with given name;
+     */
+    public Company getCompany(String name) throws UnknownCompanyException {
+        for (Company c: _companies.values()) {
+            if (c.getName().equals(name)) {
+                return c;
+            }
+        }
+        throw new UnknownCompanyException(name)
+    }
+
+    /**
+     * Returns a list of all companies in system, orderer by id.
+     * @return A list of all companies in system.
+     */
+    public List<Company> getCompanies() {
+        return _companies.values().stream()
+            .sorted(Comparator.comparing(Company::getId))
+            .toList();
     }
 
     /**
@@ -139,7 +166,6 @@ class Erp implements Serializable {
         return c;
     }
 
-    // NOT SURE IF THIS IS REALLY NEEDED, JUST CHECK THIS WITH CLAUDE FIRST
     /**
      * Returns a list of all clients in the system, sorted by name and email.
      * @return A list of all clients in the system;
@@ -166,7 +192,7 @@ class Erp implements Serializable {
      *
      * @param
      */
-    public void registeShippingRate() {
+    public void registerShippingRate() {
         //FIXME implement logic here
     }
 }
