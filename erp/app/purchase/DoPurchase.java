@@ -1,5 +1,6 @@
 package erp.app.purchase;
 
+import erp.app.client.Prompt;                    
 import erp.app.exception.UnknownClientKeyException;
 import erp.app.exception.UnknownCompanyKeyException;
 import erp.core.Basket;
@@ -22,7 +23,7 @@ class DoPurchase extends Command<ErpManager> {
 
     DoPurchase(ErpManager receiver) {
         super(Label.DO_PURCHASE, receiver);
-        addStringField("clientId", erp.app.client.Prompt.clientId());
+        addStringField("clientId", Prompt.clientId());
         addIntegerField("companyId", erp.app.company.Prompt.companyId());
     }
 
@@ -32,12 +33,10 @@ class DoPurchase extends Command<ErpManager> {
         int companyId = integerField("companyId");
         try {
             Basket basket = _receiver.getBasket(clientId, companyId);
-            new erp.app.basket.Menu(basket).open();
-        }   
-        catch (UnknownClientException e) {
+            new erp.app.basket.Menu(_receiver, basket).open();
+        } catch (UnknownClientException e) {
             throw new UnknownClientKeyException(clientId);
-        }   
-        catch (UnknownCompanyException e) {
+        } catch (UnknownCompanyException e) {
             throw new UnknownCompanyKeyException(companyId);
         }
     }

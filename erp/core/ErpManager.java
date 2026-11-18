@@ -177,7 +177,7 @@ public class ErpManager {
      * @return The Company object associated with the given name.
      */
     public Company showCompany(String name) throws UnknownCompanyException {
-        return _erp.getCompany(name);
+        return _erp.getCompany(name).toString();
     }
 
     /**
@@ -217,22 +217,19 @@ public class ErpManager {
         return _erp.getClients().stream().map(Client::toString).toList();
     }
 
-    //FIXME still need to check this one out (AI said ErpManager needed it)
     /**
-     * Returns
+     * Returns the information that the basket currently contains about it's client and company.
      *
-     * @param clientId the id of the client
-     * @param companyId ths company id
+     * @param clientId the id of the client;
+     * @param companyId the company id;
      */
-    public Basket getBasket(String clientId, int companyId) {
-        throws UnknownClientException, UnknownCompanyException {
-            Client client = _erp.getClient(clientId);
-            Company company = _erp.getCompany(companyId);
-            if (!client.hasBasketFor(company)) {
-                _changed = true;
-            }
-            return client.basketFor(company);
-        }
+    public Basket getBasket(String clientId, int companyId) throws UnknownClientException, UnknownCompanyException {
+        boolean existed = _erp.hasBasket(clientId, companyId); 
+        Basket basket = _erp.getBasket(clientId, companyId);
+        if (!existed) {
+            _changed = true;
+        } 
+        return basket;
     }
 
     /**

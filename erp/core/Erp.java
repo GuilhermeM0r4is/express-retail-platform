@@ -179,6 +179,34 @@ class Erp implements Serializable {
     }
 
     /**
+     * Returns the basket of a client at a company, creating it empty if it does not exist yet.
+     *
+     * @param clientId  the id (email) of the client;
+     * @param companyId the id of the company;
+     * @throws UnknownClientException  if there is no such client;
+     * @throws UnknownCompanyException if there is no such company;
+     */
+    Basket getBasket(String clientId, int companyId)
+            throws UnknownClientException, UnknownCompanyException {
+        Client client = _erp.getClient(clientId);
+        Company company = _erp.get(companyId); //getCompany receives a String 
+        return client.basketFor(company);
+    }
+
+    /**
+     * Returns 
+     * 
+     * @param clientId the id (email) of the client;
+     * @param companyId the id of the company;
+     * @throws UnknownClientException  if there is no such client;
+     * @throws UnknownCompanyException if there is no such company;
+     */
+    boolean hasBasket(String clientId, int companyId)
+        throws UnknownClientException, UnknownCompanyException {
+    return getClient(clientId).hasBasketFor(get(companyId));
+    }
+
+    /**
      * Updates a stock with the parameters.
      *
      * @param

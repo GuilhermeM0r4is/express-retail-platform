@@ -1,5 +1,6 @@
 package erp.app.client;
 
+import erp.app.client.Prompt;
 import erp.core.ErpManager;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;

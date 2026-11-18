@@ -1,5 +1,6 @@
 package erp.app.client;
 
+import erp.app.client.Prompt;
 import erp.app.exception.ClientRegistrationFailedException;
 import erp.core.ErpManager;
 import erp.core.exception.InvalidClientException;
