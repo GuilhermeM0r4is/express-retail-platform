@@ -104,13 +104,14 @@ public class ErpManager {
     * @param datafile name of the text input file
     * @throws ImportFileException if some error happens during the processing of the
     *         import file.
-    **/
+    */
     public void importFile(String filename) throws ImportFileException {
         try {
-            if (filename != null && !filename.isEmpty())
-                _erp.importFile(filename);
-                _changed = true;
-        } catch (IOException | UnrecognizedEntryException /* FIXME maybe other exceptions */ e) {
+            Parser parser = new Parser(this);
+            parser.parseFile(filename);
+            _changed = true;
+        }
+        catch (IOException | UnrecognizedEntryException e) {
             throw new ImportFileException(filename, e);
         }
     }
@@ -128,7 +129,7 @@ public class ErpManager {
      * Registers a new Company by its name, sends to Erp.
      * @param name A name to give to the new company.
      */
-    public void registerCompany(String name) {
+    public void registerCompany(String name) throws DuplicateCompanyException {
         _erp.registerCompany(name);
         _changed = true;
     }
@@ -144,7 +145,8 @@ public class ErpManager {
      * @param tax The tax percentage of the given country.
      */
     public void registerImportedProduct(String name, int basePrice, ProductCategory category,
-                                        int baseDeliveryTime, String country, double tax) {
+                                        int baseDeliveryTime, String country, double tax)
+                                        throws DuplicateProductException {
 
         _erp.registerImportedProduct(name, basePrice, category, baseDeliveryTime, country, tax);
         _changed = true;
@@ -159,7 +161,8 @@ public class ErpManager {
      * @param baseDeliveryTime Expected base delivery time as an int;
      */
     public void registerNationalProduct(String name, int basePrice,
-                                        ProductCategory category, int baseDeliveryTime) {
+                                        ProductCategory category, int baseDeliveryTime)
+                                        throws DuplicateProductException {
 
         _erp.registerNationalProduct(name, basePrice, category, baseDeliveryTime);
         _changed = true;
@@ -189,7 +192,6 @@ public class ErpManager {
 
     /**
      * Returns a list of all clients in the system, sorted by name and email, sends to Erp.
-     *
      * @return A list of all clients in the system;
      */
     public List<String> showClients() {
@@ -199,19 +201,18 @@ public class ErpManager {
 
     //FIXME still need to check this one out (AI said ErpManager needed it)
     /**
-     * Returns 
-     * 
+     * Returns
+     *
      * @param clientId the id of the client
      * @param companyId ths company id
-     * 
      */
     public Basket getBasket(String clientId, int companyId) {
         throws UnknownClientException, UnknownCompanyException {
             Client client = _erp.getClient(clientId);
             Company company = _erp.getCompany(companyId);
             if (!client.hasBasketFor(company)) {
-                _changed = true;     
-            }      
+                _changed = true;
+            }
             return client.basketFor(company);
         }
     }

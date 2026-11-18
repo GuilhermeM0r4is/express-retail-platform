@@ -3,8 +3,11 @@ package erp.core;
 import erp.core.exception.*;
 import java.io.IOException;
 import java.io.Serializable;
+
 import java.util.Map;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Comparator;
 
 /**
  * The whole ERP system: holds all the state and the domain logic.
@@ -16,8 +19,8 @@ class Erp implements Serializable {
 
     /* we decided to use hashmaps, as most other methods look for ids too, so we can save
        up time, using O(1) searches rather than O(n) during the search loops */
-    private Map<Integer, Company> _companies = new HashMap<>();
-    private Map<Integer, Product> _products = new HashMap<>();
+    private final Map<Integer, Company> _companies = new HashMap<>();
+    private final Map<Integer, Product> _products = new HashMap<>();
     private final Map<String, Client> _clients = new HashMap<>();
 
     /**
@@ -34,18 +37,22 @@ class Erp implements Serializable {
     * @throws UnrecognizedEntryException if some entry is not correct
     * @throws IOException if there is an IO erro while processing the text file
     */
-    void importFile(String filename) throws UnrecognizedEntryException, IOException
-        /* FIXME maybe other exceptions */ {
-
-        Parser parser = new Parser(this);
-        parser.parseFile(filename);
+    void importFile(String filename) throws UnrecognizedEntryException, IOException {
+        //FIXME not sure if we can or should have something here, Erp isnt supposed to work with
+        //      file imports, however prof left this method still here for some reason?
     }
 
     /**
      * Registers a new Company by its name, updating the hashmap.
      * @param name A name to give to the new company.
      */
-    public void registerCompany(String name) {
+    public void registerCompany(String name) throws DuplicateCompanyException {
+
+        for (Company c: _companies.values()) {
+            if (c.getName().equals(name)) {
+                throws DuplicateCompanyException(name);
+            }
+        }
         Company c = new Company(name);
         _companies.put(c.getId(), c);
     }
@@ -59,10 +66,18 @@ class Erp implements Serializable {
      * @param baseDeliveryTime Expected base delivery time as an int;
      * @param country The country of the ImportedProduct;
      * @param tax The tax percentage of the given country.
+     *
+     * @throws DuplicateProductException in case of duplicated Product in system.
      */
     public void registerImportedProduct(String name, int basePrice, ProductCategory category,
-                                        int baseDeliveryTime, String country, double tax) {
+                                        int baseDeliveryTime, String country, double tax)
+                                        throws DuplicateProductException {
 
+        for (Product p: _products.values()) {
+            if (p.getName().equals(name)) {
+                throw DuplicateProductException(name);
+            }
+        }
         ImportedProduct impP = new ImportedProduct(name, basePrice, category, baseDeliveryTime,
                                                    country, tax);
         _products.put(impP.getId(), impP);
@@ -75,53 +90,62 @@ class Erp implements Serializable {
      * @param basePrice Base price for the product;
      * @param category A given category from ProductCategory enumerate;
      * @param baseDeliveryTime Expected base delivery time as an int;
+     *
+     * @throws DuplicateProductException in case of duplicated Product in system.
      */
     public void registerNationalProduct(String name, int basePrice, ProductCategory category,
-                                        int baseDeliveryTime) {
+                                        int baseDeliveryTime) throws DuplicateProductException {
 
+        for (Product p: _products.values()) {
+            if (p.getName().equals(name)) {
+                throws DuplicateProductException(name);
+            }
+        }
         NationalProduct natP = new NationalProduct(name, basePrice, category, baseDeliveryTime);
         _products.put(natP.getId(), natP);
     }
 
     /**
      * Registers a Client into the system.
-     *  
+     *
      * @param name The name of the client to register;
      * @param email The email of the client to register;
-     * //FIXME altera o que for preciso da exception
-     * @throws InvalidClientException If the name or email is invalid, or if a client with the same email already exists;
+     *
+     * @throws InvalidClientException If the name or email is invalid, or if a client with
+     *         the same email already exists.
      */
     public void registerClient(String name, String email) throws InvalidClientException {
-        if (name == null || name.isEmpty() || email == null || email.isEmpty()
-            || _clients.containsKey(email)) {
-        throw new InvalidClientException(name, email); //FIXME usa este nome para esta exception
-        } 
-        _clients.put(email, new Client(name, email))
+
+        if (name == null || name.isEmpty() || email == null || email.isEmpty() ||
+            _clients.containsKey(email)) {
+            throw new InvalidClientException(email);
+        }
+        _clients.put(email, new Client(name, email));
     }
 
     /**
      * Returns a Client object from the system, given its email.
      *
      * @param email The email of the client to retrieve;
-     * @return The Client object associated with the given email;
-     * //FIXME altera o que for preciso da exception
+     * @return The Client object associated with the given email.
+     *
      * @throws UnknownClientException If no client is found with the given email;
      */
     public Client getClient(String email) throws UnknownClientException {
         Client c = _clients.get(email);
         if (c == null) {
-            throw new UnknownClientException(email); //FIXME usa este nome para esta exception
-            } 
+            throw new UnknownClientException(email);
+        }
         return c;
     }
 
+    // NOT SURE IF THIS IS REALLY NEEDED, JUST CHECK THIS WITH CLAUDE FIRST
     /**
      * Returns a list of all clients in the system, sorted by name and email.
-     *
      * @return A list of all clients in the system;
      */
     public List<Client> getClients() {
-    return _clients.values().stream()
+        return _clients.values().stream()
             .sorted(Comparator
                     .comparing(Client::getName, String.CASE_INSENSITIVE_ORDER)
                     .thenComparing(Client::getEmail, String.CASE_INSENSITIVE_ORDER))

@@ -25,14 +25,12 @@ Add the build and run instructions here once the project setup and entry point a
 Project for the Object-Oriented Programming course at Instituto Superior Técnico, 2026/2027.
 
 ## Questions for Professor
-- **Podemos usar subfolders dentro do core para cada coisa ou devemos mantê-los todos só por si?
-- **No UML, ProductCategory apresenta dois placeholders de métodos, devemos implementá-los de alguma forma?
-- **Temos de documentar todos os métodos com "/** */"?
-- **Estou a pensar usar uma dirty flag para ver as mudanças do estado para salvar() etc, será pouco otimizado?
+- **
 
 ## To Do Plan
-4. Concretização dos Menus de Apresentação (erp.app)
 
-Menu de Produtos (erp.app.product): Preencher os comandos de registar produto (nacional/importado), mostrar produto, mostrar todos os produtos e efetuar pesquisa por critérios (NOME, CATEGORIA, ORIGEM).   
+-> Concretização dos Menus de Apresentação (erp.app):
+- Menu de Produtos (erp.app.product): Preencher os comandos de registar produto (nacional/importado), mostrar produto, mostrar todos os produtos e efetuar pesquisa por critérios (NOME, CATEGORIA, ORIGEM).   
+- Menu de Empresas (erp.app.company): Preencher os comandos de registar empresa, mostrar empresa, mostrar todas as empresas, alterar inventário de um produto, mostrar produtos de uma empresa e mostrar clientes de uma empresa.
 
-Menu de Empresas (erp.app.company): Preencher os comandos de registar empresa, mostrar empresa, mostrar todas as empresas, alterar inventário de um produto, mostrar produtos de uma empresa e mostrar clientes de uma empresa.
+-> Ver de Exceptions e como as implementar por si só, tal como a sua lógica de funcionamento.
