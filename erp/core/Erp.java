@@ -23,6 +23,9 @@ class Erp implements Serializable {
     private final Map<Integer, Product> _products = new HashMap<>();
     private final Map<String, Client> _clients = new HashMap<>();
 
+    //used for advancing or showing the date
+    private final Date _date = new Date();
+
     /**
      * Class Constructor, is and will stay empty as all the needed
      * variables are already initialized by their own.
@@ -269,6 +272,35 @@ class Erp implements Serializable {
         if (!company.changeInventory(product, units, factor)) {
             throw new InventoryChangeFailedException();
         }
+    }
+
+    /**
+     * Returns the current date.
+     */
+    int currentDate() { 
+        return _date.getCurrentDate(); 
+    }
+
+    /** Advances N days, one day at a time, does nothing if days are negative since it can only advance. 
+     * Returns true if it advanced. 
+     * 
+     * @param days the days to advance the current date;
+    */
+    boolean advanceDate(int days) {
+        if (days <= 0)
+            return false;
+        for (int i = 0; i < days; i++)
+            nextDay();
+        return true;
+    } 
+
+    /**
+     * Saves the next day as a new date (mainly build for later order class changes)
+     */
+    private void nextDay() {
+        _date.advanceDate();
+        // order code parts, only for the last instalment
+            
     }
 
     /**

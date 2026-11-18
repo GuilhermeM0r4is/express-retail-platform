@@ -272,6 +272,24 @@ public class ErpManager {
     }
 
     /**
+     * Returns the current date.
+     */
+    public int currentDate() {
+        return _erp.currentDate();
+    }
+
+    /**
+     * Advances N days, one day at a time, does nothing if days are negative since it can only advance.
+     * 
+     * @param days the days to advance the current date;
+     */
+    public void advanceDate(int days) {
+        if (_erp.advanceDate(days)) {
+            _changed = true; 
+        }    
+    }
+
+    /**
      * Registers a Shipping Rate, sends to Erp.
      *
      * @param

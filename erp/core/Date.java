@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 /** The system date. The unit is the day, and it starts at day 1. */
 class Date implements Serializable {
+    
     @java.io.Serial
     private static final long serialVersionUID = 202608261200L;
 
