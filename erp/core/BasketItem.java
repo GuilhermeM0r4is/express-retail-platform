@@ -2,7 +2,6 @@
 package erp.core;
 
 import java.io.Serializable;
-//FIXME maybe import classes
 
 /**
  * A client's shopping basket at one company: what it intends to buy, and how it
@@ -17,8 +16,8 @@ public class BasketItem implements Serializable {
     @java.io.Serial
     private static final long serialVersionUID = 202608261200L;
 
-    private final SuppliedProduct[] _supplied;
-    private int _quantity;
+    private final SuppliedProduct _supplied;
+    private final int _quantity;
 
     /**
      * Class constructor.

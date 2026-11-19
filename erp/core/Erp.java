@@ -67,7 +67,7 @@ class Erp implements Serializable {
                 throw new DuplicateProductException(name);
             }
         }
-        ImportedProduct impP = new ImportedProduct(name, basePrice, category, baseDeliveryTime,
+        ImportedProduct impP = new ImportedProduct(name, category, basePrice, baseDeliveryTime,
                                                    country, tax);
         _products.put(impP.getId(), impP);
     }
@@ -90,7 +90,7 @@ class Erp implements Serializable {
                 throw new DuplicateProductException(name);
             }
         }
-        NationalProduct natP = new NationalProduct(name, basePrice, category, baseDeliveryTime);
+        NationalProduct natP = new NationalProduct(name, category, basePrice, baseDeliveryTime);
         _products.put(natP.getId(), natP);
     }
 
@@ -159,8 +159,8 @@ class Erp implements Serializable {
             case "CATEGORIA" -> p.getCategory() != null &&
                                  p.getCategory().toString().toLowerCase().equals(normalizedTerm);
 
-            case "ORIGEM" -> (p instanceof ImportedProduct imp) && imp.getOriginCountry() != null &&
-                             imp.getOriginCountry().toLowerCase().equals(normalizedTerm);
+            case "ORIGEM" -> (p instanceof ImportedProduct imp) && imp.getCountry() != null &&
+                             imp.getCountry().toLowerCase().equals(normalizedTerm);
 
             default -> false;
         };
@@ -235,7 +235,7 @@ class Erp implements Serializable {
         if (company == null) {
             throw new UnknownCompanyException(id);
         }
-        return company.getProducts().stream()
+        return company.getSuppliedProducts().stream()
             .sorted(Comparator.comparing(Product::getId))
             .toList();
     }
@@ -299,7 +299,7 @@ class Erp implements Serializable {
             throws UnknownClientException, UnknownCompanyException {
         Client client = _clients.get(clientId);
         Company company = _companies.get(companyId); //getCompany receives a String
-        return client.hasBasketFor(company);
+        return client.getBasketFor(company);
     }
 
     /**
@@ -313,7 +313,7 @@ class Erp implements Serializable {
      */
     boolean hasBasket(String clientId, int companyId)
         throws UnknownClientException, UnknownCompanyException {
-        return getClient(clientId).hasBasketFor(get(companyId));
+        return getClient(clientId).hasBasketFor(_companies.get(companyId));
     }
 
     /**

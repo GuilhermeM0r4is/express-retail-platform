@@ -1,6 +1,8 @@
 package erp.core;
 
 import java.io.Serializable;
+import java.util.Map;
+import java.util.HashMap;
 
 /**
  * The system keeps a registation of all clients, they display thier identifier(email), their
@@ -18,6 +20,8 @@ public class Client implements Serializable {
     private final String _email;
 
     private final double _totalSpent = 0.0;
+
+    private final Map<Integer, Basket> _basket = new HashMap<>();
 
     /**
      * Class constructor.
@@ -75,8 +79,11 @@ public class Client implements Serializable {
      * @return {@code true} if a basket exists for the company, {@code false} otherwise;
      */
     boolean hasBasketFor(Company company) { 
-        return _baskets.containsKey(company.getId()); 
-    }
+        return _basket.containsKey(company.getId()); 
+    } 
 
-    //addSpent, MAYBE-TO-ADD
+    //...
+    Basket getBasketFor(Company company) {
+        return _baskets.get(company.getId());
+    }
 }
