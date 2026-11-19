@@ -13,7 +13,7 @@ class DoDisplayDate extends Command<ErpManager> {
         super(Label.DISPLAY_DATE, receiver);
     }
 
-    @Override protected
+    @Override
     protected final void execute() throws CommandException {
         _display.popup(Message.currentDate(_receiver.currentDate()));
     }

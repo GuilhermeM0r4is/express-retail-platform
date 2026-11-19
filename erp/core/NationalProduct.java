@@ -43,3 +43,4 @@ public class NationalProduct extends Product {
     String type() {
         return "NACIONAL";
     }
+}

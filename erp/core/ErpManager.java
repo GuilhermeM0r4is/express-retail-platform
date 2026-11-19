@@ -2,7 +2,7 @@ package erp.core;
 
 import erp.core.exception.*;
 import java.io.*;
-//FIXME maybe import classes
+import java.util.List;
 
 /**
  * The façade of the ERP core: the single entry point through which the

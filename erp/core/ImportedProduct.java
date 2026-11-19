@@ -47,3 +47,4 @@ public class ImportedProduct extends Product {
     String type() {
         return "IMPORTADO";
     }
+}

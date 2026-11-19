@@ -68,7 +68,7 @@ class Parser {
                 UnknownCompanyException | DuplicateCompanyException |
                 InvalidClientException | UnknownClientException e) {
 
-            throw new UnrecognizedEntryException("Erro a processar linha: " + line " Erro = " + e.getMessage());
+            throw new UnrecognizedEntryException("Erro a processar linha: " + line + " Erro = " + e.getMessage());
         }
     }
 

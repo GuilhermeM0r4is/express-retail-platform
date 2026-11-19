@@ -128,7 +128,7 @@ class Erp implements Serializable {
                 return p;
             }
         }
-        throw new UnknownProductException(name)
+        throw new UnknownProductException(name);
     }
 
     /**
@@ -195,7 +195,7 @@ class Erp implements Serializable {
                 return c;
             }
         }
-        throw new UnknownCompanyException(name)
+        throw new UnknownCompanyException(name);
     }
 
     /**

@@ -1,7 +1,6 @@
 package erp.app.company;
 
 import erp.core.ErpManager;
-import erp.core.Company;
 
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
@@ -21,8 +20,7 @@ class DoShowCompany extends Command<ErpManager> {
         String companyName = Form.requestString(Prompt.companyName());
 
         try {
-            Company company = _receiver.showCompany(companyName);
-            _display.popup(company));
+            _display.popup(_receiver.showCompany(companyName));
         } catch (UnknownCompanyException e) {
             throw new CommandException(e.getMessage());
         }
