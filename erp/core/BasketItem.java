@@ -20,35 +20,68 @@ public class BasketItem implements Serializable {
     private final SuppliedProduct[] _supplied;
     private int _quantity;
 
-    //constructor
-    BasketItem(SuppliedProduct supplied, int quantity) {
+    /**
+     * Class constructor.
+     *
+     * @param supplied the supplied product entry associated with this item.
+     * @param quantity the initial quantity of the item.
+     */
+    public BasketItem(SuppliedProduct supplied, int quantity) {
         _supplied = supplied;
         _quantity = quantity;
     }
 
-    //getter for SuppliedProduct
+    /**
+     * Getter for the supplied product entries.
+     *
+     * @return the supplied product array.
+     */
     SuppliedProduct[] getSupplied() {
         return _supplied;
     }
 
-    //getter for quantity
+    /**
+     * Getter for the item quantity.
+     *
+     * @return the quantity.
+     */
     int getQuantity() {
         return _quantity;
     }
 
-    //update quantity function
+    /**
+     * Updates the item quantity by adding the given delta.
+     *
+     * @param q the quantity delta to add (may be positive or negative).
+     * @return the updated quantity.
+     */
     int update(int q) {
         _quantity += q;
         return _quantity;
     }
 
-    double getUnitPrice() { return _supplied.price(); }
-    double getCost() { return getUnitPrice() * _quantity; }
+    /**
+     * Getter for the unit price of the item.
+     *
+     * @return the unit price.
+     */
+    double getUnitPrice() { 
+        return _supplied.price(); 
+    }
+
+    /**
+     * Computes the total cost of this item (unit price multiplied by quantity).
+     *
+     * @return the total cost of the item.
+     */
+    double getCost() { 
+        return getUnitPrice() * _quantity; 
+    }
 
     @Override
     public String toString() {
         Product p = _supplied.getProduct();
         return p.getId() + " - " + p.getName() + " - " + _quantity + " - "
-                + Money.format(getUnitPrice()) + " - " + Money.format(getCost());
+                + getUnitPrice() + " - " + getCost();
     }
 }

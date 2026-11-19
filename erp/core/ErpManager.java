@@ -238,7 +238,7 @@ public class ErpManager {
      * @return A list of all clients inside a company in the system in String format;
      * @throws UnknownCompanyException if the company with given id doesn't exist in system.
      */
-    public List<String> showCompanyClients(int id) throws UnknownCompanyIdException {
+    public List<String> showCompanyClients(int id) throws UnknownCompanyException {
         return _erp.getCompanyClients(id).stream().map(Client::toString).toList();
     }
 
@@ -248,7 +248,7 @@ public class ErpManager {
      * @return A list of all products inside a company in the system;
      * @throws UnknownCompanyException if the company with given id doesn't exist in system.
      */
-    public List<String> showCompanyProducts(int id) throws UnknownCompanyIdException {
+    public List<String> showCompanyProducts(int id) throws UnknownCompanyException {
         return _erp.getCompanyProducts(id).stream().map(Product::toString).toList();
     }
 
@@ -287,7 +287,7 @@ public class ErpManager {
      * @param clientId the id of the client;
      * @param companyId the company id;
      */
-    public Basket getBasket(String clientId, int companyId) throws UnknownClientException, UnknownCompanyIdException {
+    public Basket getBasket(String clientId, int companyId) throws UnknownClientException {
         boolean existed = _erp.hasBasket(clientId, companyId);
         Basket basket = _erp.getBasket(clientId, companyId);
         if (!existed) {
@@ -309,7 +309,7 @@ public class ErpManager {
     * @throws InventoryChangeFailedException if something failed and changeInventory() returned false.
     */
     public void updateStock(int companyId, int productId, int units, double factor)
-        throws UnknownCompanyIdException, UnknownProductIdException, InventoryChangeFailedException {
+        throws UnknownProductIdException, InventoryChangeFailedException {
 
         _erp.updateStock(companyId, productId, units, factor);
         _changed = true;

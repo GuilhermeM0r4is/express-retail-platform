@@ -16,19 +16,32 @@ public class Basket implements Serializable {
 
     private final Company _company;
 
-    //constructor
+    /**
+     * Class constructor.
+     *
+     * @param client the client that owns this basket.
+     * @param company the company associated with this basket.
+     */
     public Basket(Client client, Company company) {
         _client = client;
         _company = company;
     }
 
-    //getter for checkout
+    /**
+     * Checks whether this basket is eligible for checkout.
+     *
+     * @return {@code true} if checkout is allowed, {@code false} otherwise.
+     */
     public boolean canCheckout() { 
         return false; 
     }
 
+    /**
+     * Returns a string representation of the basket information.
+     *
+     * @return the formatted string representation of the basket.
+     */
     @Override
-    //toString method to display the basket information
     public String toString() {
         return _client.getEmail() + " - " + _company.getId() + " - UNICA - SEM_TRANSPORTE - " + 0;
     }

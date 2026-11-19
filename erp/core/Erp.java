@@ -212,12 +212,12 @@ class Erp implements Serializable {
      * Shows a list of all clients in a company.
      *
      * @return A list of all clients inside a company in the system;
-     * @throws UnknownCompanyIdException if the company with given id doesn't exist in system.
+     * @throws UnknownCompanyException if the company with given id doesn't exist in system.
      */
-    public List<Client> showCompanyClients(int id) throws UnknownCompanyIdException {
+    public List<Client> showCompanyClients(int id) throws UnknownCompanyException {
         Company company = _companies.get(id);
         if (company == null) {
-            throw new UnknownCompanyIdException(id);
+            throw new UnknownCompanyException(id);
         }
         return company.getClients().stream()
             .sorted(Comparator.comparing(Client::getEmail))

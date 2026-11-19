@@ -32,30 +32,48 @@ public class Client implements Serializable {
 
     /**
      * Getter for the clients name.
-     * 
-     * returns 
+     *
+     * @return the client's name;
      */
     public String getName() {
         return _name;
     }
 
-    //getter for email
+    /**
+     * Getter for the client's email address.
+     *
+     * @return the client's email;
+     */
     public String getEmail() {
         return _email;
     }
 
-    //getter for total spent
+    /**
+     * Getter for the total amount spent by the client in purchases.
+     *
+     * @return the total amount spent;
+     */
     public double getTotalSpent() {
         return _totalSpent;
     }
 
-    //toString method to display client information
+    /**
+     * Returns a string representation of the client formatted as:
+     * email - name - totalSpent.
+     *
+     * @return the formatted string representation of the client;
+     */
     @Override
     public String toString() {
         return _email + " - " + _name + " - " + _totalSpent;
     }
 
-    //FIXME AI asked to had this to Client, weird
+    /**
+     * Checks whether the client already has a basket associated with the given company.
+     *
+     * @param company the company to check for an existing basket;
+     * @return {@code true} if a basket exists for the company, {@code false} otherwise;
+     */
     boolean hasBasketFor(Company company) { 
         return _baskets.containsKey(company.getId()); 
     }
