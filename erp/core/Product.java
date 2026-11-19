@@ -1,7 +1,8 @@
 package erp.core;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The system keeps a registation of all products, they exist apart from how
@@ -20,6 +21,7 @@ abstract class Product implements Serializable {
     private final ProductCategory _category;
     private final int _basePrice;
     private final int _baseDeliveryTime;
+    private final List<SuppliedProduct> _suppliedProducts = new ArrayList<>();
 
     // constructor class
     public Product(String name, ProductCategory category, int basePrice,
@@ -68,17 +70,13 @@ abstract class Product implements Serializable {
      * @param companies Collection of companies to check supplied products for.
      * @return Total number of units for this product.
      */
-    public int totalUnits(Collection<Company> companies) {
+    public int totalUnits() {
         int total = 0;
-        for (Company company : companies) {
-            for (SuppliedProduct sp : company.getSuppliedProducts()) {
-                if (sp.getProduct().getId() == getId()) {
-                    total += sp.getUnits();
-                }
-            }
+        for (SuppliedProduct sp : _suppliedProducts) {
+            total += sp.getUnits();
         }
         return total;
-    }
+    }   
 
     public abstract String type();
 
