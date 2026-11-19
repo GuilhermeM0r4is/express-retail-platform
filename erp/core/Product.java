@@ -76,7 +76,7 @@ abstract class Product implements Serializable {
             total += sp.getUnits();
         }
         return total;
-    }   
+    }
 
     public abstract String type();
 
@@ -88,5 +88,15 @@ abstract class Product implements Serializable {
        update the nextId counter to match them */
     public static void setNextId(int nextId) {
         _nextId = nextId;
+    }
+
+    /**
+     * Registers a supplied product entry for this product if not already present.
+     * @param sp SuppliedProduct instance associated with this product.
+     */
+    void addSuppliedProduct(SuppliedProduct sp) {
+        if (sp != null && !_suppliedProducts.contains(sp)) {
+            _suppliedProducts.add(sp);
+        }
     }
 }

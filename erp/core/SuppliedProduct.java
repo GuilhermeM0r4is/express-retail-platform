@@ -25,6 +25,10 @@ public class SuppliedProduct implements Serializable {
      * @param factor Price multiplier factor.
      */
     public SuppliedProduct(Product product, Company company, double factor) {
+
+        if (product != null) {
+            product.addSuppliedProduct(this);
+        }
         _product = product;
         _company = company;
         _factor = factor;

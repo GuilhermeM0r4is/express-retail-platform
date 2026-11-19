@@ -60,7 +60,8 @@ public class ImportedProduct extends Product {
      * Computes the recommended price including tax.
      * @return recommended price.
      */
-    public double getRecommendedPrice() {
+    @Override
+    public double recommendedPrice() {
         return getBasePrice() * (100.0 + _tax) / 100.0;
     }
 

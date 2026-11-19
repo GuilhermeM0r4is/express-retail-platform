@@ -36,7 +36,8 @@ public class NationalProduct extends Product {
      * Computes the recommended price based on total units.
      * @return recommended price.
      */
-    public double getRecommendedPrice() {
+    @Override
+    public double recommendedPrice() {
 
         int units = totalUnits();
 

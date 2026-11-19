@@ -214,7 +214,7 @@ class Erp implements Serializable {
      * @return A list of all clients inside a company in the system;
      * @throws UnknownCompanyException if the company with given id doesn't exist in system.
      */
-    public List<Client> showCompanyClients(int id) throws UnknownCompanyException {
+    public List<Client> getCompanyClients(int id) throws UnknownCompanyException {
         Company company = _companies.get(id);
         if (company == null) {
             throw new UnknownCompanyException(id);
@@ -230,7 +230,7 @@ class Erp implements Serializable {
      * @return A list of all products inside a company in the system;
      * @throws UnknownCompanyException if the company with given id doesn't exist in system.
      */
-    public List<Product> showCompanyProducts(int id) throws UnknownCompanyException {
+    public List<Product> getCompanyProducts(int id) throws UnknownCompanyException {
         Company company = _companies.get(id);
         if (company == null) {
             throw new UnknownCompanyException(id);
