@@ -36,22 +36,25 @@ public class ErpManager {
     * @throws IOException if there is some error while serializing the state of the network to disk.
     **/
     public void save() throws MissingFileAssociationException, IOException {
+        //nothing to save
+        if (!_changed) {
+            return;
+        }
 
         if (_filename == null || _filename.trim().isEmpty()) {
             throw new MissingFileAssociationException();
         }
 
         // assures the logic behind saving in the RAM memory
-        if (_changed) {
-            try (ObjectOutputStream out = new ObjectOutputStream(
+        try (ObjectOutputStream out = new ObjectOutputStream(
                                             new BufferedOutputStream(
                                             new FileOutputStream(_filename)))) {
 
-                out.writeObject(_erp);   // writes Object Erp into disk
-            }
-            _changed = false;
+            out.writeObject(_erp);   // writes Object Erp into disk
         }
+            _changed = false;
     }
+    
 
     /**
     * Saves the serialized application's state into the specified file. The current Erp
@@ -63,15 +66,20 @@ public class ErpManager {
     * @throws IOException if there is some error while serializing the state of the network to disk.
     **/
     public void saveAs(String filename) throws MissingFileAssociationException, IOException {
+        //to restore _filename if something goes wrong
+        String previousFile = _filename;
+        boolean previousChanged = _changed;
         _filename = filename;
         _changed = true;
 
         try {
             save();
-        }
-        // this catch won't happen but compiler needs it
-        catch (MissingFileAssociationException e) {
+        } catch (MissingFileAssociationException e) {   
+            _filename = previousFile; _changed = previousChanged;
             throw new IOException(e);
+        } catch (IOException e) {
+            _filename = previousFile; _changed = previousChanged;
+            throw e;
         }
     }
 
@@ -85,16 +93,16 @@ public class ErpManager {
     *         an error while processing this file.
     **/
     public void load(String filename) throws UnavailableFileException {
-
-        // to read an object from a file, we have to connect three pipes into eachother
-        ObjectInputStream in = new ObjectInputStream(
-                                new BufferedInputStream(
-                                new FileInputStream(filename)));
-
-        // reads the file and changes Erp from the current one
-        _erp = (Erp) in.readObject();
-        _filename = filename;
-        _changed = false;
+        try (ObjectInputStream in = new ObjectInputStream(
+                                    new BufferedInputStream(
+                                    new FileInputStream(filename)))) {
+            Erp erp = (Erp) in.readObject();   
+            _erp = erp;                       
+            _filename = filename;
+            _changed = false;
+        } catch (IOException | ClassNotFoundException e) {
+            throw new UnavailableFileException(filename); //exception added
+        }
     }
 
     /**

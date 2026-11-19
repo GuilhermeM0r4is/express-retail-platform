@@ -15,21 +15,21 @@ import pt.tecnico.uilib.menus.CommandException;
  */
 class DoRegisterClient extends Command<ErpManager> {
 
-  DoRegisterClient(ErpManager receiver) {
-    super(Label.REGISTER_CLIENT, receiver);
-    addStringField("name", Prompt.clientName());
-    addStringField("email", Prompt.clientEMail());
-  }
-
-  @Override
-  protected final void execute() throws CommandException {
-    String name = stringField("name");
-    String email = stringField("email");
-    try {
-      _receiver.registerClient(name, email);
-      _display.popup(Message.registrationSuccessful());
-    } catch (InvalidClientException e) {
-      throw new ClientRegistrationFailedException(name, email);
+    DoRegisterClient(ErpManager receiver) {
+        super(Label.REGISTER_CLIENT, receiver);
+        addStringField("name", Prompt.clientName());
+        addStringField("email", Prompt.clientEMail());
     }
-  }
+
+    @Override
+    protected final void execute() throws CommandException {
+        String name = stringField("name");
+        String email = stringField("email");
+        try {
+        _receiver.registerClient(name, email);
+        _display.popup(Message.registrationSuccessful());
+        } catch (InvalidClientException e) {
+        throw new ClientRegistrationFailedException(name, email);
+        }
+    }
 }

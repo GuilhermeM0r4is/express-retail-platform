@@ -12,14 +12,14 @@ import pt.tecnico.uilib.menus.CommandException;
  */
 class DoShowClients extends Command<ErpManager> {
 
-  DoShowClients(ErpManager receiver) {
-    super(Label.SHOW_CLIENTS, receiver);
-  }
+    DoShowClients(ErpManager receiver) {
+        super(Label.SHOW_CLIENTS, receiver);
+    }
 
-  @Override
-  protected final void execute() throws CommandException {
+    @Override
+    protected final void execute() throws CommandException {
     for (String client : _receiver.showClients())
-      _display.addLine(client);
+        _display.addLine(client);
     _display.display();
-  }
+    }
 }

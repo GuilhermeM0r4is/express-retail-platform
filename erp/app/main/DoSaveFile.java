@@ -1,8 +1,11 @@
 package erp.app.main;
 
+import java.io.IOException;
+
 import erp.core.ErpManager;
+import erp.core.exception.MissingFileAssociationException;
+import pt.tecnico.uilib.forms.Form;
 import pt.tecnico.uilib.menus.Command;
-//FIXME maybe import classes
 
 /**
  * Saves the current state of the application to a file using the serialization
@@ -11,13 +14,25 @@ import pt.tecnico.uilib.menus.Command;
  */
 class DoSaveFile extends Command<ErpManager> {
 
-  DoSaveFile(ErpManager receiver) {
-    super(Label.SAVE_FILE, receiver);
-    //FIXME maybe define fields
-  }
+    DoSaveFile(ErpManager receiver) {
+        super(Label.SAVE_FILE, receiver);
+    }
 
-  @Override
-  protected final void execute() {
-    //FIXME implement command
-  }
+    @Override
+    protected final void execute() {
+        saveWithPrompt(_receiver);
+    }
+
+    /** Saves to the associated file; if there is none, asks for a name first. */
+    static void saveWithPrompt(ErpManager manager) {
+        try {
+            try {
+                manager.save();
+            } catch (MissingFileFileAssociationException e) {
+                manager.saveAs(Form.requestString(Prompt.newSaveAs()));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
