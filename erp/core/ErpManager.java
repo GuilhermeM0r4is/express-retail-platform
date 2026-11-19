@@ -143,7 +143,7 @@ public class ErpManager {
      *
      * @return The Product object associated with the given name.
      */
-    public Product showProduct(String name) throws UnknownProductException {
+    public String showProduct(String name) throws UnknownProductException {
         return _erp.getProduct(name).toString();
     }
 
@@ -220,7 +220,7 @@ public class ErpManager {
      *
      * @return The Company object associated with the given name.
      */
-    public Company showCompany(String name) throws UnknownCompanyException {
+    public String showCompany(String name) throws UnknownCompanyException {
         return _erp.getCompany(name).toString();
     }
 
@@ -309,7 +309,7 @@ public class ErpManager {
     * @throws InventoryChangeFailedException if something failed and changeInventory() returned false.
     */
     public void updateStock(int companyId, int productId, int units, double factor)
-        throws UnknownProductIdException, InventoryChangeFailedException {
+        throws UnknownCompanyException, UnknownProductException, InventoryChangeFailedException {
 
         _erp.updateStock(companyId, productId, units, factor);
         _changed = true;
