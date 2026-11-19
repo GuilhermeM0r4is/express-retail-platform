@@ -79,7 +79,7 @@ public class Client implements Serializable {
      * @return {@code true} if a basket exists for the company, {@code false} otherwise;
      */
     boolean hasBasketFor(Company company) { 
-        return _basket.containsKey(company.getId()); 
+        return _baskets.containsKey(company.getId()); 
     } 
 
     //...

@@ -3,6 +3,7 @@ package erp.app.product;
 import erp.core.ErpManager;
 import erp.core.ProductCategory;
 
+import pt.tecnico.uilib.menus.DisplayCommandException;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
 import pt.tecnico.uilib.forms.Form;
@@ -38,7 +39,7 @@ class DoRegisterProduct extends Command<ErpManager> {
             _display.popup(Message.registrationSuccessful());
         }
         catch (ProductRegistrationFailedException e) {
-            throw new CommandException(e.getMessage());
+            throw new DisplayCommandException(e.getMessage());
         }
     }
 }
