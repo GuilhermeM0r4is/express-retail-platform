@@ -3,7 +3,7 @@ package erp.app.product;
 import erp.core.ErpManager;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
-//FIXME maybe import classes
+import pt.tecnico.uilib.forms.Form;
 
 /**
  * Registers a product in the system's global registry. The extra fields of the
@@ -12,13 +12,41 @@ import pt.tecnico.uilib.menus.CommandException;
  */
 class DoRegisterProduct extends Command<ErpManager> {
 
-  DoRegisterProduct(ErpManager receiver) {
-    super(Label.REGISTER_PRODUCT, receiver);
-    //FIXME maybe define fields
-  }
+    DoRegisterProduct(ErpManager receiver) {
+        super(Label.REGISTER_PRODUCT, receiver);
+    }
 
-  @Override
-  protected final void execute() throws CommandException {
-    //FIXME implement command
-  }
+    @Override
+    protected final void execute() throws CommandException {
+
+        String productType = Form.requestString(Prompt.productType());
+        String productName = Form.requestString(Prompt.productName());
+
+        int BasePrice = Integer.requestInt(Prompt.basePrice());
+        ProductCategory productCategory = ProductCategory.valueOf(
+                                                    Form.requestString(
+                                                    Prompt.productCategory()));
+
+        int BaseDeliveryTime = Integer.requestInt(Prompt.baseDelay());
+        String originCountry = null;
+        double customTax = 0.00;
+
+        if (productType.equals("IMPORTADO")) {
+            originCountry = Form.requestString(Prompt.originCountry());
+            customTax = Double.requestDouble(Prompt.customsTax());
+        }
+        try {
+            if ("IMPORTADO".equals(productType)) {
+                _receiver.registerImportedProduct(productName, basePrice, productCategory,
+                                                  baseDeliveryTime, originCountry, customsTax);
+            } else {
+                _receiver.registerNationalProduct(productName, basePrice, productCategory,
+                                                  baseDeliveryTime);
+            }
+            _display.popup(Message.registrationSuccessful());
+        }
+        catch (ProductRegistrationFailedException e) {
+            throw new CommandException(e.getMessage());
+        }
+    }
 }

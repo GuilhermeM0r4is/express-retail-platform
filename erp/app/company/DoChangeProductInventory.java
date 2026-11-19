@@ -1,13 +1,14 @@
 package erp.app.company;
 
 import erp.core.ErpManager;
+import erp.app.product.Prompt;
+
 import erp.core.exception.UnknownCompanyException;
 import erp.core.exception.UnknownProductException;
 
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
-
-import erp.app.product.Prompt;
+import pt.tecnico.uilib.forms.Form;
 
 /**
  * Changes what a company holds of a product — the amount is added to its
@@ -33,10 +34,13 @@ class DoChangeProductInventory extends Command<ErpManager> {
 
         try {
             _receiver.updateStock(companyId, productId, units, factor);
-        } catch (UnknownCompanyException e) {
+            _display.popup(Message.supplySuccessful());
+        }
+        catch (UnknownCompanyException | UnknownProductException e) {
                 throw new CommandException(e.getMessage());
-        } catch (UnknownProductException e) {
-            throw new CommandException(e.getMessage());
+        }
+        catch (InventoryChangeFailedException e) {
+            throw new CommandException(Message.cannotChangeInventory());
         }
     }
 }

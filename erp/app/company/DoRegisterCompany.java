@@ -1,8 +1,10 @@
 package erp.app.company;
 
 import erp.core.ErpManager;
+
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
+import pt.tecnico.uilib.forms.Form;
 
 import erp.core.exception.DuplicateCompanyException;
 
@@ -17,11 +19,13 @@ class DoRegisterCompany extends Command<ErpManager> {
 
     @Override
     protected final void execute() throws CommandException {
-        int companyName = Form.requestString(Prompt.companyName());
+        String companyName = Form.requestString(Prompt.companyName());
 
         try {
             _receiver.registerCompany(companyName);
-        } catch (DuplicateCompanyException e) {
+            _display.popup(Message.registrationSuccessful(companyName));
+        }
+        catch (CompanyRegistrationFailedException e) {
               throw new CommandException(e.getMessage());
         }
     }
