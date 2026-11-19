@@ -3,6 +3,7 @@ package erp.app.company;
 import erp.core.ErpManager;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
+import pt.tecnico.uilib.menus.DisplayCommandException;
 import pt.tecnico.uilib.forms.Form;
 
 /**
@@ -24,7 +25,7 @@ class DoShowCompanyProducts extends Command<ErpManager> {
             }
             _display.display();
         } catch (UnknownCompanyException e) {
-            throw new CommandException(e.getMessage());
+            throw new DisplayCommandException(e.getMessage());
         }
     }
 }

@@ -4,6 +4,7 @@ import erp.core.ErpManager;
 
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
+import pt.tecnico.uilib.menus.DisplayCommandException;
 import pt.tecnico.uilib.forms.Form;
 
 import erp.core.exception.DuplicateCompanyException;
@@ -26,7 +27,7 @@ class DoRegisterCompany extends Command<ErpManager> {
             _display.popup(Message.registrationSuccessful(companyName));
         }
         catch (CompanyRegistrationFailedException e) {
-              throw new CommandException(e.getMessage());
+              throw new DisplayCommandException(e.getMessage());
         }
     }
 }

@@ -8,6 +8,7 @@ import erp.core.exception.UnknownProductException;
 
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
+import pt.tecnico.uilib.menus.DisplayCommandException;
 import pt.tecnico.uilib.forms.Form;
 
 /**
@@ -37,10 +38,10 @@ class DoChangeProductInventory extends Command<ErpManager> {
             _display.popup(Message.supplySuccessful());
         }
         catch (UnknownCompanyException | UnknownProductException e) {
-                throw new CommandException(e.getMessage());
+                throw new DisplayCommandException(e.getMessage());
         }
         catch (InventoryChangeFailedException e) {
-            throw new CommandException(Message.cannotChangeInventory());
+            throw new DisplayCommandException(Message.cannotChangeInventory());
         }
     }
 }

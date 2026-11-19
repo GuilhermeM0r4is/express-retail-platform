@@ -4,6 +4,7 @@ import erp.core.ErpManager;
 
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
+import pt.tecnico.uilib.menus.DisplayCommandException;
 import pt.tecnico.uilib.forms.Form;
 
 /**
@@ -22,7 +23,7 @@ class DoShowCompany extends Command<ErpManager> {
         try {
             _display.popup(_receiver.showCompany(companyName));
         } catch (UnknownCompanyException e) {
-            throw new CommandException(e.getMessage());
+            throw new DisplayCommandException(e.getMessage());
         }
     }
 }
