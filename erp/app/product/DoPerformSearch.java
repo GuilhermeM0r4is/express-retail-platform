@@ -1,5 +1,7 @@
 package erp.app.product;
 
+import java.util.List;
+
 import erp.core.ErpManager;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.forms.Form;

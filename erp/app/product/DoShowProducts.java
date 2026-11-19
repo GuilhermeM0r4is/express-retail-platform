@@ -3,7 +3,6 @@ package erp.app.product;
 import erp.core.ErpManager;
 
 import pt.tecnico.uilib.menus.Command;
-import pt.tecnico.uilib.forms.Form;
 
 /**
  * Show all products (ordered by id).

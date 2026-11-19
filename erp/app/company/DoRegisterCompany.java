@@ -1,17 +1,12 @@
 package erp.app.company;
 
 import erp.core.ErpManager;
+import erp.app.exception.CompanyRegistrationFailedException;
 
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
-import pt.tecnico.uilib.menus.DisplayCommandException;
 import pt.tecnico.uilib.forms.Form;
 
-import erp.core.exception.DuplicateCompanyException;
-
-/**
- * Register a new company.
- */
 class DoRegisterCompany extends Command<ErpManager> {
 
     DoRegisterCompany(ErpManager receiver) {
@@ -25,9 +20,8 @@ class DoRegisterCompany extends Command<ErpManager> {
         try {
             _receiver.registerCompany(companyName);
             _display.popup(Message.registrationSuccessful(companyName));
-        }
-        catch (CompanyRegistrationFailedException e) {
-              throw new DisplayCommandException(e.getMessage());
+        } catch (CompanyRegistrationFailedException e) {
+            throw new CompanyRegistrationFailedException(companyName);
         }
     }
 }

@@ -1,9 +1,10 @@
 package erp.app.company;
 
 import erp.core.ErpManager;
+import erp.app.exception.UnknownCompanyKeyException;
+
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
-import pt.tecnico.uilib.menus.DisplayCommandException;
 import pt.tecnico.uilib.forms.Form;
 
 /**
@@ -24,8 +25,8 @@ class DoShowCompanyClients extends Command<ErpManager> {
                 _display.addLine(clientStr);
             }
             _display.display();
-        } catch (UnknownCompanyException e) {
-            throw new DisplayCommandException(e.getMessage());
+        } catch (UnknownCompanyKeyException e) {
+            throw new UnknownCompanyKeyException(companyId);
         }
     }
 }
