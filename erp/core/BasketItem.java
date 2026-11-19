@@ -17,7 +17,7 @@ public class BasketItem implements Serializable {
     private static final long serialVersionUID = 202608261200L;
 
     private final SuppliedProduct _supplied;
-    private final int _quantity;
+    private int _quantity;
 
     /**
      * Class constructor.
@@ -35,7 +35,7 @@ public class BasketItem implements Serializable {
      *
      * @return the supplied product array.
      */
-    SuppliedProduct[] getSupplied() {
+    SuppliedProduct getSupplied() {
         return _supplied;
     }
 

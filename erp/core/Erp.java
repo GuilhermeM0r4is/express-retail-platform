@@ -68,7 +68,7 @@ class Erp implements Serializable {
             }
         }
         ImportedProduct impP = new ImportedProduct(name, category, basePrice, baseDeliveryTime,
-                                                   country, tax);
+                                                   tax, country);
         _products.put(impP.getId(), impP);
     }
 
@@ -236,6 +236,7 @@ class Erp implements Serializable {
             throw new UnknownCompanyException(id);
         }
         return company.getSuppliedProducts().stream()
+            .map(SuppliedProduct::getProduct)
             .sorted(Comparator.comparing(Product::getId))
             .toList();
     }

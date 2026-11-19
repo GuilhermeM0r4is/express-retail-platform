@@ -21,7 +21,7 @@ public class Client implements Serializable {
 
     private final double _totalSpent = 0.0;
 
-    private final Map<Integer, Basket> _basket = new HashMap<>();
+    private final Map<Integer, Basket> _baskets = new HashMap<>();
 
     /**
      * Class constructor.
