@@ -2,7 +2,6 @@ package erp.app.product;
 
 import erp.core.ErpManager;
 import pt.tecnico.uilib.menus.Command;
-import pt.tecnico.uilib.menus.CommandException;
 import pt.tecnico.uilib.forms.Form;
 
 /**
@@ -15,7 +14,7 @@ class DoPerformSearch extends Command<ErpManager> {
     }
 
     @Override
-    protected final void execute() throws CommandException {
+    protected final void execute() {
 
         String criterion = Form.requestString(Prompt.searchCriterion());
         String term = Form.requestString(Prompt.searchTerm());

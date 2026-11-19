@@ -10,20 +10,32 @@ package erp.core;
  */
 public class NationalProduct extends Product {
 
-    // constructor of the class
+    /**
+     * Constructor of a national product.
+     * @param name Product name.
+     * @param category Product category.
+     * @param basePrice Product base price.
+     * @param baseDeliveryTime Product base delivery time.
+     */
     public NationalProduct(String name, ProductCategory category, int basePrice,
                             int baseDeliveryTime) {
 
         super(name, category, basePrice, baseDeliveryTime);
     }
 
-    // all class methods
+    /**
+     * Returns string representation of a national product.
+     * @return formatted product string.
+     */
     @Override
     public String toString() {
         return super.toString();
     }
 
-    @Override
+    /**
+     * Computes the recommended price based on total units.
+     * @return recommended price.
+     */
     public double getRecommendedPrice() {
 
         int units = totalUnits();
@@ -39,8 +51,12 @@ public class NationalProduct extends Product {
         }
     }
 
+    /**
+     * Returns the product type label.
+     * @return product type string.
+     */
     @Override
-    String type() {
+    public String type() {
         return "NACIONAL";
     }
 }

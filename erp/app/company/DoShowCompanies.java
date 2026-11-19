@@ -3,7 +3,6 @@ package erp.app.company;
 import erp.core.ErpManager;
 
 import pt.tecnico.uilib.menus.Command;
-import pt.tecnico.uilib.menus.CommandException;
 import pt.tecnico.uilib.forms.Form;
 
 /**
@@ -16,7 +15,7 @@ class DoShowCompanies extends Command<ErpManager> {
     }
 
     @Override
-    protected final void execute() throws CommandException {
+    protected final void execute() {
         for (String company : _receiver.showCompanies()) {
             _display.addLine(company);
         }

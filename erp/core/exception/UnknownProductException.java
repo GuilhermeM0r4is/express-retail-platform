@@ -10,13 +10,13 @@ public class UnknownProductException extends Exception {
     @java.io.Serial
     private static final long serialVersionUID = 202607021200L;
 
-    private static final String ERROR_MESSAGE = "Erro ao encontrar o produto com ID: ";
+    private static final String ERROR_MESSAGE = "Erro ao encontrar o produto: ";
 
-    public UnknownProductException(int id) {
-        super(ERROR_MESSAGE + id);
+    public UnknownProductException(String name) {
+        super(ERROR_MESSAGE + name);
     }
 
-    public UnknownProductException(int id, Exception cause) {
-        super(ERROR_MESSAGE + id, cause);
+    public UnknownProductException(String name, Exception cause) {
+        super(ERROR_MESSAGE + name, cause);
     }
 }

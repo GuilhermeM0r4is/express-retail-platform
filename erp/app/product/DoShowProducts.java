@@ -3,7 +3,6 @@ package erp.app.product;
 import erp.core.ErpManager;
 
 import pt.tecnico.uilib.menus.Command;
-import pt.tecnico.uilib.menus.CommandException;
 import pt.tecnico.uilib.forms.Form;
 
 /**
@@ -16,7 +15,7 @@ class DoShowProducts extends Command<ErpManager> {
     }
 
     @Override
-    protected final void execute() throws CommandException {
+    protected final void execute() {
         for (String product : _receiver.showProducts()) {
             _display.addLine(product);
         }

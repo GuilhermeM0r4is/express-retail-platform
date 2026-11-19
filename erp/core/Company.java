@@ -85,18 +85,19 @@ public class Company implements Serializable {
 
         // first case, product is the one given and exists
         for (SuppliedProduct sp: _suppliedProducts) {
-            if (sp.getId() == product.getId()) {
+            Product p = sp.getProduct();
+            if (p.getId() == product.getId()) {
                 return sp.update(quantity, factor);
             }
         }
 
         // product doesn't exist yet, check if all positive
-        if (quantity < 0 || factor < 0) {
+        if (quantity < 0 || factor <= 0) {
             return false;
         }
 
         // creates a new product, updates and adds to the list
-        SuppliedProduct newSp = new SuppliedProduct(this, quantity, factor);
+        SuppliedProduct newSp = new SuppliedProduct(product, this, factor);
         newSp.update(quantity, factor);
         _suppliedProducts.add(newSp);
         return true;

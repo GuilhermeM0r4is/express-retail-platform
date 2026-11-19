@@ -10,13 +10,13 @@ public class UnknownCompanyException extends Exception {
     @java.io.Serial
     private static final long serialVersionUID = 202607021200L;
 
-    private static final String ERROR_MESSAGE = "Erro ao encontrar a empresa com ID: ";
+    private static final String ERROR_MESSAGE = "Erro ao encontrar a empresa: ";
 
-    public UnknownCompanyException(int id) {
-        super(ERROR_MESSAGE + id);
+    public UnknownCompanyException(String name) {
+        super(ERROR_MESSAGE + name);
     }
 
-    public UnknownCompanyException(int id, Exception cause) {
-        super(ERROR_MESSAGE + id, cause);
+    public UnknownCompanyException(String name, Exception cause) {
+        super(ERROR_MESSAGE + name, cause);
     }
 }

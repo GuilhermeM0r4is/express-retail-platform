@@ -299,7 +299,7 @@ class Erp implements Serializable {
             throws UnknownClientException, UnknownCompanyException {
         Client client = _clients.get(clientId);
         Company company = _companies.get(companyId); //getCompany receives a String
-        return client.(company);
+        return client.hasBasketFor(company);
     }
 
     /**

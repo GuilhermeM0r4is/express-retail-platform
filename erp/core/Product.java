@@ -1,7 +1,7 @@
 package erp.core;
 
 import java.io.Serializable;
-//FIXME maybe import classes
+import java.util.Collection;
 
 /**
  * The system keeps a registation of all products, they exist apart from how
@@ -62,9 +62,22 @@ abstract class Product implements Serializable {
                 + getBaseDeliveryTime() + " - " + totalUnits();
     }
 
-    public int totalUnits() {
-        // run a for(ArrayList) to search for a product inside
-        // all the specific companies that include them
+    /**
+     * Computes the total available units of this product across all given companies.
+     *
+     * @param companies Collection of companies to check supplied products for.
+     * @return Total number of units for this product.
+     */
+    public int totalUnits(Collection<Company> companies) {
+        int total = 0;
+        for (Company company : companies) {
+            for (SuppliedProduct sp : company.getSuppliedProducts()) {
+                if (sp.getProduct().getId() == getId()) {
+                    total += sp.getUnits();
+                }
+            }
+        }
+        return total;
     }
 
     public abstract String type();
