@@ -15,11 +15,11 @@ abstract class Product implements Serializable {
     private static int _nextId = 1;   // assures incrementation of id
 
     // class attributes
-    private String _name;
-    private int _id;
-    private ProductCategory _category;
-    private int _basePrice;
-    private int _baseDeliveryTime;
+    private final String _name;
+    private final int _id;
+    private final ProductCategory _category;
+    private final int _basePrice;
+    private final int _baseDeliveryTime;
 
     // constructor class
     public Product(String name, ProductCategory category, int basePrice,
@@ -69,7 +69,7 @@ abstract class Product implements Serializable {
 
     public abstract String type();
 
-    double recommendedPrice();
+    abstract double recommendedPrice();
 
     // auxiliar functions
 

@@ -25,8 +25,14 @@ public class Purchase implements Serializable {
     private final List<PurchaseLine> _lines;
     // FIXME last instalment: private final List<Order> _orders;
 
-    //constructor
-    Purchase(int id, int date, Client client, Company company, List<PurchaseLine> lines) {
+    /** Class constructor.
+     * 
+     * @param id int containing the purchase id;
+     * @param date int containg the date of the purchase;
+     * @param company the purchase's company;
+     * @param lines details of the purchase;
+     */
+    public Purchase(int id, int date, Client client, Company company, List<PurchaseLine> lines) {
         _id = id;
         _date = date;
         _client = client;
@@ -34,27 +40,47 @@ public class Purchase implements Serializable {
         _lines = new ArrayList<>(lines);
     }
 
-    //getter for id
+    /**
+     * Getter for the purchase id.
+     * 
+     * @return int _id private method for usage;
+     */
     public int getId() { 
         return _id; 
     }
 
-    //getter for date
+    /**
+     * Getter for the purchase date.
+     * 
+     * @return int _date private method for usage;
+     */
     public int getDate() { 
         return _date; 
     }
 
-    //getter for client
+    /**
+     * Getter for the client that made the purchase.
+     * 
+     * @return the client;
+     */
     public Client getClient() { 
         return _client; 
     }
 
-    //getter for company
+    /**
+     * Getter for the purchase's company.
+     * 
+     * @return the company;
+     */
     public Company getCompany() { 
         return _company; 
     }
 
-    //total cost of lines 
+    /**
+     * Getter for the total cost of the items.
+     * 
+     * @return the cost.
+     */
     public double getItemsCost() {
         double total = 0;
         for (PurchaseLine line : _lines)
@@ -62,17 +88,30 @@ public class Purchase implements Serializable {
         return total;
     }
 
-    //total cost of orders FIXME for last instalment: somar o custo de cada Order
+    /**
+     * Getter for the total cost of the orders associated with this purchase.
+     *
+     * @return the total orders cost.
+     */
     public double getOrdersCost() { 
         return 0.0; 
     }
 
-    //getter for totalcost
+    /**
+     * Getter for the total cost of the purchase (items plus orders).
+     *
+     * @return the total cost of the purchase.
+     */
     public double getTotalCost() { 
         return getItemsCost() + getOrdersCost(); 
     }
 
-    // Formate: id - email - idEmpresa - data - total itens - custo encomendas - custo total 
+    /**
+     * Returns a string representation of the purchase formatted as:
+     * id - email - idEmpresa - data - total itens - custo encomendas - custo total.
+     *
+     * @return the formatted string representation of the purchase.
+     */
     @Override
     public String toString() {
         return _id + " - " + _client.getEmail() + " - " + _company.getId() + " - " + _date

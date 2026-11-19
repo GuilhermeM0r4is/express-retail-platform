@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import erp.core.ErpManager;
 import erp.core.exception.MissingFileAssociationException;
-import pt.tecnico.uilib.forms.Form;
+import pt.tecnico.uilib.forms.Form; //FIXME
 import pt.tecnico.uilib.menus.Command;
 
 /**

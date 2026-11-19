@@ -16,34 +16,61 @@ class PurchaseLine implements Serializable {
 
     private final double _unitPrice;
 
-    //constructor
-    PurchaseLine(Product product, int quantity, double unitPrice) {
+    /**
+     * Class constructor.
+     *
+     * @param product the purchased product.
+     * @param quantity the number of units purchased.
+     * @param unitPrice the unit price fixed at the time of purchase.
+     */
+    public PurchaseLine(Product product, int quantity, double unitPrice) {
         _product = product;
         _quantity = quantity;
         _unitPrice = unitPrice;
     }
 
-    //getter for product
-    Product getProduct() { 
+    /**
+     * Getter for the purchased product.
+     *
+     * @return the product.
+     */
+    public Product getProduct() { 
         return _product; 
     }
 
-    //getter for quantity
-    int getQuantity() { 
+    /**
+     * Getter for the quantity of the product in this line.
+     *
+     * @return the quantity.
+     */
+    public int getQuantity() { 
         return _quantity; 
     }
 
-    //getter for unitPrice
-    double getUnitPrice() { 
+    /**
+     * Getter for the unit price fixed in this purchase line.
+     *
+     * @return the unit price.
+     */
+    public double getUnitPrice() { 
         return _unitPrice; 
     }
 
-    //getter for cost
+    /**
+     * Computes the total cost of this purchase line (unit price multiplied by quantity).
+     *
+     * @return the total cost of the line.
+     */
     double getCost() { 
         return _unitPrice * _quantity; 
     }
 
-    //same formate as BasketItem.toString()
+    /**
+     * Returns a string representation of the purchase line using the same format
+     * as {@code BasketItem.toString()}.
+     *
+     * @return the formatted string representation of the line.
+     */
     @Override
     public String toString() {
         return _product.getId() + " - " + _product.getName() + " - " + _quantity + " - "

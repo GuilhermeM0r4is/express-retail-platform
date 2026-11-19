@@ -16,10 +16,10 @@ public class Company implements Serializable {
     private static int _nextId = 1;   // assures incrementation of id
 
     // class attributes
-    private String _name;
-    private int _id;
-    private List<SuppliedProduct> _suppliedProducts = new ArrayList<>();
-    private List<Client> _clients = new ArrayList<>();
+    private final String _name;
+    private final int _id;
+    private final List<SuppliedProduct> _suppliedProducts = new ArrayList<>();
+    private final List<Client> _clients = new ArrayList<>();
 
     /**
      * Constructor class of a product.

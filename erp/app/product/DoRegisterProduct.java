@@ -14,7 +14,7 @@ import pt.tecnico.uilib.forms.Form;
  */
 class DoRegisterProduct extends Command<ErpManager> {
 
-    DoRegisterProduct(ErpManager receiver) {
+    public DoRegisterProduct(ErpManager receiver) {
         super(Label.REGISTER_PRODUCT, receiver);
     }
 

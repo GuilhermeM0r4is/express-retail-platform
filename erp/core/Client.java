@@ -1,7 +1,6 @@
 package erp.core;
 
 import java.io.Serializable;
-// FIXME maybe import classes
 
 /**
  * The system keeps a registation of all clients, they display thier identifier(email), their
@@ -13,20 +12,29 @@ public class Client implements Serializable {
     @java.io.Serial
     private static final long serialVersionUID = 202608261200L;
 
-    //attributes
-    private String _name;
+    //attributes 
+    private final String _name;
 
-    private String _email;
+    private final String _email;
 
-    private double _totalSpent = 0.0;
+    private final double _totalSpent = 0.0;
 
-    //constructor
+    /**
+     * Class constructor.
+     * 
+     * @param name String containing the name of the client;
+     * @param email String containing the id of the client;
+     */
     public Client(String name, String email) {
         _name = name;
         _email = email;
     }
 
-    //getter for name
+    /**
+     * Getter for the clients name.
+     * 
+     * returns 
+     */
     public String getName() {
         return _name;
     }

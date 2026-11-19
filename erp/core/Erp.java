@@ -212,12 +212,12 @@ class Erp implements Serializable {
      * Shows a list of all clients in a company.
      *
      * @return A list of all clients inside a company in the system;
-     * @throws UnknownCompanyException if the company with given id doesn't exist in system.
+     * @throws UnknownCompanyIdException if the company with given id doesn't exist in system.
      */
-    public List<Client> showCompanyClients(int id) throws UnknownCompanyException {
+    public List<Client> showCompanyClients(int id) throws UnknownCompanyIdException {
         Company company = _companies.get(id);
         if (company == null) {
-            throw new UnknownCompanyException(id);
+            throw new UnknownCompanyIdException(id);
         }
         return company.getClients().stream()
             .sorted(Comparator.comparing(Client::getEmail))
@@ -297,9 +297,9 @@ class Erp implements Serializable {
      */
     Basket getBasket(String clientId, int companyId)
             throws UnknownClientException, UnknownCompanyException {
-        Client client = _erp.getClient(clientId);
-        Company company = _erp.get(companyId); //getCompany receives a String
-        return client.basketFor(company);
+        Client client = _clients.get(clientId);
+        Company company = _companies.get(companyId); //getCompany receives a String
+        return client.(company);
     }
 
     /**
@@ -339,7 +339,7 @@ class Erp implements Serializable {
             throw new UnknownCompanyException(companyId);
         }
         if (product == null) {
-            throw new UnknownProductException(String.valueOf(productId));
+            throw new UnknownProductException(productId);
         }
         if (!company.changeInventory(product, units, factor)) {
             throw new InventoryChangeFailedException();

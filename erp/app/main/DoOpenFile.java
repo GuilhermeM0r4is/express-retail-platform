@@ -3,7 +3,7 @@ package erp.app.main;
 import erp.app.exception.FileOpenFailedException;
 import erp.core.ErpManager;
 import erp.core.exception.UnavailableFileException;
-import pt.tecnico.uilib.forms.Form;
+import pt.tecnico.uilib.forms.Form; 
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
 
@@ -29,7 +29,7 @@ class DoOpenFile extends Command<ErpManager> {
         try {
             _receiver.load(filename);
         } catch (UnavailableFileException e) {
-            throw new FileOpenFailedException(filename);
+            throw new FileOpenFailedException(e);
         }
     }
 }
