@@ -16,7 +16,15 @@ public class UnknownCompanyException extends Exception {
         super(ERROR_MESSAGE + name);
     }
 
+    public UnknownCompanyException(int id) {
+        super(ERROR_MESSAGE + id);
+    }
+
     public UnknownCompanyException(String name, Exception cause) {
         super(ERROR_MESSAGE + name, cause);
+    }
+
+    public UnknownCompanyException(int id, Exception cause) {
+        super(ERROR_MESSAGE + id, cause);
     }
 }

@@ -12,6 +12,14 @@ public class UnknownProductException extends Exception {
 
     private static final String ERROR_MESSAGE = "Erro ao encontrar o produto: ";
 
+    public UnknownProductException(int id) {
+        super(ERROR_MESSAGE + id);
+    }
+
+    public UnknownProductException(int id, Exception cause) {
+        super(ERROR_MESSAGE + id, cause);
+    }
+
     public UnknownProductException(String name) {
         super(ERROR_MESSAGE + name);
     }
