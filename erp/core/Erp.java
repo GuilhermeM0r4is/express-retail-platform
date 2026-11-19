@@ -95,6 +95,78 @@ class Erp implements Serializable {
     }
 
     /**
+    * Performs a search for all products inside system based on criterion type and a given term,
+    * compares using all lowercase words as asked in headings. Filters products based on criterion
+    * matching and sorts them, using toString() to showcase.
+    *
+    * @param criterion Type of three possible criterions to search for;
+    * @param term A given String that we assure it's equal to the Product criterion.
+    *
+    * @returns A List containing all products using the toString() showcase.
+    */
+    public List<String> searchProducts(String criterion, String term) {
+        String normalizedTerm = term.toLowerCase();
+
+        return _products.values().stream()
+            .filter(p -> matchesCriterion(p, criterion, normalizedTerm))
+            .sorted(Comparator.comparing(Product::getId))
+            .map(Product::toString)
+            .toList();
+    }
+
+    /**
+     * Returns a Product object from the system, given its name.
+     *
+     * @param name The name of the Product to show.
+     * @return The Product object associated with the given name.
+     *
+     * @throws UnknownProductException If no Product is found with given name;
+     */
+    public Product getProduct(String name) throws UnknownProductException {
+        for (Product p: _products.values()) {
+            if (p.getName().equals(name)) {
+                return p;
+            }
+        }
+        throw new UnknownProductException(name)
+    }
+
+    /**
+     * Returns a list of all Products in system, orderer by id.
+     * @return A list of all Products in system.
+     */
+    public List<Product> getProducts() {
+        return _products.values().stream()
+            .sorted(Comparator.comparing(Product::getId))
+            .toList();
+    }
+
+    /**
+    * Matches a given criterion for a Product in question, uses a switch case for the three different
+    * possible criterions, and assures comparison. If ORIGEM given, searches ImportedProduct instead.
+    *
+    * @param p A product to check for given criterion and term of search;
+    * @param criterion One of three possible options to check in switch;
+    * @param normalizedTerm A lowercase term to compare with .equals() for the Product one.
+    *
+    * @return true, if the normalizedTerm matches with given Product, false otherwise.
+    */
+    private boolean matchesCriterion(Product p, String criterion, String normalizedTerm) {
+
+        return switch (criterion.toUpperCase()) {
+            case "NOME" -> p.getName() != null && p.getName().toLowerCase().equals(normalizedTerm);
+
+            case "CATEGORIA" -> p.getCategory() != null &&
+                                 p.getCategory().toString().toLowerCase().equals(normalizedTerm);
+
+            case "ORIGEM" -> (p instanceof ImportedProduct imp) && imp.getOriginCountry() != null &&
+                             imp.getOriginCountry().toLowerCase().equals(normalizedTerm);
+
+            default -> false;
+        };
+    }
+
+    /**
      * Registers a new Company by its name, updating the hashmap.
      * @param name A name to give to the new company.
      */
@@ -231,7 +303,7 @@ class Erp implements Serializable {
     }
 
     /**
-     * Returns
+     * Returns a condition check to see if A client has a basket for a given company.
      *
      * @param clientId the id (email) of the client;
      * @param companyId the id of the company;
@@ -241,7 +313,7 @@ class Erp implements Serializable {
      */
     boolean hasBasket(String clientId, int companyId)
         throws UnknownClientException, UnknownCompanyException {
-    return getClient(clientId).hasBasketFor(get(companyId));
+        return getClient(clientId).hasBasketFor(get(companyId));
     }
 
     /**
@@ -277,13 +349,13 @@ class Erp implements Serializable {
     /**
      * Returns the current date.
      */
-    int currentDate() { 
-        return _date.getCurrentDate(); 
+    int currentDate() {
+        return _date.getCurrentDate();
     }
 
-    /** Advances N days, one day at a time, does nothing if days are negative since it can only advance. 
-     * Returns true if it advanced. 
-     * 
+    /** Advances N days, one day at a time, does nothing if days are negative since it can only advance.
+     * Returns true if it advanced.
+     *
      * @param days the days to advance the current date;
     */
     boolean advanceDate(int days) {
@@ -292,7 +364,7 @@ class Erp implements Serializable {
         for (int i = 0; i < days; i++)
             nextDay();
         return true;
-    } 
+    }
 
     /**
      * Saves the next day as a new date (mainly build for later order class changes)
@@ -300,7 +372,7 @@ class Erp implements Serializable {
     private void nextDay() {
         _date.advanceDate();
         // order code parts, only for the last instalment
-            
+
     }
 
     /**

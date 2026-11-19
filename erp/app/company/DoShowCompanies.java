@@ -17,8 +17,9 @@ class DoShowCompanies extends Command<ErpManager> {
 
     @Override
     protected final void execute() throws CommandException {
-        for (String company : _receiver.showCompanies())
+        for (String company : _receiver.showCompanies()) {
             _display.addLine(company);
+        }
         _display.display();
     }
 }

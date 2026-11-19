@@ -52,9 +52,9 @@ public class ErpManager {
 
             out.writeObject(_erp);   // writes Object Erp into disk
         }
-            _changed = false;
+        _changed = false;
     }
-    
+
 
     /**
     * Saves the serialized application's state into the specified file. The current Erp
@@ -74,11 +74,13 @@ public class ErpManager {
 
         try {
             save();
-        } catch (MissingFileAssociationException e) {   
-            _filename = previousFile; _changed = previousChanged;
+        } catch (MissingFileAssociationException e) {
+            _filename = previousFile;
+            _changed = previousChanged;
             throw new IOException(e);
         } catch (IOException e) {
-            _filename = previousFile; _changed = previousChanged;
+            _filename = previousFile;
+            _changed = previousChanged;
             throw e;
         }
     }
@@ -96,8 +98,8 @@ public class ErpManager {
         try (ObjectInputStream in = new ObjectInputStream(
                                     new BufferedInputStream(
                                     new FileInputStream(filename)))) {
-            Erp erp = (Erp) in.readObject();   
-            _erp = erp;                       
+            Erp erp = (Erp) in.readObject();
+            _erp = erp;
             _filename = filename;
             _changed = false;
         } catch (IOException | ClassNotFoundException e) {
@@ -134,6 +136,26 @@ public class ErpManager {
     }
 
     /**
+     * Returns a Product object from the system, sends to Erp.
+     *
+     * @param name The name of the Product to show.
+     * @throws UnknownProductException If no Product is found with given name;
+     *
+     * @return The Product object associated with the given name.
+     */
+    public Product showProduct(String name) throws UnknownProductException {
+        return _erp.getProduct(name).toString();
+    }
+
+    /**
+     * Shows a list of all Products in the system, sorted by name, sends to Erp.
+     * @return A list of all Products in the system in String format;
+     */
+    public List<String> showProducts() {
+        return _erp.getProducts().stream().map(Product::toString).toList();
+    }
+
+    /**
      * Registers an ImportedProduct, sends to Erp.
      *
      * @param name A name/description for the product;
@@ -166,6 +188,20 @@ public class ErpManager {
         _erp.registerNationalProduct(name, basePrice, category, baseDeliveryTime);
         _changed = true;
     }
+
+    /**
+    * Performs a search for all products inside system based on criterion type and a given term,
+    * sends to Erp.
+    *
+    * @param criterion Type of three possible criterions to search for;
+    * @param term A given String that we assure it's equal to the Product criterion.
+    *
+    * @returns A List containing all products using the toString() showcase.
+    */
+    public List<String> searchProducts(String criterion, String term) {
+        return _erp.searchProducts(criterion, term);
+    }
+
 
     /**
      * Registers a new Company by its name, sends to Erp.
@@ -288,13 +324,13 @@ public class ErpManager {
 
     /**
      * Advances N days, one day at a time, does nothing if days are negative since it can only advance.
-     * 
+     *
      * @param days the days to advance the current date;
      */
     public void advanceDate(int days) {
         if (_erp.advanceDate(days)) {
-            _changed = true; 
-        }    
+            _changed = true;
+        }
     }
 
     /**

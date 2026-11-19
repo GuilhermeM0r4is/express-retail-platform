@@ -1,6 +1,8 @@
 package erp.app.product;
 
 import erp.core.ErpManager;
+import erp.core.ProductCategory;
+
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
 import pt.tecnico.uilib.forms.Form;
@@ -19,29 +21,19 @@ class DoRegisterProduct extends Command<ErpManager> {
     @Override
     protected final void execute() throws CommandException {
 
-        String productType = Form.requestString(Prompt.productType());
-        String productName = Form.requestString(Prompt.productName());
+        String type = Form.requestString(Prompt.productType());
+        String name = Form.requestString(Prompt.productName());
+        int price = Form.requestInteger(Prompt.basePrice());
+        ProductCategory category = ProductCategory.valueOf(Form.requestString(Prompt.productCategory()));
+        int delay = Form.requestInteger(Prompt.baseDelay());
 
-        int BasePrice = Integer.requestInt(Prompt.basePrice());
-        ProductCategory productCategory = ProductCategory.valueOf(
-                                                    Form.requestString(
-                                                    Prompt.productCategory()));
-
-        int BaseDeliveryTime = Integer.requestInt(Prompt.baseDelay());
-        String originCountry = null;
-        double customTax = 0.00;
-
-        if (productType.equals("IMPORTADO")) {
-            originCountry = Form.requestString(Prompt.originCountry());
-            customTax = Double.requestDouble(Prompt.customsTax());
-        }
         try {
-            if ("IMPORTADO".equals(productType)) {
-                _receiver.registerImportedProduct(productName, basePrice, productCategory,
-                                                  baseDeliveryTime, originCountry, customsTax);
+            if ("IMPORTADO".equals(type)) {
+                String country = Form.requestString(Prompt.originCountry());
+                double tax = Form.requestDouble(Prompt.customsTax());
+                _receiver.registerImportedProduct(name, price, category, delay, country, tax);
             } else {
-                _receiver.registerNationalProduct(productName, basePrice, productCategory,
-                                                  baseDeliveryTime);
+                _receiver.registerNationalProduct(name, price, category, delay);
             }
             _display.popup(Message.registrationSuccessful());
         }
