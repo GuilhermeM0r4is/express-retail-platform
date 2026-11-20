@@ -22,7 +22,7 @@ Introduza o número da empresa: 2
 Introduza o número do produto: 4
 Introduza a quantidade a actualizar: 30
 Introduza o factor multiplicativo do preço recomendado: 1
-A empresa 2 passou a disponibilizar o produto 30.
+A empresa 2 passou a disponibilizar o produto 4.
 Menu de Gestão de Empresas
 1 - Registar empresa
 2 - Mostrar empresa
@@ -33,9 +33,9 @@ Menu de Gestão de Empresas
 0 - Sair
 Escolha uma opção: 5
 Introduza o número da empresa: 2
-2 - 1 - 10 - 1.0 - 15.0
-2 - 3 - 20 - 1.0 - 15.0
-2 - 4 - 30 - 1.0 - 2.0
+2 - 1 - 10 - 1.0 - 1.0
+2 - 3 - 20 - 1.0 - 1.0
+2 - 4 - 30 - 1.0 - 1.0
 Menu de Gestão de Empresas
 1 - Registar empresa
 2 - Mostrar empresa

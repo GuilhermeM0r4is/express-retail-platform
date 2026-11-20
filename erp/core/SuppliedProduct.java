@@ -74,7 +74,7 @@ public class SuppliedProduct implements Serializable {
      * @return unit price.
      */
     double price() {
-        return _product.getBasePrice() * _factor;
+        return Math.round(_product.recommendedPrice() * _factor * 100) / 100;
     }
 
     /**

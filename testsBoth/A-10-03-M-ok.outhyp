@@ -17,7 +17,7 @@ Menu de Gestão de Produtos
 0 - Sair
 Escolha uma opção: 2
 Introduza o número do produto: 1
-1 - NACIONAL - Farinha - ALIMENTAR - 15.00 - 130.00 - 3 - 0
+1 - NACIONAL - Farinha - ALIMENTAR - 15.00 - 1.30 - 3 - 0
 Menu de Gestão de Produtos
 1 - Registar produto
 2 - Mostrar produto
@@ -26,7 +26,7 @@ Menu de Gestão de Produtos
 0 - Sair
 Escolha uma opção: 2
 Introduza o número do produto: 2
-2 - NACIONAL - Camisa - VESTUARIO - 45.00 - 130.00 - 2 - 0
+2 - NACIONAL - Camisa - VESTUARIO - 45.00 - 1.30 - 2 - 0
 Menu de Gestão de Produtos
 1 - Registar produto
 2 - Mostrar produto
@@ -35,7 +35,7 @@ Menu de Gestão de Produtos
 0 - Sair
 Escolha uma opção: 2
 Introduza o número do produto: 3
-3 - NACIONAL - Colher de Pau - ALIMENTAR - 2.00 - 130.00 - 1 - 0
+3 - NACIONAL - Colher de Pau - ALIMENTAR - 2.00 - 1.30 - 1 - 0
 Menu de Gestão de Produtos
 1 - Registar produto
 2 - Mostrar produto

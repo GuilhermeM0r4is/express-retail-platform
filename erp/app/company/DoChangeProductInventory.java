@@ -30,7 +30,7 @@ class DoChangeProductInventory extends Command<ErpManager> {
 
         try {
             _receiver.updateStock(companyId, productId, units, factor);
-            _display.popup(Message.supplySuccessful(companyId, units));
+            _display.popup(Message.supplySuccessful(companyId, productId));
         } catch (UnknownCompanyException e) {
             throw new UnknownCompanyKeyException(companyId);
         } catch (UnknownProductException e) {

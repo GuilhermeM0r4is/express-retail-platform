@@ -1,22 +1,5 @@
 *** testsBoth/A-13-11-M-ok.out	Wed Nov 11 12:06:43 2026
---- testsBoth/A-13-11-M-ok.outhyp	Fri Nov 20 15:51:52 2026
-***************
-*** 22,28 ****
-  Introduza o número do produto: 1
-  Introduza a quantidade a actualizar: -5
-  Introduza o factor multiplicativo do preço recomendado: 1
-! A empresa 2 passou a disponibilizar o produto 1.
-  Menu de Gestão de Empresas
-  1 - Registar empresa
-  2 - Mostrar empresa
---- 22,28 ----
-  Introduza o número do produto: 1
-  Introduza a quantidade a actualizar: -5
-  Introduza o factor multiplicativo do preço recomendado: 1
-! A empresa 2 passou a disponibilizar o produto -5.
-  Menu de Gestão de Empresas
-  1 - Registar empresa
-  2 - Mostrar empresa
+--- testsBoth/A-13-11-M-ok.outhyp	Fri Nov 20 17:08:49 2026
 ***************
 *** 33,39 ****
   0 - Sair
@@ -30,24 +13,7 @@
   0 - Sair
   Escolha uma opção: 5
   Introduza o número da empresa: 2
-! 2 - 1 - 5 - 1.0 - 15.0
-  Menu de Gestão de Empresas
-  1 - Registar empresa
-  2 - Mostrar empresa
-***************
-*** 47,53 ****
-  Introduza o número do produto: 1
-  Introduza a quantidade a actualizar: -4
-  Introduza o factor multiplicativo do preço recomendado: 1.0
-! A empresa 2 passou a disponibilizar o produto 1.
-  Menu de Gestão de Empresas
-  1 - Registar empresa
-  2 - Mostrar empresa
---- 47,53 ----
-  Introduza o número do produto: 1
-  Introduza a quantidade a actualizar: -4
-  Introduza o factor multiplicativo do preço recomendado: 1.0
-! A empresa 2 passou a disponibilizar o produto -4.
+! 2 - 1 - 5 - 1.0 - 1.0
   Menu de Gestão de Empresas
   1 - Registar empresa
   2 - Mostrar empresa
@@ -64,7 +30,7 @@
   0 - Sair
   Escolha uma opção: 5
   Introduza o número da empresa: 2
-! 2 - 1 - 1 - 1.0 - 15.0
+! 2 - 1 - 1 - 1.0 - 1.0
   Menu de Gestão de Empresas
   1 - Registar empresa
   2 - Mostrar empresa
