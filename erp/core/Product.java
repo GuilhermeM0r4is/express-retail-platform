@@ -23,7 +23,14 @@ abstract class Product implements Serializable {
     private final int _baseDeliveryTime;
     private final List<SuppliedProduct> _suppliedProducts = new ArrayList<>();
 
-    // constructor class
+    /**
+     * Class constructor.
+     * 
+     * @param name the String _name of the product;
+     * @param category the ProductCategory of the product, can be "eletronica", "alimentar" or "vestuario";
+     * @param basePrice the int _basePrice of the product;
+     * @param baseDeliveryTime the int _baseDeliveryTime of the product;
+    */
     public Product(String name, ProductCategory category, int basePrice,
                 int baseDeliveryTime) {
 
@@ -35,28 +42,57 @@ abstract class Product implements Serializable {
         _baseDeliveryTime = baseDeliveryTime;
     }
 
-    // getter methods, add when needed
+    /**
+     * Getter for the product Id.
+     * 
+     * @return int _id private method for usage;
+     */
     public int getId() {
         return _id;
     }
 
+    /**
+     * Getter for the product name.
+     * 
+     * @return String _name private method for usage.
+     */
     public String getName() {
         return _name;
     }
 
+    /**
+     * Getter for the product category.
+     * 
+     * @return the category;
+     */
     public ProductCategory getCategory() {
         return _category;
     }
 
+    /**
+     * Getter for the product base price.
+     * 
+     * @return int _basePrice private method for usage;
+     */
     public int getBasePrice() {
         return _basePrice;
     }
 
+    /**
+     * Getter for the product base delivery time.
+     * 
+     * @return int _baseDeliveryTime private method for usage;
+     */
     public int getBaseDeliveryTime() {
         return _baseDeliveryTime;
     }
 
-    // all class methods
+    /**    
+     * Returns a string representation of the purchase formatted as:
+     * id - type - name - category - base price - recommended price - base delivery time - total units.
+     * 
+     * @return the formatted string representation of the product.
+     */
     @Override
     public String toString() {
         return getId() + " - " + type() + " - " + getName() + " - " + getCategory()
@@ -67,7 +103,6 @@ abstract class Product implements Serializable {
     /**
      * Computes the total available units of this product across all given companies.
      *
-     * @param companies Collection of companies to check supplied products for.
      * @return Total number of units for this product.
      */
     public int totalUnits() {
@@ -78,6 +113,7 @@ abstract class Product implements Serializable {
         return total;
     }
 
+    // abstract attributes to help.
     public abstract String type();
 
     abstract double recommendedPrice();

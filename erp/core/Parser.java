@@ -66,9 +66,8 @@ class Parser {
         }
         // list of all exceptions that can be used during parsing
         catch (IllegalArgumentException | InventoryChangeFailedException | UnknownProductException |
-                DuplicateProductException | UnknownCompanyException | DuplicateCompanyException |
-                InvalidClientException | InvalidProductException | InvalidCompanyException |
-                DuplicateClientException e) {
+                UnknownCompanyException | InvalidClientException | InvalidProductException | 
+                InvalidCompanyException | DuplicateClientException e) {
 
             UnrecognizedEntryException ex = new UnrecognizedEntryException(
                 "Erro a processar linha: " + line + " Erro = " + e.getClass().getSimpleName() + ": " + e.getMessage());

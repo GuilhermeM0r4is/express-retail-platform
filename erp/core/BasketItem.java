@@ -77,6 +77,12 @@ public class BasketItem implements Serializable {
         return getUnitPrice() * _quantity; 
     }
 
+    /**    
+     * Returns a string representation of the purchase formatted as:
+     * id - name - quantity - unit price - cost.
+     * 
+     * @return the formatted string representation of the basket item;
+     */
     @Override
     public String toString() {
         Product p = _supplied.getProduct();

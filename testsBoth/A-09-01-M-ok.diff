@@ -1,5 +1,5 @@
-*** testsBoth/A-09-01-M-ok.out	Wed Nov 11 12:06:41 2026
---- testsBoth/A-09-01-M-ok.outhyp	Fri Nov 20 14:13:52 2026
+*** testsBoth/A-09-01-M-ok.out	2026-11-20 14:16:10.190550332 +0000
+--- testsBoth/A-09-01-M-ok.outhyp	2026-11-20 14:16:10.190550332 +0000
 ***************
 *** 19,51 ****
   Introduza o tipo de produto: NACIONAL

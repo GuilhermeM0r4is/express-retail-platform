@@ -69,14 +69,14 @@ public class ErpManager {
     *
     * @param filename the name of the file.
     * @throws FileNotFoundException if for some reason the file cannot be created or opened.
-    * @throws MissingFileAssociationException if the current library does not have a file.
     * @throws IOException if there is some error while serializing the state of the network to disk.
     **/
-    public void saveAs(String filename) throws MissingFileAssociationException, IOException {
+    public void saveAs(String filename) throws IOException {
         //to restore _filename if something goes wrong
         String previousFile = _filename;
         boolean previousChanged = _changed;
         _filename = filename;
+        _changed = true;
 
         try {
             save();
@@ -85,9 +85,9 @@ public class ErpManager {
             throw new IOException(e);
         } catch (IOException e) {
             _filename = previousFile;
+            _changed = previousChanged;
             throw e;
         }
-        _changed = true;
     }
 
     /**
@@ -174,7 +174,7 @@ public class ErpManager {
      */
     public int registerImportedProduct(String name, int basePrice, ProductCategory category,
                                         int baseDeliveryTime, String country, double tax)
-                                        throws DuplicateProductException, InvalidProductException {
+                                        throws InvalidProductException {
 
         int id = _erp.registerImportedProduct(name, basePrice, category, baseDeliveryTime, country, tax);
         _changed = true;
@@ -194,7 +194,7 @@ public class ErpManager {
      */
     public int registerNationalProduct(String name, int basePrice,
                                         ProductCategory category, int baseDeliveryTime)
-                                        throws DuplicateProductException, InvalidProductException {
+                                        throws InvalidProductException {
 
         int id = _erp.registerNationalProduct(name, basePrice, category, baseDeliveryTime);
         _changed = true;
@@ -222,7 +222,7 @@ public class ErpManager {
      *
      * @return id The new registered Company Id.
      */
-    public int registerCompany(String name) throws DuplicateCompanyException, InvalidCompanyException {
+    public int registerCompany(String name) throws InvalidCompanyException {
 
         int id = _erp.registerCompany(name);
         _changed = true;
@@ -266,7 +266,7 @@ public class ErpManager {
      * @throws UnknownCompanyException if the company with given id doesn't exist in system.
      */
     public List<String> showCompanyProducts(int id) throws UnknownCompanyException {
-        return _erp.getCompanyProducts(id).stream().map(Product::toString).toList();
+        return _erp.getCompanyProducts(id).stream().map(SuppliedProduct::toString).toList();
     }
 
     /**

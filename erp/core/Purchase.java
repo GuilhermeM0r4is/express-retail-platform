@@ -23,7 +23,6 @@ public class Purchase implements Serializable {
     private final Company _company;
 
     private final List<PurchaseLine> _lines;
-    // FIXME last instalment: private final List<Order> _orders;
 
     /** Class constructor.
      * 

@@ -1,8 +1,8 @@
 package erp.core;
 
 import java.io.Serializable;
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The system keeps a registation of all clients, they display thier identifier(email), their
@@ -82,8 +82,13 @@ public class Client implements Serializable {
         return _baskets.containsKey(company.getId()); 
     } 
 
-    //...
+    /**
+     * Getter for the basket through a company.
+     * 
+     * @param company the basket company;
+     * @return the basket from the designated company;
+     */
     Basket getBasketFor(Company company) {
-        return _baskets.get(company.getId());
+        return _baskets.computeIfAbsent(company.getId(), id -> new Basket(this, company));
     }
 }

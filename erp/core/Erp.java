@@ -3,11 +3,10 @@ package erp.core;
 import erp.core.exception.*;
 import java.io.IOException;
 import java.io.Serializable;
-
-import java.util.Map;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Comparator;
+import java.util.Map;
 
 /**
  * The whole ERP system: holds all the state and the domain logic.
@@ -60,18 +59,18 @@ class Erp implements Serializable {
      */
     public int registerImportedProduct(String name, int basePrice, ProductCategory category,
                                         int baseDeliveryTime, String country, double tax)
-                                        throws DuplicateProductException, InvalidProductException {
+                                        throws InvalidProductException {
 
         if (name == null || name.isBlank() || basePrice <= 0 || baseDeliveryTime < 0
             || country == null || country.isBlank() || tax < 0) {
             throw new InvalidProductException(name);
         }
 
-        for (Product p: _products.values()) {
+        /*for (Product p: _products.values()) {
             if (p.getName().equals(name)) {
                 throw new DuplicateProductException(name);
             }
-        }
+        }*/
         ImportedProduct impP = new ImportedProduct(name, category, basePrice, baseDeliveryTime,
                                                    tax, country);
         _products.put(impP.getId(), impP);
@@ -90,17 +89,17 @@ class Erp implements Serializable {
      */
     public int registerNationalProduct(String name, int basePrice,
                                         ProductCategory category, int baseDeliveryTime)
-                                        throws DuplicateProductException, InvalidProductException {
+                                        throws InvalidProductException {
 
         if (name == null || name.isBlank() || basePrice <= 0 || baseDeliveryTime < 0) {
             throw new InvalidProductException(name);
         }
 
-        for (Product p: _products.values()) {
+        /*for (Product p: _products.values()) {
             if (p.getName().equals(name)) {
                 throw new DuplicateProductException(name);
             }
-        }
+        }*/
         NationalProduct natP = new NationalProduct(name, category, basePrice, baseDeliveryTime);
         _products.put(natP.getId(), natP);
         return natP.getId();
@@ -181,18 +180,17 @@ class Erp implements Serializable {
      * Registers a new Company by its name, updating the hashmap.
      * @param name A name to give to the new company.
      */
-    public int registerCompany(String name) throws DuplicateCompanyException,
-                                InvalidCompanyException {
+    public int registerCompany(String name) throws InvalidCompanyException {
 
         if (name == null || name.isBlank()) {
             throw new InvalidCompanyException(name);
         }
 
-        for (Company c: _companies.values()) {
+        /*for (Company c: _companies.values()) {
             if (c.getName().equals(name)) {
                 throw new DuplicateCompanyException(name);
             }
-        }
+        } */
         Company c = new Company(name);
         _companies.put(c.getId(), c);
         return c.getId();
@@ -246,16 +244,12 @@ class Erp implements Serializable {
      * @return A list of all products inside a company in the system;
      * @throws UnknownCompanyException if the company with given id doesn't exist in system.
      */
-    public List<Product> getCompanyProducts(int id) throws UnknownCompanyException {
-        Company company = _companies.get(id);
-        if (company == null) {
-            throw new UnknownCompanyException(id);
-        }
-        return company.getSuppliedProducts().stream()
-            .map(SuppliedProduct::getProduct)
-            .sorted(Comparator.comparing(Product::getId))
+    public List<SuppliedProduct> getCompanyProducts(int id) throws UnknownCompanyException {
+    
+        return getCompany(id).getSuppliedProducts().stream()
+            .sorted(Comparator.comparing((SuppliedProduct sp) -> sp.getProduct().getId()))
             .toList();
-    }
+}
 
     /**
      * Registers a Client into the system.
@@ -272,11 +266,8 @@ class Erp implements Serializable {
         if (name == null || name.isBlank() || email == null || email.isBlank()) {
             throw new InvalidClientException(email);
         }
-
-        for (Client existing : _clients.values()) {
-            if (existing != null && email.equalsIgnoreCase(existing.getEmail())) {
-                throw new DuplicateClientException(email);
-            }
+        if (_clients.containsKey(email)) {
+            throw new DuplicateClientException(email);
         }
         _clients.put(email, new Client(name, email));
     }

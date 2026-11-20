@@ -37,7 +37,8 @@ public class Basket implements Serializable {
     }
 
     /**
-     * Returns a string representation of the basket information.
+     * Returns a string representation of the basket informatio:
+     * email cliente - id empresa - estratégia - descrição transporte e serviço - preço total items.
      *
      * @return the formatted string representation of the basket.
      */
