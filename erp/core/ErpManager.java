@@ -28,6 +28,13 @@ public class ErpManager {
     }
 
     /**
+     * Constructor without arguments for App.java.
+     */
+    public ErpManager() {
+        this(new Erp());
+    }
+
+    /**
     * Saves the serialized application's state into the file associated to the current Erp
     * application
     *
@@ -165,12 +172,11 @@ public class ErpManager {
      * @param country The country of the ImportedProduct;
      * @param tax The tax percentage of the given country.
      */
-    public void registerImportedProduct(String name, int basePrice, ProductCategory category,
+    public int registerImportedProduct(String name, int basePrice, ProductCategory category,
                                         int baseDeliveryTime, String country, double tax)
                                         throws DuplicateProductException {
-
-        _erp.registerImportedProduct(name, basePrice, category, baseDeliveryTime, country, tax);
         _changed = true;
+        return _erp.registerImportedProduct(name, basePrice, category, baseDeliveryTime, country, tax);
     }
 
     /**
@@ -181,12 +187,11 @@ public class ErpManager {
      * @param category A given category from ProductCategory enumerate;
      * @param baseDeliveryTime Expected base delivery time as an int;
      */
-    public void registerNationalProduct(String name, int basePrice,
+    public int registerNationalProduct(String name, int basePrice,
                                         ProductCategory category, int baseDeliveryTime)
                                         throws DuplicateProductException {
-
-        _erp.registerNationalProduct(name, basePrice, category, baseDeliveryTime);
         _changed = true;
+        return _erp.registerNationalProduct(name, basePrice, category, baseDeliveryTime);
     }
 
     /**
@@ -207,9 +212,9 @@ public class ErpManager {
      * Registers a new Company by its name, sends to Erp.
      * @param name A name to give to the new company.
      */
-    public void registerCompany(String name) throws DuplicateCompanyException {
-        _erp.registerCompany(name);
+    public int registerCompany(String name) throws DuplicateCompanyException {
         _changed = true;
+        return _erp.registerCompany(name);
     }
 
     /**
@@ -287,7 +292,8 @@ public class ErpManager {
      * @param clientId the id of the client;
      * @param companyId the company id;
      */
-    public Basket getBasket(String clientId, int companyId) throws UnknownClientException {
+    public Basket getBasket(String clientId, int companyId)
+        throws UnknownClientException, UnknownCompanyException {
         boolean existed = _erp.hasBasket(clientId, companyId);
         Basket basket = _erp.getBasket(clientId, companyId);
         if (!existed) {

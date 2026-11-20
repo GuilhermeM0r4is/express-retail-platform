@@ -18,8 +18,8 @@ class DoRegisterCompany extends Command<ErpManager> {
         String companyName = Form.requestString(Prompt.companyName());
 
         try {
-            _receiver.registerCompany(companyName);
-            _display.popup(Message.registrationSuccessful(companyName));
+            int id = _receiver.registerCompany(companyName);
+            _display.popup(Message.registrationSuccessful(id));
         } catch (CompanyRegistrationFailedException e) {
             throw new CompanyRegistrationFailedException(companyName);
         }

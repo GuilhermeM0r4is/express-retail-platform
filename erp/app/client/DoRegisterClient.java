@@ -10,7 +10,7 @@ import pt.tecnico.uilib.menus.CommandException;
 /**
  * Registers a client. Asks the name and email of the new client to the user. The e-mail
  * address is its identifier, so it must be new.
- * 
+ *
  * @throws ClientRegistrationFailedException if the client could not be registered.
  */
 class DoRegisterClient extends Command<ErpManager> {
@@ -27,7 +27,7 @@ class DoRegisterClient extends Command<ErpManager> {
         String email = stringField("email");
         try {
             _receiver.registerClient(name, email);
-            _display.popup(Message.registrationSuccessful());
+            _display.popup(Message.registrationSuccessful(email));
         } catch (InvalidClientException e) {
             throw new ClientRegistrationFailedException(name, email);
         }
