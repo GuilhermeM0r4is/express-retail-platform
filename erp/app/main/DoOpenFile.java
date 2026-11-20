@@ -22,7 +22,7 @@ class DoOpenFile extends Command<ErpManager> {
     protected final void execute() throws CommandException {
         String filename = stringField("filename");
 
-        if (_receiver.getChanges() && Form.confirm(Prompt.saveBeforeExit())) {
+        if (_receiver.getChanged() && Form.confirm(Prompt.saveBeforeExit())) {
         DoSaveFile.saveWithPrompt(_receiver);
         }
 

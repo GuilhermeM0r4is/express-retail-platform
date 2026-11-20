@@ -28,7 +28,7 @@ class DoSaveFile extends Command<ErpManager> {
         try {
             try {
                 manager.save();
-            } catch (MissingFileFileAssociationException e) {
+            } catch (MissingFileAssociationException e) {
                 manager.saveAs(Form.requestString(Prompt.newSaveAs()));
             }
         } catch (IOException e) {

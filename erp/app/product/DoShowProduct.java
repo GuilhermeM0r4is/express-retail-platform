@@ -22,7 +22,7 @@ class DoShowProduct extends Command<ErpManager> {
 
         try {
             _display.popup(_receiver.showProduct(id));
-        } catch (UnknownProductKeyException e) {
+        } catch (UnknownProductException e) {
             throw new UnknownProductKeyException(id);
         }
     }
