@@ -1,21 +1,21 @@
-*** testsBoth/A-14-03-M-ok.out	2026-11-20 14:16:10.198322846 +0000
---- testsBoth/A-14-03-M-ok.outhyp	2026-11-20 14:16:10.198322846 +0000
+*** testsBoth/A-14-03-M-ok.out	Wed Nov 11 12:06:44 2026
+--- testsBoth/A-14-03-M-ok.outhyp	Fri Nov 20 15:51:52 2026
 ***************
-*** 18,26 ****
+*** 18,25 ****
   Escolha uma opção: 4
   Introduza o critério de pesquisa: NOME
   Introduza o termo de pesquisa: Farinha
 ! 1 - NACIONAL - Farinha - ALIMENTAR - 15.00 - 19.50 - 3 - 10
 ! 3 - NACIONAL - Farinha - VESTUARIO - 15.00 - 19.50 - 2 - 0
-! 5 - IMPORTADO - Farinha - ALIMENTAR - 3.00 - 3.30 - 1 - 0 - África do Sul - 10.0
+  5 - IMPORTADO - Farinha - ALIMENTAR - 3.00 - 3.30 - 1 - 0 - África do Sul - 10.0
   Menu de Gestão de Produtos
   1 - Registar produto
-  2 - Mostrar produto
---- 18,24 ----
+--- 18,25 ----
   Escolha uma opção: 4
   Introduza o critério de pesquisa: NOME
   Introduza o termo de pesquisa: Farinha
-! 1 - NACIONAL - Farinha - ALIMENTAR - 15 - 130.0 - 3 - 0
+! 1 - NACIONAL - Farinha - ALIMENTAR - 15.00 - 130.00 - 3 - 10
+! 3 - NACIONAL - Farinha - VESTUARIO - 15.00 - 130.00 - 2 - 0
+  5 - IMPORTADO - Farinha - ALIMENTAR - 3.00 - 3.30 - 1 - 0 - África do Sul - 10.0
   Menu de Gestão de Produtos
   1 - Registar produto
-  2 - Mostrar produto

@@ -1,5 +1,5 @@
-*** testsBoth/A-13-11-M-ok.out	2026-11-20 14:16:10.197105687 +0000
---- testsBoth/A-13-11-M-ok.outhyp	2026-11-20 14:16:10.197551812 +0000
+*** testsBoth/A-13-11-M-ok.out	Wed Nov 11 12:06:43 2026
+--- testsBoth/A-13-11-M-ok.outhyp	Fri Nov 20 15:51:52 2026
 ***************
 *** 22,28 ****
   Introduza o número do produto: 1
@@ -30,7 +30,7 @@
   0 - Sair
   Escolha uma opção: 5
   Introduza o número da empresa: 2
-! 1 - NACIONAL - Farinha - ALIMENTAR - 15 - 130.0 - 3 - 5
+! 2 - 1 - 5 - 1.0 - 15.0
   Menu de Gestão de Empresas
   1 - Registar empresa
   2 - Mostrar empresa
@@ -64,7 +64,7 @@
   0 - Sair
   Escolha uma opção: 5
   Introduza o número da empresa: 2
-! 1 - NACIONAL - Farinha - ALIMENTAR - 15 - 130.0 - 3 - 1
+! 2 - 1 - 1 - 1.0 - 15.0
   Menu de Gestão de Empresas
   1 - Registar empresa
   2 - Mostrar empresa

@@ -1,5 +1,5 @@
-*** testsBoth/A-14-01-M-ok.out	2026-11-20 14:16:10.197551812 +0000
---- testsBoth/A-14-01-M-ok.outhyp	2026-11-20 14:16:10.197551812 +0000
+*** testsBoth/A-14-01-M-ok.out	Wed Nov 11 12:06:43 2026
+--- testsBoth/A-14-01-M-ok.outhyp	Fri Nov 20 15:51:52 2026
 ***************
 *** 18,24 ****
   Escolha uma opção: 4
@@ -13,24 +13,7 @@
   Escolha uma opção: 4
   Introduza o critério de pesquisa: NOME
   Introduza o termo de pesquisa: Farinha
-! 1 - NACIONAL - Farinha - ALIMENTAR - 15 - 130.0 - 3 - 10
-  Menu de Gestão de Produtos
-  1 - Registar produto
-  2 - Mostrar produto
-***************
-*** 28,34 ****
-  Escolha uma opção: 4
-  Introduza o critério de pesquisa: NOME
-  Introduza o termo de pesquisa: Telemovel
-! 2 - IMPORTADO - Telemovel - ELECTRONICA - 200.00 - 260.00 - 3 - 20 - China - 30.0
-  Menu de Gestão de Produtos
-  1 - Registar produto
-  2 - Mostrar produto
---- 28,34 ----
-  Escolha uma opção: 4
-  Introduza o critério de pesquisa: NOME
-  Introduza o termo de pesquisa: Telemovel
-! 2 - IMPORTADO - Telemovel - ELECTRONICA - 200 - 260.0 - 3 - 20 - China - 30.0
+! 1 - NACIONAL - Farinha - ALIMENTAR - 15.00 - 130.00 - 3 - 10
   Menu de Gestão de Produtos
   1 - Registar produto
   2 - Mostrar produto

@@ -1,5 +1,5 @@
-*** testsBoth/A-14-08-M-ok.out	2026-11-20 14:16:10.198552024 +0000
---- testsBoth/A-14-08-M-ok.outhyp	2026-11-20 14:16:10.198552024 +0000
+*** testsBoth/A-14-08-M-ok.out	Wed Nov 11 12:06:44 2026
+--- testsBoth/A-14-08-M-ok.outhyp	Fri Nov 20 15:51:52 2026
 ***************
 *** 18,24 ****
   Escolha uma opção: 4
@@ -13,7 +13,7 @@
   Escolha uma opção: 4
   Introduza o critério de pesquisa: CATEGORIA
   Introduza o termo de pesquisa: VESTUARIO
-! 3 - NACIONAL - Farinha - VESTUARIO - 15 - 130.0 - 2 - 0
+! 3 - NACIONAL - Farinha - VESTUARIO - 15.00 - 130.00 - 2 - 0
   Menu de Gestão de Produtos
   1 - Registar produto
   2 - Mostrar produto

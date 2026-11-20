@@ -46,6 +46,16 @@ class Erp implements Serializable {
     }
 
     /**
+     * Synchronizes static ID generators with the highest existing IDs in the domain.
+     */
+    void syncNextIds() {
+        int maxProductId = _products.keySet().stream().mapToInt(Integer::intValue).max().orElse(0);
+        int maxCompanyId = _companies.keySet().stream().mapToInt(Integer::intValue).max().orElse(0);
+        Product.setNextId(maxProductId + 1);
+        Company.setNextId(maxCompanyId + 1);
+    }
+
+    /**
      * Registers an ImportedProduct from the given parameters.
      *
      * @param name A name/description for the product;
@@ -245,7 +255,7 @@ class Erp implements Serializable {
      * @throws UnknownCompanyException if the company with given id doesn't exist in system.
      */
     public List<SuppliedProduct> getCompanyProducts(int id) throws UnknownCompanyException {
-    
+
         return getCompany(id).getSuppliedProducts().stream()
             .sorted(Comparator.comparing((SuppliedProduct sp) -> sp.getProduct().getId()))
             .toList();
@@ -311,8 +321,8 @@ class Erp implements Serializable {
      */
     Basket getBasket(String clientId, int companyId)
             throws UnknownClientException, UnknownCompanyException {
-        Client client = _clients.get(clientId);
-        Company company = _companies.get(companyId); //getCompany receives a String
+        Client client = getClient(clientId);
+        Company company = getCompany(companyId);
         return client.getBasketFor(company);
     }
 
@@ -326,8 +336,10 @@ class Erp implements Serializable {
      * @throws UnknownCompanyException if there is no such company;
      */
     boolean hasBasket(String clientId, int companyId)
-        throws UnknownClientException, UnknownCompanyException {
-        return getClient(clientId).hasBasketFor(_companies.get(companyId));
+                    throws UnknownClientException, UnknownCompanyException {
+        Client client = getClient(clientId);
+        Company company = getCompany(companyId);
+        return client.hasBasketFor(company);
     }
 
     /**

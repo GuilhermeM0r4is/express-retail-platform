@@ -4,7 +4,6 @@ import erp.core.ErpManager;
 import erp.core.ProductCategory;
 import erp.app.exception.ProductRegistrationFailedException;
 import erp.app.exception.IllegalCategoryException;
-import erp.core.exception.DuplicateProductException;
 import erp.core.exception.InvalidProductException;
 
 import pt.tecnico.uilib.menus.Command;
@@ -28,9 +27,8 @@ class DoRegisterProduct extends Command<ErpManager> {
         String type = Form.requestString(Prompt.productType());
         String name = Form.requestString(Prompt.productName());
         int price = Form.requestInteger(Prompt.basePrice());
-        ProductCategory category = null;
-        int delay = Form.requestInteger(Prompt.baseDelay());
 
+        ProductCategory category = null;
         while (category == null) {
             String categoryStr = Form.requestString(Prompt.productCategory());
             try {
@@ -39,6 +37,8 @@ class DoRegisterProduct extends Command<ErpManager> {
                 throw new IllegalCategoryException();
             }
         }
+
+        int delay = Form.requestInteger(Prompt.baseDelay());
 
         if (!"NACIONAL".equals(type) && !"IMPORTADO".equals(type)) {
             throw new ProductRegistrationFailedException(name);
@@ -54,7 +54,7 @@ class DoRegisterProduct extends Command<ErpManager> {
                 id = _receiver.registerNationalProduct(name, price, category, delay);
             }
             _display.popup(Message.registrationSuccessful(id));
-        } catch (DuplicateProductException | InvalidProductException e) {
+        } catch (InvalidProductException e) {
             throw new ProductRegistrationFailedException(name);
         }
     }

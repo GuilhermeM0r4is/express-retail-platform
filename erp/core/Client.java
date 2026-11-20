@@ -3,6 +3,7 @@ package erp.core;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Locale;
 
 /**
  * The system keeps a registation of all clients, they display thier identifier(email), their
@@ -10,11 +11,11 @@ import java.util.Map;
  */
 
 public class Client implements Serializable {
-    
+
     @java.io.Serial
     private static final long serialVersionUID = 202608261200L;
 
-    //attributes 
+    //attributes
     private final String _name;
 
     private final String _email;
@@ -25,7 +26,7 @@ public class Client implements Serializable {
 
     /**
      * Class constructor.
-     * 
+     *
      * @param name String containing the name of the client;
      * @param email String containing the id of the client;
      */
@@ -69,7 +70,7 @@ public class Client implements Serializable {
      */
     @Override
     public String toString() {
-        return _email + " - " + _name + " - " + _totalSpent;
+        return _email + " - " + _name + " - " + String.format(Locale.ROOT, "%.2f", _totalSpent);
     }
 
     /**
@@ -78,13 +79,13 @@ public class Client implements Serializable {
      * @param company the company to check for an existing basket;
      * @return {@code true} if a basket exists for the company, {@code false} otherwise;
      */
-    boolean hasBasketFor(Company company) { 
-        return _baskets.containsKey(company.getId()); 
-    } 
+    boolean hasBasketFor(Company company) {
+        return _baskets.containsKey(company.getId());
+    }
 
     /**
      * Getter for the basket through a company.
-     * 
+     *
      * @param company the basket company;
      * @return the basket from the designated company;
      */

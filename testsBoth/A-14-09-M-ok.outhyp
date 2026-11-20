@@ -18,8 +18,9 @@ Menu de Gestão de Produtos
 Escolha uma opção: 4
 Introduza o critério de pesquisa: CATEGORIA
 Introduza o termo de pesquisa: Alimentar
-1 - NACIONAL - FaRINHA - ALIMENTAR - 15 - 130.0 - 3 - 0
-4 - NACIONAL - Colher de Pau - ALIMENTAR - 2 - 130.0 - 1 - 0
+1 - NACIONAL - FaRINHA - ALIMENTAR - 15.00 - 130.00 - 3 - 10
+4 - NACIONAL - Colher de Pau - ALIMENTAR - 2.00 - 130.00 - 1 - 0
+5 - IMPORTADO - Farinha - ALIMENTAR - 3.00 - 3.30 - 1 - 0 - África do Sul - 10.0
 Menu de Gestão de Produtos
 1 - Registar produto
 2 - Mostrar produto

@@ -66,7 +66,7 @@ class Parser {
         }
         // list of all exceptions that can be used during parsing
         catch (IllegalArgumentException | InventoryChangeFailedException | UnknownProductException |
-                UnknownCompanyException | InvalidClientException | InvalidProductException | 
+                UnknownCompanyException | InvalidClientException | InvalidProductException |
                 InvalidCompanyException | DuplicateClientException e) {
 
             UnrecognizedEntryException ex = new UnrecognizedEntryException(
@@ -84,7 +84,7 @@ class Parser {
 
     // COMPANY:nome
     private void parseCompany(String[] components, String line) throws UnrecognizedEntryException,
-                                DuplicateCompanyException, InvalidCompanyException {
+                                InvalidCompanyException {
 
         checkCorrectNumberOfFields(components, 2, line);
         _manager.registerCompany(components[1]);
@@ -92,7 +92,7 @@ class Parser {
 
     // IMPORTED:nome:precoBase:categoria:prazo:paisOrigem:taxa
     private void parseImported(String[] components, String line) throws UnrecognizedEntryException,
-                                DuplicateProductException, InvalidProductException {
+                                InvalidProductException {
 
         checkCorrectNumberOfFields(components, 7, line);
         _manager.registerImportedProduct(components[1], Integer.valueOf(components[2]), ProductCategory.valueOf(components[3]),
@@ -102,7 +102,7 @@ class Parser {
 
     // NATIONAL:nome:precoBase:categoria:prazo
     private void parseNational(String[] components, String line) throws UnrecognizedEntryException,
-                                DuplicateProductException, InvalidProductException {
+                                InvalidProductException {
 
         checkCorrectNumberOfFields(components, 5, line);
         _manager.registerNationalProduct(components[1], Integer.valueOf(components[2]), ProductCategory.valueOf(components[3]),

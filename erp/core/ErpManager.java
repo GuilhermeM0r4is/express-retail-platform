@@ -105,6 +105,7 @@ public class ErpManager {
                                     new FileInputStream(filename)))) {
             Erp erp = (Erp) in.readObject();
             _erp = erp;
+            _erp.syncNextIds();
             _filename = filename;
             _changed = false;
         } catch (IOException | ClassNotFoundException e) {

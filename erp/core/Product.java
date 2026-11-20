@@ -3,6 +3,7 @@ package erp.core;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * The system keeps a registation of all products, they exist apart from how
@@ -25,7 +26,7 @@ abstract class Product implements Serializable {
 
     /**
      * Class constructor.
-     * 
+     *
      * @param name the String _name of the product;
      * @param category the ProductCategory of the product, can be "eletronica", "alimentar" or "vestuario";
      * @param basePrice the int _basePrice of the product;
@@ -44,7 +45,7 @@ abstract class Product implements Serializable {
 
     /**
      * Getter for the product Id.
-     * 
+     *
      * @return int _id private method for usage;
      */
     public int getId() {
@@ -53,7 +54,7 @@ abstract class Product implements Serializable {
 
     /**
      * Getter for the product name.
-     * 
+     *
      * @return String _name private method for usage.
      */
     public String getName() {
@@ -62,7 +63,7 @@ abstract class Product implements Serializable {
 
     /**
      * Getter for the product category.
-     * 
+     *
      * @return the category;
      */
     public ProductCategory getCategory() {
@@ -71,7 +72,7 @@ abstract class Product implements Serializable {
 
     /**
      * Getter for the product base price.
-     * 
+     *
      * @return int _basePrice private method for usage;
      */
     public int getBasePrice() {
@@ -80,25 +81,26 @@ abstract class Product implements Serializable {
 
     /**
      * Getter for the product base delivery time.
-     * 
+     *
      * @return int _baseDeliveryTime private method for usage;
      */
     public int getBaseDeliveryTime() {
         return _baseDeliveryTime;
     }
 
-    /**    
+    /**
      * Returns a string representation of the purchase formatted as:
      * id - type - name - category - base price - recommended price - base delivery time - total units.
-     * 
+     *
      * @return the formatted string representation of the product.
      */
     @Override
     public String toString() {
         return getId() + " - " + type() + " - " + getName() + " - " + getCategory()
-                + " - " + getBasePrice() + " - " + recommendedPrice() + " - "
-                + getBaseDeliveryTime() + " - " + totalUnits();
-    }
+                    + " - " + String.format(Locale.ROOT, "%.2f", (double) getBasePrice())
+                    + " - " + String.format(Locale.ROOT, "%.2f", recommendedPrice())
+                    + " - " + getBaseDeliveryTime() + " - " + totalUnits();
+        }
 
     /**
      * Computes the total available units of this product across all given companies.

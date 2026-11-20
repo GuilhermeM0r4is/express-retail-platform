@@ -19,11 +19,11 @@ Menu de Gestão de Empresas
 0 - Sair
 Escolha uma opção: 5
 Introduza o número da empresa: 1
-1 - NACIONAL - Farinha - ALIMENTAR - 15 - 130.0 - 3 - 10
-2 - IMPORTADO - Telemovel - ELECTRONICA - 200 - 260.0 - 3 - 10 - China - 30.0
-3 - NACIONAL - Camisa - VESTUARIO - 45 - 130.0 - 2 - 20
-4 - NACIONAL - Colher de Pau - ALIMENTAR - 2 - 130.0 - 1 - 30
-5 - IMPORTADO - Laranjas - ALIMENTAR - 3 - 3.3 - 1 - 40 - África do Sul - 10.0
+1 - 1 - 10 - 1.0 - 15.0
+1 - 2 - 10 - 1.0 - 200.0
+1 - 3 - 20 - 1.0 - 45.0
+1 - 4 - 30 - 1.0 - 2.0
+1 - 5 - 40 - 1.0 - 3.0
 Menu de Gestão de Empresas
 1 - Registar empresa
 2 - Mostrar empresa

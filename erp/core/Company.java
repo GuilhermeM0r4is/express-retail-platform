@@ -92,7 +92,7 @@ public class Company implements Serializable {
         }
 
         // product doesn't exist yet, check if all positive
-        if (quantity < 0 || factor <= 0) {
+        if (quantity <= 0 || factor <= 0) {
             return false;
         }
 
