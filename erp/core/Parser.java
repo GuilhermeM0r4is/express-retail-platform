@@ -61,7 +61,7 @@ class Parser {
         catch (IllegalArgumentException | InventoryChangeFailedException |
                 UnknownProductException | DuplicateProductException |
                 UnknownCompanyException | DuplicateCompanyException |
-                InvalidClientException | UnknownClientException e) {
+                InvalidClientException e) {
 
             throw new UnrecognizedEntryException("Erro a processar linha: " + line + " Erro = " + e.getMessage());
         }
