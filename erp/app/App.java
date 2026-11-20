@@ -18,7 +18,7 @@ public class App {
           e.printStackTrace();
         }
       }
-      
+
       (new erp.app.main.Menu(receiver)).open();
     }
   }

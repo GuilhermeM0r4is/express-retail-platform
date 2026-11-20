@@ -58,7 +58,7 @@ class Erp implements Serializable {
      *
      * @throws DuplicateProductException in case of duplicated Product in system.
      */
-    public void registerImportedProduct(String name, int basePrice, ProductCategory category,
+    public int registerImportedProduct(String name, int basePrice, ProductCategory category,
                                         int baseDeliveryTime, String country, double tax)
                                         throws DuplicateProductException {
 
@@ -70,6 +70,7 @@ class Erp implements Serializable {
         ImportedProduct impP = new ImportedProduct(name, category, basePrice, baseDeliveryTime,
                                                    tax, country);
         _products.put(impP.getId(), impP);
+        return impP.getId();
     }
 
     /**
@@ -82,7 +83,7 @@ class Erp implements Serializable {
      *
      * @throws DuplicateProductException in case of duplicated Product in system.
      */
-    public void registerNationalProduct(String name, int basePrice, ProductCategory category,
+    public int registerNationalProduct(String name, int basePrice, ProductCategory category,
                                         int baseDeliveryTime) throws DuplicateProductException {
 
         for (Product p: _products.values()) {
@@ -92,6 +93,7 @@ class Erp implements Serializable {
         }
         NationalProduct natP = new NationalProduct(name, category, basePrice, baseDeliveryTime);
         _products.put(natP.getId(), natP);
+        return natP.getId();
     }
 
     /**
@@ -170,7 +172,7 @@ class Erp implements Serializable {
      * Registers a new Company by its name, updating the hashmap.
      * @param name A name to give to the new company.
      */
-    public void registerCompany(String name) throws DuplicateCompanyException {
+    public int registerCompany(String name) throws DuplicateCompanyException {
 
         for (Company c: _companies.values()) {
             if (c.getName().equals(name)) {
@@ -179,6 +181,7 @@ class Erp implements Serializable {
         }
         Company c = new Company(name);
         _companies.put(c.getId(), c);
+        return c.getId();
     }
 
     /**
