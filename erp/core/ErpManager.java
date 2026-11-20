@@ -145,13 +145,13 @@ public class ErpManager {
     /**
      * Returns a Product object from the system, sends to Erp.
      *
-     * @param name The name of the Product to show.
-     * @throws UnknownProductException If no Product is found with given name;
+     * @param id The id of the Product to show.
+     * @throws UnknownProductException If no Product is found with given id;
      *
-     * @return The Product object associated with the given name.
+     * @return The Product object associated with the given id.
      */
-    public String showProduct(String name) throws UnknownProductException {
-        return _erp.getProduct(name).toString();
+    public String showProduct(int id) throws UnknownProductException {
+        return _erp.getProduct(id).toString();
     }
 
     /**
@@ -220,13 +220,13 @@ public class ErpManager {
     /**
      * Returns a Company object from the system, sends to Erp.
      *
-     * @param name The name of the company to show.
-     * @throws UnknownCompanyException If no company is found with given name;
+     * @param id The identifier of the company to show.
+     * @throws UnknownCompanyException If no company is found with given id;
      *
-     * @return The Company object associated with the given name.
+     * @return The Company object associated with the given id.
      */
-    public String showCompany(String name) throws UnknownCompanyException {
-        return _erp.getCompany(name).toString();
+    public String showCompany(int id) throws UnknownCompanyException {
+        return _erp.getCompany(id).toString();
     }
 
     /**

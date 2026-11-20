@@ -2,6 +2,7 @@ package erp.app.company;
 
 import erp.core.ErpManager;
 import erp.app.exception.UnknownCompanyKeyException;
+import erp.core.exception.UnknownCompanyException;
 
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
@@ -22,7 +23,7 @@ class DoShowCompany extends Command<ErpManager> {
 
         try {
             _display.popup(_receiver.showCompany(id));
-        } catch (UnknownCompanyKeyException e) {
+        } catch (UnknownCompanyException e) {
             throw new UnknownCompanyKeyException(id);
         }
     }

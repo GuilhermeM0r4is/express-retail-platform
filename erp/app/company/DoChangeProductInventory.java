@@ -6,6 +6,10 @@ import erp.app.exception.UnknownCompanyKeyException;
 import erp.app.exception.UnknownProductKeyException;
 import erp.app.exception.NotEnoughInventoryException;
 
+import erp.core.exception.UnknownCompanyException;
+import erp.core.exception.UnknownProductException;
+import erp.core.exception.InventoryChangeFailedException;
+
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
 import pt.tecnico.uilib.forms.Form;
@@ -27,11 +31,11 @@ class DoChangeProductInventory extends Command<ErpManager> {
         try {
             _receiver.updateStock(companyId, productId, units, factor);
             _display.popup(Message.supplySuccessful(companyId, units));
-        } catch (UnknownCompanyKeyException e) {
+        } catch (UnknownCompanyException e) {
             throw new UnknownCompanyKeyException(companyId);
-        } catch (UnknownProductKeyException e) {
+        } catch (UnknownProductException e) {
             throw new UnknownProductKeyException(productId);
-        } catch (NotEnoughInventoryException e) {
+        } catch (InventoryChangeFailedException e) {
             throw new NotEnoughInventoryException(productId);
         }
     }

@@ -117,20 +117,19 @@ class Erp implements Serializable {
     }
 
     /**
-     * Returns a Product object from the system, given its name.
+     * Returns a Product object from the system, given its id.
      *
-     * @param name The name of the Product to show.
-     * @return The Product object associated with the given name.
+     * @param id The id of the Product to show.
+     * @return The Product object associated with the given id.
      *
-     * @throws UnknownProductException If no Product is found with given name;
+     * @throws UnknownProductException If no Product is found with given id;
      */
-    public Product getProduct(String name) throws UnknownProductException {
-        for (Product p: _products.values()) {
-            if (p.getName().equals(name)) {
-                return p;
-            }
+    public Product getProduct(int id) throws UnknownProductException {
+        Product product = _products.get(id);
+        if (product == null) {
+            throw new UnknownProductException(id);
         }
-        throw new UnknownProductException(name);
+        return product;
     }
 
     /**
@@ -185,20 +184,19 @@ class Erp implements Serializable {
     }
 
     /**
-     * Returns a Company object from the system, given its name.
+     * Returns a Company object from the system, given its id.
      *
-     * @param name The name of the company to show.
-     * @return The Company object associated with the given name.
+     * @param id Identifier of the company to look for.
+     * @return The Company object associated with the given id.
      *
-     * @throws UnknownCompanyException If no company is found with given name;
+     * @throws UnknownCompanyException If no company is found with given id;
      */
-    public Company getCompany(String name) throws UnknownCompanyException {
-        for (Company c: _companies.values()) {
-            if (c.getName().equals(name)) {
-                return c;
-            }
+    public Company getCompany(int id) throws UnknownCompanyException {
+        Company company = _companies.get(id);
+        if (company == null) {
+            throw new UnknownCompanyException(id);
         }
-        throw new UnknownCompanyException(name);
+        return company;
     }
 
     /**

@@ -3,6 +3,7 @@ package erp.app.product;
 import erp.core.ErpManager;
 import erp.core.ProductCategory;
 import erp.app.exception.ProductRegistrationFailedException;
+import erp.core.exception.DuplicateProductException;
 
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
@@ -38,7 +39,7 @@ class DoRegisterProduct extends Command<ErpManager> {
                 id = _receiver.registerNationalProduct(name, price, category, delay);
             }
             _display.popup(Message.registrationSuccessful(id));
-        } catch (ProductRegistrationFailedException e) {
+        } catch (DuplicateProductException e) {
             throw new ProductRegistrationFailedException(name);
         }
     }
