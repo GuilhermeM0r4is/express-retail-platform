@@ -115,6 +115,17 @@ class Erp implements Serializable {
         return natP.getId();
     }
 
+    /** Search criteria supported by searchProducts(). */
+    private static final String[] SEARCH_CRITERIA = { "NOME", "CATEGORIA", "ORIGEM" };
+
+    /**
+     * Returns the available product search criteria.
+     * @return a copy of the criteria array.
+     */
+    String[] searchCriteria() {
+        return SEARCH_CRITERIA.clone();
+    }
+
     /**
     * Performs a search for all products inside system based on criterion type and a given term,
     * compares using all lowercase words as asked in headings. Filters products based on criterion

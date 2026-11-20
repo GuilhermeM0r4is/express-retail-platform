@@ -1,6 +1,7 @@
 package erp.core;
 
 import java.io.Serializable;
+import java.util.Locale;
 
 /**
  * Here in SuppliedProduct we have the correlation between products and
@@ -66,15 +67,17 @@ public class SuppliedProduct implements Serializable {
     @Override
     public String toString() {
         return _company.getId() + " - " + _product.getId() + " - "
-                + _units + " - " + _factor + " - " + price();
+                + _units + " - " + _factor + " - "
+                + String.format(Locale.ROOT, "%.2f", price());
     }
 
     /**
-     * Computes unit price with the applied factor.
-     * @return unit price.
+     * Computes the selling price: recommended price times the company factor,
+     * rounded to two decimal places (the only rounding in the system).
+     * @return selling price.
      */
     double price() {
-        return Math.round(_product.recommendedPrice() * _factor * 100) / 100;
+        return Math.round(_product.recommendedPrice() * _factor * 100) / 100.0;
     }
 
     /**
@@ -93,7 +96,7 @@ public class SuppliedProduct implements Serializable {
      */
     boolean update(int quantity, double factor) {
 
-        if (factor < 0 || (quantity + _units) < 0) {
+        if (factor <= 0 || (quantity + _units) < 0) {
             return false;
         }
         _units += quantity;

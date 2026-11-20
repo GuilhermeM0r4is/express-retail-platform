@@ -4,7 +4,6 @@ import erp.core.ErpManager;
 import erp.app.product.Prompt;
 import erp.app.exception.UnknownCompanyKeyException;
 import erp.app.exception.UnknownProductKeyException;
-import erp.app.exception.NotEnoughInventoryException;
 
 import erp.core.exception.UnknownCompanyException;
 import erp.core.exception.UnknownProductException;
@@ -36,7 +35,7 @@ class DoChangeProductInventory extends Command<ErpManager> {
         } catch (UnknownProductException e) {
             throw new UnknownProductKeyException(productId);
         } catch (InventoryChangeFailedException e) {
-            throw new NotEnoughInventoryException(productId);
+            _display.popup(Message.cannotChangeInventory(productId));
         }
     }
 }

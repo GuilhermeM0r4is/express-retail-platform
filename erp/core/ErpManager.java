@@ -215,6 +215,14 @@ public class ErpManager {
         return _erp.searchProducts(criterion, term);
     }
 
+    /**
+     * Returns the product search criteria offered by the domain, sends to Erp.
+     * @return the available search criteria.
+     */
+    public String[] searchCriteria() {
+        return _erp.searchCriteria();
+    }
+
 
     /**
      * Registers a new Company by its name, sends to Erp.

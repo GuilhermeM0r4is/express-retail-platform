@@ -18,7 +18,7 @@ class DoPerformSearch extends Command<ErpManager> {
     @Override
     protected final void execute() {
 
-        String criterion = Form.requestString(Prompt.searchCriterion());
+        String criterion = Form.requestOption(Prompt.searchCriterion(), _receiver.searchCriteria());
         String term = Form.requestString(Prompt.searchTerm());
 
         List<String> results = _receiver.searchProducts(criterion, term);
