@@ -1,0 +1,32 @@
+*** testsBoth/A-11-01-M-ok.out	Wed Nov 11 12:06:42 2026
+--- testsBoth/A-11-01-M-ok.outhyp	Fri Nov 20 14:13:53 2026
+***************
+*** 26,42 ****
+  Introduza o tipo de produto: NACIONAL
+  Introduza o nome do produto: Batata
+  Introduza o preço base: 12
+! Introduza a categoria: ALIMENTAR
+  Introduza o prazo de entrega base: 3
+! Novo produto criado com o número 1.
+! Menu de Gestão de Produtos
+! 1 - Registar produto
+! 2 - Mostrar produto
+! 3 - Mostrar todos os produtos
+! 4 - Efectuar pesquisa de produtos
+! 0 - Sair
+! Escolha uma opção: 3
+! 1 - NACIONAL - Batata - ALIMENTAR - 12.00 - 15.60 - 3 - 0
+  Menu de Gestão de Produtos
+  1 - Registar produto
+  2 - Mostrar produto
+--- 26,35 ----
+  Introduza o tipo de produto: NACIONAL
+  Introduza o nome do produto: Batata
+  Introduza o preço base: 12
+! Introduza o prazo de entrega base: ALIMENTAR
+  Introduza o prazo de entrega base: 3
+! Introduza a categoria: 3
+! Registar produto: Operação inválida: Escolhe uma de três categorias: ALIMENTAR, ELECTRONICA, VESTUARIO
+  Menu de Gestão de Produtos
+  1 - Registar produto
+  2 - Mostrar produto

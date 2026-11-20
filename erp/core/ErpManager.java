@@ -77,19 +77,17 @@ public class ErpManager {
         String previousFile = _filename;
         boolean previousChanged = _changed;
         _filename = filename;
-        _changed = true;
 
         try {
             save();
         } catch (MissingFileAssociationException e) {
             _filename = previousFile;
-            _changed = previousChanged;
             throw new IOException(e);
         } catch (IOException e) {
             _filename = previousFile;
-            _changed = previousChanged;
             throw e;
         }
+        _changed = true;
     }
 
     /**
@@ -171,12 +169,17 @@ public class ErpManager {
      * @param baseDeliveryTime Expected base delivery time as an int;
      * @param country The country of the ImportedProduct;
      * @param tax The tax percentage of the given country.
+     *
+     * @return id The id of the new company ImportedProduct Registered.
      */
     public int registerImportedProduct(String name, int basePrice, ProductCategory category,
                                         int baseDeliveryTime, String country, double tax)
-                                        throws DuplicateProductException {
+                                        throws DuplicateProductException, InvalidProductException {
+
+        int id = _erp.registerImportedProduct(name, basePrice, category, baseDeliveryTime, country, tax);
         _changed = true;
-        return _erp.registerImportedProduct(name, basePrice, category, baseDeliveryTime, country, tax);
+        return id;
+
     }
 
     /**
@@ -186,12 +189,16 @@ public class ErpManager {
      * @param basePrice Base price for the product;
      * @param category A given category from ProductCategory enumerate;
      * @param baseDeliveryTime Expected base delivery time as an int;
+     *
+     * @return id The id of the new company ImportedProduct Registered.
      */
     public int registerNationalProduct(String name, int basePrice,
                                         ProductCategory category, int baseDeliveryTime)
-                                        throws DuplicateProductException {
+                                        throws DuplicateProductException, InvalidProductException {
+
+        int id = _erp.registerNationalProduct(name, basePrice, category, baseDeliveryTime);
         _changed = true;
-        return _erp.registerNationalProduct(name, basePrice, category, baseDeliveryTime);
+        return id;
     }
 
     /**
@@ -210,11 +217,16 @@ public class ErpManager {
 
     /**
      * Registers a new Company by its name, sends to Erp.
+     *
      * @param name A name to give to the new company.
+     *
+     * @return id The new registered Company Id.
      */
-    public int registerCompany(String name) throws DuplicateCompanyException {
+    public int registerCompany(String name) throws DuplicateCompanyException, InvalidCompanyException {
+
+        int id = _erp.registerCompany(name);
         _changed = true;
-        return _erp.registerCompany(name);
+        return id;
     }
 
     /**
@@ -263,7 +275,8 @@ public class ErpManager {
      * @param name The name of the client to register;
      * @param email The email of the client to register;
      */
-    public void registerClient(String name, String email) throws InvalidClientException {
+    public void registerClient(String name, String email) throws InvalidClientException,
+                                DuplicateClientException {
         _erp.registerClient(name, email);
         _changed = true;
     }

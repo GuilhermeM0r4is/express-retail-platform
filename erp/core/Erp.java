@@ -60,7 +60,12 @@ class Erp implements Serializable {
      */
     public int registerImportedProduct(String name, int basePrice, ProductCategory category,
                                         int baseDeliveryTime, String country, double tax)
-                                        throws DuplicateProductException {
+                                        throws DuplicateProductException, InvalidProductException {
+
+        if (name == null || name.isBlank() || basePrice <= 0 || baseDeliveryTime < 0
+            || country == null || country.isBlank() || tax < 0) {
+            throw new InvalidProductException(name);
+        }
 
         for (Product p: _products.values()) {
             if (p.getName().equals(name)) {
@@ -83,8 +88,13 @@ class Erp implements Serializable {
      *
      * @throws DuplicateProductException in case of duplicated Product in system.
      */
-    public int registerNationalProduct(String name, int basePrice, ProductCategory category,
-                                        int baseDeliveryTime) throws DuplicateProductException {
+    public int registerNationalProduct(String name, int basePrice,
+                                        ProductCategory category, int baseDeliveryTime)
+                                        throws DuplicateProductException, InvalidProductException {
+
+        if (name == null || name.isBlank() || basePrice <= 0 || baseDeliveryTime < 0) {
+            throw new InvalidProductException(name);
+        }
 
         for (Product p: _products.values()) {
             if (p.getName().equals(name)) {
@@ -171,7 +181,12 @@ class Erp implements Serializable {
      * Registers a new Company by its name, updating the hashmap.
      * @param name A name to give to the new company.
      */
-    public int registerCompany(String name) throws DuplicateCompanyException {
+    public int registerCompany(String name) throws DuplicateCompanyException,
+                                InvalidCompanyException {
+
+        if (name == null || name.isBlank()) {
+            throw new InvalidCompanyException(name);
+        }
 
         for (Company c: _companies.values()) {
             if (c.getName().equals(name)) {
@@ -251,11 +266,17 @@ class Erp implements Serializable {
      * @throws InvalidClientException If the name or email is invalid, or if a client with
      *         the same email already exists.
      */
-    public void registerClient(String name, String email) throws InvalidClientException {
+    public void registerClient(String name, String email) throws InvalidClientException,
+                                DuplicateClientException {
 
-        if (name == null || name.isEmpty() || email == null || email.isEmpty() ||
-            _clients.containsKey(email)) {
+        if (name == null || name.isBlank() || email == null || email.isBlank()) {
             throw new InvalidClientException(email);
+        }
+
+        for (Client existing : _clients.values()) {
+            if (existing != null && email.equalsIgnoreCase(existing.getEmail())) {
+                throw new DuplicateClientException(email);
+            }
         }
         _clients.put(email, new Client(name, email));
     }

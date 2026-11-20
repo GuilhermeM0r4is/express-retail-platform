@@ -1,0 +1,53 @@
+*** testsBoth/A-10-03-M-ok.out	Wed Nov 11 12:06:42 2026
+--- testsBoth/A-10-03-M-ok.outhyp	Fri Nov 20 14:13:53 2026
+***************
+*** 17,23 ****
+  0 - Sair
+  Escolha uma opção: 2
+  Introduza o número do produto: 1
+! 1 - NACIONAL - Farinha - ALIMENTAR - 15.00 - 19.50 - 3 - 0
+  Menu de Gestão de Produtos
+  1 - Registar produto
+  2 - Mostrar produto
+--- 17,23 ----
+  0 - Sair
+  Escolha uma opção: 2
+  Introduza o número do produto: 1
+! 1 - NACIONAL - Farinha - ALIMENTAR - 15 - 130.0 - 3 - 0
+  Menu de Gestão de Produtos
+  1 - Registar produto
+  2 - Mostrar produto
+***************
+*** 26,32 ****
+  0 - Sair
+  Escolha uma opção: 2
+  Introduza o número do produto: 2
+! 2 - NACIONAL - Camisa - VESTUARIO - 45.00 - 58.50 - 2 - 0
+  Menu de Gestão de Produtos
+  1 - Registar produto
+  2 - Mostrar produto
+--- 26,32 ----
+  0 - Sair
+  Escolha uma opção: 2
+  Introduza o número do produto: 2
+! 2 - NACIONAL - Camisa - VESTUARIO - 45 - 130.0 - 2 - 0
+  Menu de Gestão de Produtos
+  1 - Registar produto
+  2 - Mostrar produto
+***************
+*** 35,41 ****
+  0 - Sair
+  Escolha uma opção: 2
+  Introduza o número do produto: 3
+! 3 - NACIONAL - Colher de Pau - ALIMENTAR - 2.00 - 2.60 - 1 - 0
+  Menu de Gestão de Produtos
+  1 - Registar produto
+  2 - Mostrar produto
+--- 35,41 ----
+  0 - Sair
+  Escolha uma opção: 2
+  Introduza o número do produto: 3
+! 3 - NACIONAL - Colher de Pau - ALIMENTAR - 2 - 130.0 - 1 - 0
+  Menu de Gestão de Produtos
+  1 - Registar produto
+  2 - Mostrar produto

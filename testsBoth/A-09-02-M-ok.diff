@@ -1,0 +1,52 @@
+*** testsBoth/A-09-02-M-ok.out	Wed Nov 11 12:06:41 2026
+--- testsBoth/A-09-02-M-ok.outhyp	Fri Nov 20 14:13:53 2026
+***************
+*** 19,38 ****
+  Introduza o tipo de produto: IMPORTADO
+  Introduza o nome do produto: CPU
+  Introduza o preço base: 120
+! Introduza a categoria: ELECTRONICA
+  Introduza o prazo de entrega base: 12
+! Introduza o país de origem: China
+! Introduza a taxa alfandegária: 21
+! Novo produto criado com o número 1.
+  Menu de Gestão de Produtos
+  1 - Registar produto
+  2 - Mostrar produto
+  3 - Mostrar todos os produtos
+  4 - Efectuar pesquisa de produtos
+  0 - Sair
+  Escolha uma opção: 2
+  Introduza o número do produto: 1
+! 1 - IMPORTADO - CPU - ELECTRONICA - 120.00 - 145.20 - 12 - 0 - China - 21.0
+  Menu de Gestão de Produtos
+  1 - Registar produto
+  2 - Mostrar produto
+--- 19,45 ----
+  Introduza o tipo de produto: IMPORTADO
+  Introduza o nome do produto: CPU
+  Introduza o preço base: 120
+! Introduza o prazo de entrega base: ELECTRONICA
+  Introduza o prazo de entrega base: 12
+! Introduza a categoria: China
+! Registar produto: Operação inválida: Escolhe uma de três categorias: ALIMENTAR, ELECTRONICA, VESTUARIO
+  Menu de Gestão de Produtos
+  1 - Registar produto
+  2 - Mostrar produto
+  3 - Mostrar todos os produtos
+  4 - Efectuar pesquisa de produtos
+  0 - Sair
++ Escolha uma opção: 21
++ Opção inválida!
++ Menu de Gestão de Produtos
++ 1 - Registar produto
++ 2 - Mostrar produto
++ 3 - Mostrar todos os produtos
++ 4 - Efectuar pesquisa de produtos
++ 0 - Sair
+  Escolha uma opção: 2
+  Introduza o número do produto: 1
+! Mostrar produto: Operação inválida: O produto 1 não existe.
+  Menu de Gestão de Produtos
+  1 - Registar produto
+  2 - Mostrar produto

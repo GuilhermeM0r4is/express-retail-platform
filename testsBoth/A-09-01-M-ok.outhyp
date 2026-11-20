@@ -1,0 +1,36 @@
+Menu Principal
+1 - Abrir ficheiro
+2 - Guardar ficheiro
+3 - Ver data
+4 - Avançar data
+5 - Menu de gestão de empresas
+6 - Menu de gestão de produtos
+7 - Menu de gestão de clientes
+8 - Menu de gestão de compras
+0 - Sair
+Escolha uma opção: 6
+Menu de Gestão de Produtos
+1 - Registar produto
+2 - Mostrar produto
+3 - Mostrar todos os produtos
+4 - Efectuar pesquisa de produtos
+0 - Sair
+Escolha uma opção: 1
+Introduza o tipo de produto: NACIONAL
+Introduza o nome do produto: Batata
+Introduza o preço base: 12
+Introduza o prazo de entrega base: ALIMENTAR
+Introduza o prazo de entrega base: 2
+Introduza a categoria: 2
+Registar produto: Operação inválida: Escolhe uma de três categorias: ALIMENTAR, ELECTRONICA, VESTUARIO
+Menu de Gestão de Produtos
+1 - Registar produto
+2 - Mostrar produto
+3 - Mostrar todos os produtos
+4 - Efectuar pesquisa de produtos
+0 - Sair
+Escolha uma opção: 1
+Introduza o tipo de produto: 0
+Introduza o nome do produto: 0
+Introduza o preço base: 
+ERRO: Fim de entrada de dados (R-EOF): pt.tecnico.uilib.text.RuntimeEOFException: Fim do fluxo de dados de entrada

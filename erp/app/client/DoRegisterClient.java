@@ -4,6 +4,7 @@ import erp.app.client.Prompt;
 import erp.app.exception.ClientRegistrationFailedException;
 import erp.core.ErpManager;
 import erp.core.exception.InvalidClientException;
+import erp.core.exception.DuplicateClientException;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
 
@@ -28,7 +29,7 @@ class DoRegisterClient extends Command<ErpManager> {
         try {
             _receiver.registerClient(name, email);
             _display.popup(Message.registrationSuccessful(email));
-        } catch (InvalidClientException e) {
+        } catch (InvalidClientException | DuplicateClientException e) {
             throw new ClientRegistrationFailedException(name, email);
         }
     }

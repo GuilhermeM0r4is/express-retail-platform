@@ -11,7 +11,10 @@ import erp.core.exception.UnknownCompanyException;
 import erp.core.exception.DuplicateCompanyException;
 import erp.core.exception.InvalidClientException;
 import erp.core.exception.UnknownClientException;
+import erp.core.exception.DuplicateClientException;
 import erp.core.exception.InventoryChangeFailedException;
+import erp.core.exception.InvalidProductException;
+import erp.core.exception.InvalidCompanyException;
 
 class Parser {
 
@@ -25,8 +28,12 @@ class Parser {
         try (BufferedReader in = new BufferedReader(new FileReader(fileName))) {
             String line;
 
-            while ((line = in.readLine()) != null)
-            parseLine(line);
+            while ((line = in.readLine()) != null) {
+                if (line.isBlank()) {
+                    continue;
+                }
+                parseLine(line);
+            }
         }
     }
 
@@ -58,12 +65,15 @@ class Parser {
             }
         }
         // list of all exceptions that can be used during parsing
-        catch (IllegalArgumentException | InventoryChangeFailedException |
-                UnknownProductException | DuplicateProductException |
-                UnknownCompanyException | DuplicateCompanyException |
-                InvalidClientException e) {
+        catch (IllegalArgumentException | InventoryChangeFailedException | UnknownProductException |
+                DuplicateProductException | UnknownCompanyException | DuplicateCompanyException |
+                InvalidClientException | InvalidProductException | InvalidCompanyException |
+                DuplicateClientException e) {
 
-            throw new UnrecognizedEntryException("Erro a processar linha: " + line + " Erro = " + e.getMessage());
+            UnrecognizedEntryException ex = new UnrecognizedEntryException(
+                "Erro a processar linha: " + line + " Erro = " + e.getClass().getSimpleName() + ": " + e.getMessage());
+            ex.initCause(e);
+            throw ex;
         }
     }
 
@@ -74,13 +84,17 @@ class Parser {
     }
 
     // COMPANY:nome
-    private void parseCompany(String[] components, String line) throws UnrecognizedEntryException, DuplicateCompanyException {
+    private void parseCompany(String[] components, String line) throws UnrecognizedEntryException,
+                                DuplicateCompanyException, InvalidCompanyException {
+
         checkCorrectNumberOfFields(components, 2, line);
         _manager.registerCompany(components[1]);
     }
 
     // IMPORTED:nome:precoBase:categoria:prazo:paisOrigem:taxa
-    private void parseImported(String[] components, String line) throws UnrecognizedEntryException, DuplicateProductException {
+    private void parseImported(String[] components, String line) throws UnrecognizedEntryException,
+                                DuplicateProductException, InvalidProductException {
+
         checkCorrectNumberOfFields(components, 7, line);
         _manager.registerImportedProduct(components[1], Integer.valueOf(components[2]), ProductCategory.valueOf(components[3]),
                                         Integer.valueOf(components[4]), components[5], Double.valueOf(components[6]));
@@ -88,14 +102,18 @@ class Parser {
 
 
     // NATIONAL:nome:precoBase:categoria:prazo
-    private void parseNational(String[] components, String line) throws UnrecognizedEntryException, DuplicateProductException {
+    private void parseNational(String[] components, String line) throws UnrecognizedEntryException,
+                                DuplicateProductException, InvalidProductException {
+
         checkCorrectNumberOfFields(components, 5, line);
         _manager.registerNationalProduct(components[1], Integer.valueOf(components[2]), ProductCategory.valueOf(components[3]),
                                         Integer.valueOf(components[4]));
     }
 
     // CLIENT:nome:email
-    private void parseClient(String[] components, String line) throws UnrecognizedEntryException, InvalidClientException {
+    private void parseClient(String[] components, String line) throws UnrecognizedEntryException,
+                                InvalidClientException, DuplicateClientException {
+
         checkCorrectNumberOfFields(components, 3, line);
         _manager.registerClient(components[1], components[2]);
     }

@@ -10,7 +10,7 @@ public class InvalidClientException extends Exception {
     @java.io.Serial
     private static final long serialVersionUID = 202607021200L;
 
-    private static final String ERROR_MESSAGE = "Erro ao validar o cliente: ";
+    private static final String ERROR_MESSAGE = "Erro ao validar os parametros do cliente: ";
 
     public InvalidClientException(String email) {
         super(ERROR_MESSAGE + email);

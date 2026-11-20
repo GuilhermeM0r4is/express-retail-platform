@@ -1,0 +1,46 @@
+Menu Principal
+1 - Abrir ficheiro
+2 - Guardar ficheiro
+3 - Ver data
+4 - Avançar data
+5 - Menu de gestão de empresas
+6 - Menu de gestão de produtos
+7 - Menu de gestão de clientes
+8 - Menu de gestão de compras
+0 - Sair
+Escolha uma opção: 5
+Menu de Gestão de Empresas
+1 - Registar empresa
+2 - Mostrar empresa
+3 - Mostrar todas as empresas
+4 - Alterar inventário de um produto
+5 - Mostrar produtos de uma empresa
+6 - Mostrar clientes de uma empresa
+0 - Sair
+Escolha uma opção: 5
+Introduza o número da empresa: 1
+1 - NACIONAL - Farinha - ALIMENTAR - 15 - 130.0 - 3 - 10
+2 - NACIONAL - Telemovel - ELECTRONICA - 200 - 130.0 - 3 - 10
+3 - NACIONAL - Camisa - VESTUARIO - 45 - 130.0 - 2 - 20
+4 - NACIONAL - Colher de Pau - ALIMENTAR - 2 - 130.0 - 1 - 30
+5 - NACIONAL - Laranjas - ALIMENTAR - 3 - 130.0 - 1 - 40
+Menu de Gestão de Empresas
+1 - Registar empresa
+2 - Mostrar empresa
+3 - Mostrar todas as empresas
+4 - Alterar inventário de um produto
+5 - Mostrar produtos de uma empresa
+6 - Mostrar clientes de uma empresa
+0 - Sair
+Escolha uma opção: 0
+Menu Principal
+1 - Abrir ficheiro
+2 - Guardar ficheiro
+3 - Ver data
+4 - Avançar data
+5 - Menu de gestão de empresas
+6 - Menu de gestão de produtos
+7 - Menu de gestão de clientes
+8 - Menu de gestão de compras
+0 - Sair
+Escolha uma opção: 0
