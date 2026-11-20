@@ -29,12 +29,13 @@ class DoRegisterProduct extends Command<ErpManager> {
         int delay = Form.requestInteger(Prompt.baseDelay());
 
         try {
+            int id;
             if ("IMPORTADO".equals(type)) {
                 String country = Form.requestString(Prompt.originCountry());
                 double tax = Form.requestReal(Prompt.customsTax());
-                int id = _receiver.registerImportedProduct(name, price, category, delay, country, tax);
+                id = _receiver.registerImportedProduct(name, price, category, delay, country, tax);
             } else {
-                int id = _receiver.registerNationalProduct(name, price, category, delay);
+                id = _receiver.registerNationalProduct(name, price, category, delay);
             }
             _display.popup(Message.registrationSuccessful(id));
         } catch (ProductRegistrationFailedException e) {

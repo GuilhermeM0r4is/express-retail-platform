@@ -3,6 +3,7 @@ package erp.app.product;
 import erp.core.ErpManager;
 import erp.app.exception.UnknownProductKeyException;
 
+import erp.core.exception.UnknownProductException;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
 import pt.tecnico.uilib.forms.Form;
