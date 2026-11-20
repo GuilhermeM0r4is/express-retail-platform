@@ -18,12 +18,12 @@ class DoShowProduct extends Command<ErpManager> {
 
     @Override
     protected final void execute() throws CommandException {
-        String productName = Form.requestString(Prompt.productName());
+        int id = Form.requestInteger(Prompt.productId());
 
         try {
-            _display.popup(_receiver.showProduct(productName));
+            _display.popup(_receiver.showProduct(id));
         } catch (UnknownProductKeyException e) {
-            throw new UnknownProductKeyException(productName);
+            throw new UnknownProductKeyException(id);
         }
     }
 }

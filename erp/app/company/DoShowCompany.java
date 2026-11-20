@@ -18,12 +18,12 @@ class DoShowCompany extends Command<ErpManager> {
 
     @Override
     protected final void execute() throws CommandException {
-        String companyName = Form.requestString(Prompt.companyName());
+        int id = Form.requestInteger(Prompt.companyId());
 
         try {
-            _display.popup(_receiver.showCompany(companyName));
+            _display.popup(_receiver.showCompany(id));
         } catch (UnknownCompanyKeyException e) {
-            throw new UnknownCompanyKeyException(companyName);
+            throw new UnknownCompanyKeyException(id);
         }
     }
 }
